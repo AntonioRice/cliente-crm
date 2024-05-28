@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddGuestToParty from "./AddGuestToParty";
 
 const NewClientForm = () => {
   const [touched, setTouched] = useState({});
@@ -11,12 +12,13 @@ const NewClientForm = () => {
     state: "",
     postalCode: "",
     country: "",
-    passportID: "",
+    identificationNumber: "",
     email: "",
     phoneNumber: "",
     emergencyFirstName: "",
     emergencyLastName: "",
     emergencyPhoneNumber: "",
+    guests: [],
   });
 
   const handleInputChange = (e) => {
@@ -44,7 +46,7 @@ const NewClientForm = () => {
         state: true,
         postalCode: true,
         country: true,
-        passportID: true,
+        identificationNumber: true,
         email: true,
         phoneNumber: true,
         emergencyFirstName: true,
@@ -62,8 +64,40 @@ const NewClientForm = () => {
     return touched[fieldName] && !formData[fieldName];
   };
 
-  const addWGuestToParty = () => {
-    // Add guest logic here
+  const addGuestToParty = () => {
+    setFormData((prevState) => {
+      const newGuest = {
+        id: prevState.guests.length + 1,
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+      };
+      return {
+        ...prevState,
+        guests: [...prevState.guests, newGuest],
+      };
+    });
+  };
+
+  const removeGuestFromParty = (id) => {
+    setFormData((prevState) => {
+      const updatedGuests = prevState.guests
+        .filter((guest) => guest.id !== id)
+        .map((guest, index) => ({ ...guest, id: index + 1 }));
+      return {
+        ...prevState,
+        guests: updatedGuests,
+      };
+    });
+  };
+
+  const handleGuestInputChange = (id, e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      guests: prevState.guests.map((guest) => (guest.id === id ? { ...guest, [name]: value } : guest)),
+    }));
   };
 
   return (
@@ -143,7 +177,6 @@ const NewClientForm = () => {
               )}
             </div>
           </div>
-
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">City</label>
@@ -205,12 +238,11 @@ const NewClientForm = () => {
                 type="text"
                 placeholder="Country"
                 value={formData.country}
-                onChange={(e) => handleInputChange(e, "College/University")}
+                onChange={handleInputChange}
                 onBlur={handleBlur}
               />
             </div>
           </div>
-
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">
@@ -220,11 +252,11 @@ const NewClientForm = () => {
                 className={`appearance-none block w-full bg-gray-200 border ${
                   isFieldInvalid("email") ? "border-red-500" : "border-gray-200"
                 } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-                id="passportID"
+                id="identificationNumber"
                 type="text"
-                placeholder="Passport or I.D. # "
-                // value={formData.email.answer || ""}
-                onChange={(e) => handleInputChange(e, "Email")}
+                placeholder="Passport or I.D. #"
+                value={formData.identificationNumber}
+                onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
@@ -239,8 +271,8 @@ const NewClientForm = () => {
                 id="email"
                 type="email"
                 placeholder="Email"
-                // value={formData.email.answer || ""}
-                onChange={(e) => handleInputChange(e, "Email")}
+                value={formData.email}
+                onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
@@ -257,8 +289,8 @@ const NewClientForm = () => {
                 id="phoneNumber"
                 type="tel"
                 placeholder="(---) --- ----"
-                // value={formData.phoneNumber.answer || ""}
-                onChange={(e) => handleInputChange(e, "Phone Number")}
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
@@ -273,33 +305,37 @@ const NewClientForm = () => {
               <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">First Name</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border ${
-                  isFieldInvalid("email") ? "border-red-500" : "border-gray-200"
+                  isFieldInvalid("emergencyFirstName") ? "border-red-500" : "border-gray-200"
                 } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-                id="passportID"
+                id="emergencyFirstName"
                 type="text"
                 placeholder="Jane"
-                // value={formData.email.answer || ""}
-                onChange={(e) => handleInputChange(e, "Email")}
+                value={formData.emergencyFirstName}
+                onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+              {isFieldInvalid("emergencyFirstName") && (
+                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+              )}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">Last Name</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border ${
-                  isFieldInvalid("lastName") ? "border-red-500" : "border-gray-200"
+                  isFieldInvalid("emergencyLastName") ? "border-red-500" : "border-gray-200"
                 } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-                id="lastName"
+                id="emergencyLastName"
                 type="text"
                 placeholder="Doe"
-                value={formData.lastName}
+                value={formData.emergencyLastName}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("lastName") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+              {isFieldInvalid("emergencyLastName") && (
+                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+              )}
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">
@@ -307,25 +343,36 @@ const NewClientForm = () => {
               </label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border ${
-                  isFieldInvalid("phoneNumber") ? "border-red-500" : "border-gray-200"
+                  isFieldInvalid("emergencyPhoneNumber") ? "border-red-500" : "border-gray-200"
                 } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-                id="phoneNumber"
+                id="emergencyPhoneNumber"
                 type="tel"
                 placeholder="(---) --- ----"
-                // value={formData.phoneNumber.answer || ""}
-                onChange={(e) => handleInputChange(e, "Phone Number")}
+                value={formData.emergencyPhoneNumber}
+                onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("phoneNumber") && (
+              {isFieldInvalid("emergencyPhoneNumber") && (
                 <p className="text-red-500 text-xs italic">Please fill out this field.</p>
               )}
             </div>
           </div>
-
+          <div className="border-t dark:border-gray-600 pt-4 px-4  ">
+            {formData.guests.map((guest, i) => (
+              <AddGuestToParty
+                key={guest.id}
+                guest={guest}
+                handleGuestInputChange={handleGuestInputChange}
+                removeGuestFromParty={removeGuestFromParty}
+                isFieldInvalid={isFieldInvalid}
+                handleBlur={handleBlur}
+              />
+            ))}
+          </div>
           <div className="w-full flex justify-end">
             <button
-              onClick={addWGuestToParty}
+              onClick={addGuestToParty}
               className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-4 rounded text-sm"
             >
               + Guest to Party
