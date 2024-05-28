@@ -12,8 +12,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center pb-4 ">
+    <div className="px-4">
+      <div className="flex justify-between items-center pb-4">
         <h1 className="font-semibold text-2xl">DashBoard</h1>
         <AddClientToggleButton toggleAddClientModal={toggleAddClientModal} />
       </div>
@@ -23,7 +23,6 @@ const Dashboard = () => {
         <ChartCard />
         <ChartCard />
       </div>
-      <TableCard />
       <TableCard />
     </div>
   );
