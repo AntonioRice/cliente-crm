@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #f4f5f7;
+  --secondary-color: black;
+  --tertiary-color: #cccccc;
+
+  position: relative;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.page-wrapper {
+  min-height: calc(100vh - 2.5rem);
+}
+
+.section-wrapper {
+  position: relative;
+  z-index: 10;
+  margin: auto;
+  padding: 5rem 20rem 10rem 20rem;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .section-wrapper {
+    padding: 7.2rem 1.5rem;
+  }
+}
