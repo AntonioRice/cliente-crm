@@ -18,7 +18,7 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
       </div>
 
       <div className="flex flex-wrap -mx-3 mb-6">
-        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">First Name</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border ${
@@ -34,7 +34,7 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
           />
           {isFieldInvalid("firstName") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
         </div>
-        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">Last Name</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border ${
@@ -50,7 +50,7 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
           />
           {isFieldInvalid("lastName") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
         </div>
-        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">Date of Birth</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border ${
@@ -66,7 +66,7 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
           />
           {isFieldInvalid("dob") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
         </div>
-        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">Nationality</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border ${
@@ -81,6 +81,24 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
             required
           />
           {isFieldInvalid("nationality") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+        </div>
+        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">Nationality</label>
+          <input
+            className={`appearance-none block w-full bg-gray-200 border ${
+              isFieldInvalid("identificationNumber") ? "border-red-500" : "border-gray-200"
+            } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+            id="identificationNumber"
+            type="text"
+            placeholder="Passport or I.D. #"
+            value={guest.identificationNumber}
+            onChange={(e) => handleGuestInputChange(guest.id, e)}
+            onBlur={handleBlur}
+            required
+          />
+          {isFieldInvalid("identificationNumber") && (
+            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+          )}
         </div>
       </div>
     </>

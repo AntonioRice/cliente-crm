@@ -6,9 +6,9 @@ const AddClientModal = ({ show, toggleAddClientModal }) => {
   if (!show) return null;
 
   return (
-    <div className="flex overflow-x-hidden fixed inset-0 z-50 justify-center items-center">
-      <div className="relative p-4 w-full max-w-6xl h-auto">
-        <div className="relative bg-white rounded-xl shadow-2xl shadow-gray-950 dark:bg-gray-700 overflow-hidden">
+    <div className="flex overflow-x-hidden fixed inset-0 z-50 justify-center">
+      <div className="p-4 w-full max-w-7xl h-auto">
+        <div className="rounded-xl shadow-full dark:bg-gray-800 overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b dark:border-gray-600">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Add Guest</h3>
             <button
@@ -26,18 +26,12 @@ const AddClientModal = ({ show, toggleAddClientModal }) => {
           </div>
           <div className="flex justify-end p-4 border-t border-gray-200 dark:border-gray-600 space-x-2">
             <button
-              type="button"
               onClick={toggleAddClientModal}
-              className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
+              className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
             >
               Cancel
             </button>
-            <button
-              type="button"
-              // onClick={onAgree}
-              // disabled={!consent}
-              className="disabled:pointer-events-none disabled:bg-green-800 text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800"
-            >
+            <button className="disabled:pointer-events-none disabled:bg-green-800 text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800">
               Submit
             </button>
           </div>
