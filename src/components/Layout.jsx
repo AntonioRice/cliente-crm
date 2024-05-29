@@ -26,7 +26,7 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className="flex h-full bg-gray-900 text-white">
+    <div className="flex h-full">
       <Sidebar isOpen={isSidebarOpen} />
       <div
         className={`flex flex-col flex-grow transition-all duration-300 ${

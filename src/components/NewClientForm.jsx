@@ -101,8 +101,8 @@ const NewClientForm = () => {
   };
 
   return (
-    <div className="text-base leading-relaxed text-black">
-      <div className="px-4 pb-4 mb-4">
+    <div className="text-base leading-relaxed text-[#111827]">
+      <div className="px-4 mb-4">
         <form className="w-full" onSubmit={handleSubmit}>
           <h1 className="pb-2 text-white">Primary Guest</h1>
           <div className="flex flex-wrap -mx-3 mb-6">
@@ -370,15 +370,15 @@ const NewClientForm = () => {
               />
             ))}
           </div>
-          <div className="w-full flex justify-end">
-            <button
-              onClick={addGuestToParty}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-4 rounded text-sm"
-            >
-              + Guest to Party
-            </button>
-          </div>
         </form>
+        <div className="flex justify-end">
+          <button
+            onClick={addGuestToParty}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-4 rounded text-sm"
+          >
+            + Guest to Party
+          </button>
+        </div>
       </div>
     </div>
   );
