@@ -6,23 +6,38 @@ import Dashboard from "./pages/Dashboard";
 import Guests from "./pages/Guests";
 import GuestDetails from "./pages/GuestDetails";
 import Settings from "./pages/Settings";
+import Login from "./pages/Login";
+import PrivateRoute from "./components/PrivateRoute";
+import AuthProvider from "./context/AuthProvider";
 
 const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
-    element: <Layout />,
+    element: (
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
+    ),
     children: [
-      { index: true, element: <Dashboard /> },
+      { path: "/", element: <Dashboard /> },
+      { path: "dashboard", element: <Dashboard /> },
       { path: "guests", element: <Guests /> },
-      { path: "guests", element: <GuestDetails /> },
-      { path: "user/settings", element: <Settings /> },
       { path: "guestdetails/:id", element: <GuestDetails /> },
+      { path: "settings", element: <Settings /> },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />;
+    </AuthProvider>
+  );
 }
 
 export default App;

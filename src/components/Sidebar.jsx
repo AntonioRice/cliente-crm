@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { SlCalender } from "react-icons/sl";
 import { CiSettings } from "react-icons/ci";
 import { PiSignOutLight } from "react-icons/pi";
 import { IoPeople } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
-import { VscInbox } from "react-icons/vsc";
+import { AuthContext } from "../context/AuthProvider";
 
 const Sidebar = ({ isOpen }) => {
+  const { user, logout } = useContext(AuthContext);
   return (
     <aside
       className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
@@ -14,13 +16,13 @@ const Sidebar = ({ isOpen }) => {
       } sm:-translate-x-full`}
       aria-label="Sidebar"
     >
-      <div className="fixed px-2 ms-3 mt-2 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
-        Pro
+      <div className="fixed px-2 ms-3 mt-2 text-xs font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
+        Premium
       </div>
       <div className="h-full px-3 py-4 overflow-y-auto bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <ul className="space-y-2 font-extralight">
           <li className=" p-5">
-            <p className="flex justify-center ms-3 text-xs text-gray-400">Welcome, Miguel</p>
+            <p className="flex justify-center ms-3 text-xs text-gray-400">Welcome, {user.first_name}</p>
           </li>
           <li>
             <a
@@ -53,7 +55,7 @@ const Sidebar = ({ isOpen }) => {
             <ul className="flex flex-row space-x-4">
               <li>
                 <a
-                  href="/user/settings"
+                  href="/settings"
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <CiSettings size={20} />
@@ -61,13 +63,13 @@ const Sidebar = ({ isOpen }) => {
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
+                <button
+                  onClick={logout}
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <PiSignOutLight size={20} />
                   <span className="flex-1 ms-2 whitespace-nowrap text-sm">Sign Out</span>
-                </a>
+                </button>
               </li>
             </ul>
           </div>

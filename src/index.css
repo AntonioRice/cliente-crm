@@ -26,6 +26,14 @@ body {
   overflow: hidden;
 }
 
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
   .section-wrapper {
     padding: 7.2rem 1.5rem;
