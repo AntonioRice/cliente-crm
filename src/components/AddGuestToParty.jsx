@@ -83,7 +83,7 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
           {isFieldInvalid("nationality") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
         </div>
         <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">Nationality</label>
+          <label className="block uppercase tracking-wide text-gray-400 text-xs font-light mb-2">Passport / I.D.</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border ${
               isFieldInvalid("identificationNumber") ? "border-red-500" : "border-gray-200"

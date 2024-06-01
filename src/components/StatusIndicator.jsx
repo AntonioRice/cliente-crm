@@ -1,7 +1,7 @@
 import React from "react";
 
-const StatusIndicator = ({ status }) => {
-  const statusColor = status === "Active" ? "bg-green-400" : "bg-red-400";
+const StatusIndicator = ({ checkOut }) => {
+  const statusColor = checkOut > Date.now ? "bg-green-400" : "bg-red-400";
   return <div className={`size-3 ${statusColor} rounded-full`} />;
 };
 

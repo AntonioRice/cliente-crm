@@ -35,15 +35,6 @@ const Sidebar = ({ isOpen }) => {
           </li>
           <li>
             <a
-              href="#"
-              className="flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <SlCalender size={20} />
-              <span className="flex-1 ms-3 whitespace-nowrap text-sm">Calendar</span>
-            </a>
-          </li>
-          <li>
-            <a
               href="/guests"
               className="flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
@@ -51,6 +42,16 @@ const Sidebar = ({ isOpen }) => {
               <span className="flex-1 ms-3 whitespace-nowrap text-sm">Guests</span>
             </a>
           </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+              <SlCalender size={20} />
+              <span className="flex-1 ms-3 whitespace-nowrap text-sm">Calendar</span>
+            </a>
+          </li>
+
           <div className="fixed bottom-0 pb-2 w-full flex justify-between">
             <ul className="flex flex-row space-x-4">
               <li>
