@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { AnimatePresence } from "framer-motion";
+import LoadingComponent from "../components/LoadingComponent";
 
 export const AuthContext = createContext();
 
@@ -60,7 +62,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, login, logout, loading }}>
-      {loading ? <div>Loading...</div> : children}
+      <AnimatePresence>{loading ? <LoadingComponent key="loading" /> : children}</AnimatePresence>
     </AuthContext.Provider>
   );
 };
