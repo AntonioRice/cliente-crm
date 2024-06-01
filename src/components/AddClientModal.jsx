@@ -8,15 +8,15 @@ const AddClientModal = ({ show, toggleAddClientModal }) => {
   return (
     <div className="flex overflow-x-hidden fixed inset-0 z-50 justify-center">
       <div className="p-4 w-full max-w-7xl h-auto">
-        <div className="rounded-xl shadow-full dark:bg-gray-800 overflow-hidden">
+        <div className="rounded-xl shadow-full dark:bg-gray-800 overflow-hidden border-gray-600 border">
           <div className="flex items-center justify-between p-4 border-b dark:border-gray-600">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Add Guest</h3>
             <button
               type="button"
               onClick={toggleAddClientModal}
-              className="text-gray-400 rounded-lg p-1.5 dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-400 rounded-lg p-1 dark:hover:bg-gray-600 dark:hover:text-white border-gray-600 border"
             >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

@@ -3,6 +3,7 @@ import ChartCard from "../components/ChartCard";
 import TableCard from "../components/TableCard";
 import AddClientModal from "../components/AddClientModal";
 import AddClientToggleButton from "../components/AddClientToggleButton";
+import AnimatedPage from "../components/AnimatedPage";
 
 const Dashboard = () => {
   const [showAddModal, setShowAddModal] = useState(false);
@@ -12,7 +13,7 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <AnimatedPage>
       <div className="flex justify-between items-center pb-4">
         <h1 className="font-semibold text-2xl">DashBoard</h1>
         <AddClientToggleButton toggleAddClientModal={toggleAddClientModal} />
@@ -24,7 +25,7 @@ const Dashboard = () => {
         <ChartCard />
       </div>
       <TableCard limit={5} />
-    </>
+    </AnimatedPage>
   );
 };
 
