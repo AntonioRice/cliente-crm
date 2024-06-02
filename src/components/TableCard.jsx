@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import StatusIndicator from "./StatusIndicator";
+import GuestsList from "./GuestList";
 
 const TableCard = ({ guests, limit }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -195,7 +195,6 @@ const TableCard = ({ guests, limit }) => {
           </div>
         </div>
       </div>
-
       <div className="overflow-x-hidden rounded-b-xl">
         <table className="min-w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -211,33 +210,7 @@ const TableCard = ({ guests, limit }) => {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {currentGuests.map((guest, i) => (
-              <tr
-                key={i}
-                onClick={() => navigate(`/guestdetails/${guest.guest_id}`)}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer"
-              >
-                <th className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {guest.first_name}
-                </th>
-                <td className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:hidden">
-                  {guest.last_name}
-                </td>
-                <td className="px-6 py-2">{guest.room_number}</td>
-                <td className="px-6 py-2 sm:hidden">{guest.check_in}</td>
-                <td className="px-6 py-2">{guest.check_out}</td>
-                <td className="px-6 py-2">
-                  <StatusIndicator checkOut={guest.check_out} />
-                </td>
-                <td className="px-6 py-2 text-right">
-                  <button className="font-medium text-blue-600 dark:text-blue-500">
-                    <IoIosArrowForward />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <GuestsList guests={guests} />
         </table>
         <nav className="p-4 flex items-center flex-col flex-wrap md:flex-row justify-between pt-4">
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
