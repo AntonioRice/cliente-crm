@@ -9,6 +9,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import AuthProvider from "./context/AuthProvider";
+import { GuestProvider } from "./context/GuestProvider";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Dashboard /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "guests", element: <Guests /> },
-      { path: "guestdetails/:id", element: <GuestDetails /> },
+      { path: "guests/guestdetails/:id", element: <GuestDetails /> },
       { path: "settings", element: <Settings /> },
     ],
   },
@@ -35,7 +36,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />;
+      <GuestProvider>
+        <RouterProvider router={router} />;
+      </GuestProvider>
     </AuthProvider>
   );
 }
