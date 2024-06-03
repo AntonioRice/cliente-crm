@@ -50,6 +50,7 @@ const AuthProvider = ({ children }) => {
       const userData = await fetchedUserData(token);
       setUser(userData);
     } catch (error) {
+      alert("Incorrect Username or Password, please try again or gain access from Admin");
       console.error("Login error:", error);
     }
   };
