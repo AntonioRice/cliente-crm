@@ -11,7 +11,7 @@ const LoadingComponent = () => {
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="w-20 h-20 bg-green-500"
+        className="size-20 bg-green-500"
         animate={{
           scale: [1, 2, 2, 1, 1],
           rotate: [0, 0, 180, 180, 0],
