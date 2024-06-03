@@ -4,6 +4,7 @@ import "./index.css";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Guests from "./pages/Guests";
+import RegisterGuest from "./pages/RegisterGuest";
 import GuestDetails from "./pages/GuestDetails";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Dashboard /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "guests", element: <Guests /> },
+      { path: "guests/register", element: <RegisterGuest /> },
       { path: "guests/guestdetails/:id", element: <GuestDetails /> },
       { path: "settings", element: <Settings /> },
     ],
