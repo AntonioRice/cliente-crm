@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CgMathPlus } from "react-icons/cg";
 
-const MultiSelectDropdown = ({ roomList, onRoomSelectionChange }) => {
+const MultiSelectDropdown = ({ onRoomSelectionChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -16,14 +17,26 @@ const MultiSelectDropdown = ({ roomList, onRoomSelectionChange }) => {
       newSelectedRooms.splice(roomIndex, 1);
     }
     setSelectedRooms(newSelectedRooms);
-    console.log(room);
     onRoomSelectionChange(newSelectedRooms);
   };
 
-  const selectedRoomsText = selectedRooms.length > 0 ? `${selectedRooms.length} room(s) selected` : "Select Room(s)";
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const selectedRoomsText = selectedRooms.length > 0 ? `${selectedRooms.length} Room(s) Selected` : "Select Room(s)";
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         type="button"
         onClick={toggleDropdown}
@@ -37,28 +50,27 @@ const MultiSelectDropdown = ({ roomList, onRoomSelectionChange }) => {
       </button>
 
       {isOpen && (
-        <ul>
-          <div className="absolute z-50 mt-2 w-full rounded-lg shadow dark:bg-gray-700">
-            <ul className="grid grid-cols-6 gap-2 p-2 text-sm">
-              {Array.from({ length: 26 }, (_, i) => i + 1).map((room, i) => (
-                <li key={i}>
-                  <div
-                    className="flex justify-center items-center dark:hover:bg-gray-600 rounded-lg"
-                    onClick={() => handleCheckboxChange(room)}
-                  >
-                    <input
-                      id={`checkbox-${room}`}
-                      type="checkbox"
-                      value={room}
-                      checked={selectedRooms.includes(room)}
-                    />
-                    <label className="p-1 text-sm">{room}</label>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </ul>
+        <div className="absolute z-50 mt-2 w-full rounded-lg shadow dark:bg-gray-700">
+          <ul className="grid grid-cols-6 gap-2 p-2 text-sm">
+            {Array.from({ length: 26 }, (_, i) => i + 1).map((room, i) => (
+              <li key={i}>
+                <div
+                  className="flex justify-center items-center dark:hover:bg-gray-600 rounded-lg"
+                  onClick={() => handleCheckboxChange(room)}
+                >
+                  <input
+                    id={`checkbox-${room}`}
+                    type="checkbox"
+                    value={room}
+                    checked={selectedRooms.includes(room)}
+                    readOnly
+                  />
+                  <label className="p-1 text-sm">{room}</label>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
