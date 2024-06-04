@@ -5,10 +5,11 @@ import AnimatedPage from "../components/AnimatedPage";
 import SearchBar from "../components/SearchBar";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
 import { useGuest } from "../context/GuestProvider";
+import { v4 as uuidv4 } from "uuid";
 
 const RegisterGuest = () => {
   const navigate = useNavigate();
-  const { selectedGuest, clearGuests } = useGuest();
+  const { selectedGuest, clearGuests, setPrimaryGuest } = useGuest();
   const [showNewGuestForm, setShowNewGuestForm] = useState(false);
   const submitRef = useRef();
 
@@ -23,6 +24,7 @@ const RegisterGuest = () => {
       clearGuests();
     }
     setShowNewGuestForm(!showNewGuestForm);
+    setPrimaryGuest({ id: uuidv4() });
   };
 
   const handleSubmit = () => {
