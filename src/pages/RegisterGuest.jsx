@@ -5,11 +5,10 @@ import AnimatedPage from "../components/AnimatedPage";
 import SearchBar from "../components/SearchBar";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
 import { useGuest } from "../context/GuestProvider";
-import { v4 as uuidv4 } from "uuid";
 
 const RegisterGuest = () => {
   const navigate = useNavigate();
-  const { selectedGuest, clearGuests, setPrimaryGuest } = useGuest();
+  const { selectedGuest, clearGuests } = useGuest();
   const [showNewGuestForm, setShowNewGuestForm] = useState(false);
   const submitRef = useRef();
 
@@ -20,11 +19,8 @@ const RegisterGuest = () => {
   }, [selectedGuest]);
 
   const toggleGuestForm = () => {
-    if (showNewGuestForm) {
-      clearGuests();
-    }
+    clearGuests();
     setShowNewGuestForm(!showNewGuestForm);
-    setPrimaryGuest({ id: uuidv4() });
   };
 
   const handleSubmit = () => {
@@ -61,7 +57,7 @@ const RegisterGuest = () => {
           </div>
         </div>
         <div className="flex-grow">{showNewGuestForm && <NewGuestForm submitRef={submitRef} />}</div>
-        <div className="fixed bottom-0 left-0 right-0 flex justify-end p-4 border-t border-gray-200 dark:border-gray-600 space-x-2 bg-[#111827] z-50">
+        <div className="fixed bottom-0 left-0 right-0 flex justify-end p-4 border-t border-gray-200 dark:border-gray-600 space-x-2 bg-[#111827] z-40">
           <button
             onClick={() => navigate("/guests")}
             className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
