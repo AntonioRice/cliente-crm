@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { formatDateTime } from "../utils/standardMethods";
 
-const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, isFieldInvalid, handleBlur }) => {
+const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
+  const [formData, setFormData] = useState(guest);
+  const [touched, setTouched] = useState({});
+
+  useEffect(() => {
+    setFormData(guest);
+  }, [guest]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+      updateGuest(updatedData);
+      return updatedData;
+    });
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const isFieldInvalid = (fieldName) => {
+    return touched[fieldName] && !formData[fieldName];
+  };
+
   return (
     <>
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -9,56 +34,52 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">First Name</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid(`guests_${guest.id}_first_name`) ? "border-red-500" : "border-gray-200"
+              isFieldInvalid("first_name") ? "border-red-500" : "border-gray-200"
             } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id={`guests_${guest.id}_first_name`}
             name="first_name"
             type="text"
             placeholder="First Name"
-            value={guest.first_name}
-            onChange={(e) => handleGuestInputChange(guest.id, e)}
+            value={formData.first_name}
+            onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid(`guests_${guest.id}_first_name`) && (
-            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-          )}
+          {isFieldInvalid("first_name") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
         </div>
         <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Last Name</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid(`guests_${guest.id}_last_name`) ? "border-red-500" : "border-gray-200"
+              isFieldInvalid("last_name") ? "border-red-500" : "border-gray-200"
             } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id={`guests_${guest.id}_last_name`}
             name="last_name"
             type="text"
             placeholder="Last Name"
-            value={guest.last_name}
-            onChange={(e) => handleGuestInputChange(guest.id, e)}
+            value={formData.last_name}
+            onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid(`guests_${guest.id}_last_name`) && (
-            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-          )}
+          {isFieldInvalid("last_name") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
         </div>
         <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Date of Birth</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid(`guests_${guest.id}_date_of_birth`) ? "border-red-500" : "border-gray-200"
+              isFieldInvalid("date_of_birth") ? "border-red-500" : "border-gray-200"
             } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id={`guests_${guest.id}_date_of_birth`}
             name="date_of_birth"
             type="text"
             placeholder="DOB"
-            value={guest.date_of_birth}
-            onChange={(e) => handleGuestInputChange(guest.id, e)}
+            value={formatDateTime(formData.date_of_birth)}
+            onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid(`guests_${guest.id}_date_of_birth`) && (
+          {isFieldInvalid("date_of_birth") && (
             <p className="text-red-500 text-xs italic">Please fill out this field.</p>
           )}
         </div>
@@ -66,41 +87,39 @@ const AddGuestToParty = ({ guest, handleGuestInputChange, removeGuestFromParty, 
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Email</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid(`guests_${guest.id}_email`) ? "border-red-500" : "border-gray-200"
+              isFieldInvalid("email") ? "border-red-500" : "border-gray-200"
             } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id={`guests_${guest.id}_email`}
             name="email"
             type="email"
             placeholder="Email"
-            value={guest.email}
-            onChange={(e) => handleGuestInputChange(guest.id, e)}
+            value={formData.email}
+            onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid(`guests_${guest.id}_email`) && (
-            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-          )}
+          {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
         </div>
         <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Identification Number</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid(`guests_${guest.id}_identification_number`) ? "border-red-500" : "border-gray-200"
+              isFieldInvalid("identification_number") ? "border-red-500" : "border-gray-200"
             } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id={`guests_${guest.id}_identification_number`}
             name="identification_number"
             type="text"
             placeholder="ID Number"
-            value={guest.identification_number}
-            onChange={(e) => handleGuestInputChange(guest.id, e)}
+            value={formData.identification_number}
+            onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid(`guests_${guest.id}_identification_number`) && (
+          {isFieldInvalid("identification_number") && (
             <p className="text-red-500 text-xs italic">Please fill out this field.</p>
           )}
         </div>
-        <div className="flex justify-center items-center mt-3 ">
+        <div className="flex flex-row justify-center items-center">
           <button
             title="Remove Guest"
             type="button"

@@ -2,7 +2,7 @@ import React from "react";
 
 const Pill = ({ text }) => {
   return (
-    <span className="inline-flex items-center px-3 py-1 mb-1 me-2 text-sm font-medium bg-gray-100 rounded dark:bg-gray-700 dark:text-gray-300">
+    <span className="inline-flex items-center px-2 py-1  me-2 text-xs font-medium bg-gray-100 rounded dark:bg-gray-700 dark:text-green-400">
       {text}
       <button
         type="button"
