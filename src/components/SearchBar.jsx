@@ -7,7 +7,7 @@ const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { setSelectedGuest } = useGuest();
+  const { selectGuest } = useGuest();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +36,7 @@ const SearchBar = () => {
   };
 
   const handleSelectGuest = (guest) => {
-    setSelectedGuest(guest);
+    selectGuest(guest);
     setQuery("");
   };
 

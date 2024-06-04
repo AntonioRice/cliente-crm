@@ -1,13 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
+import { useGuest } from "../context/GuestProvider";
 
 const AddClientButton = () => {
   const navigate = useNavigate();
+  const { setSelectedGuest } = useGuest();
+
+  const handleNewGuestRegistration = () => {
+    setSelectedGuest(null);
+    navigate("/guests/register");
+  };
 
   return (
     <button
-      onClick={() => navigate("/guests/register")}
+      onClick={handleNewGuestRegistration}
       className="flex items-center justify-center size-10 rounded-xl bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-700 dark:hover:text-white"
     >
       <svg className="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -15,10 +21,6 @@ const AddClientButton = () => {
       </svg>
     </button>
   );
-};
-
-AddClientButton.propTypes = {
-  toggleAddClientModal: PropTypes.func.isRequired,
 };
 
 export default AddClientButton;
