@@ -13,7 +13,7 @@ const Sidebar = ({ isOpen }) => {
 
   return (
     <aside
-      className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
+      className={`fixed top-0 left-0 z-50 w-64 h-screen transition-transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } sm:-translate-x-full`}
       aria-label="Sidebar"
