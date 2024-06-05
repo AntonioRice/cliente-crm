@@ -6,10 +6,10 @@ import AnimatedPage from "../components/AnimatedPage";
 import { useGuest } from "../context/GuestProvider";
 
 const Dashboard = () => {
-  const { guests, fetchGuests } = useGuest();
+  const { currentGuests, fetchCurrentGuests } = useGuest();
 
   useEffect(() => {
-    fetchGuests();
+    fetchCurrentGuests();
   }, []);
 
   return (
@@ -23,7 +23,7 @@ const Dashboard = () => {
         <ChartCard />
         <ChartCard />
       </div>
-      <TableCard guests={guests} limit={5} />
+      <TableCard guests={currentGuests} limit={5} title={"Current Guests"} />
     </AnimatedPage>
   );
 };
