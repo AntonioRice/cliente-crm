@@ -36,7 +36,7 @@ const GuestDetails = () => {
       <div className="pb-8">
         <h1 className="inline-flex items-center">
           <span className="text-green-400 pr-1"> - </span>Guest Details
-          <span className="inline-flex items-center ml-2">{StatusIndicator(selectedGuest.check_out)}</span>
+          {/* <span className="inline-flex items-center ml-2">{StatusIndicator(selectedGuest.check_out)}</span> */}
         </h1>
       </div>
       <div className="grid md:grid-cols-4 md:gap-6">
@@ -191,7 +191,7 @@ const GuestDetails = () => {
             Plate Number
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.vehicle?.license_plate_number || selectedGuest.license_plate_number || "N/A"}
+            {selectedGuest.vehicle.plate_number || "N/A"}
           </p>
         </div>
       </div>
@@ -206,7 +206,7 @@ const GuestDetails = () => {
             Room
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.room_number || "N/A"}
+            {selectedGuest.room_numbers || "N/A"}
           </p>
         </div>
         <div className="relative z-0 w-full mb-5 group">

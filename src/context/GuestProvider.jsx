@@ -7,7 +7,7 @@ const GuestContext = createContext();
 export const useGuest = () => useContext(GuestContext);
 
 export const GuestProvider = ({ children }) => {
-  const [guests, setGuests] = useState([]);
+  const [currentGuests, setCurrentGuests] = useState([]);
   const [selectedGuest, setSelectedGuest] = useState(null);
   const [primaryGuest, setPrimaryGuest] = useState(null);
   const [additionalGuests, setAdditionalGuests] = useState([]);
@@ -15,13 +15,13 @@ export const GuestProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const fetchGuests = async (page = 1, limit = 10) => {
+  const fetchCurrentGuests = async (page = 1, limit = 10) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3015/api/v1/guests`, {
+      const response = await axios.get(`http://localhost:3015/api/v1/guests/current`, {
         params: { page, limit },
       });
-      setGuests(response.data.data);
+      setCurrentGuests(response.data.data);
       setTotalPages(response.data.meta.totalPages);
       setCurrentPage(response.data.meta.currentPage);
     } catch (error) {
@@ -50,8 +50,8 @@ export const GuestProvider = ({ children }) => {
   return (
     <GuestContext.Provider
       value={{
-        guests,
-        fetchGuests,
+        currentGuests,
+        fetchCurrentGuests,
         selectedGuest,
         setSelectedGuest,
         setPrimaryGuest,
