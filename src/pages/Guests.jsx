@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import TableCard from "../components/TableCard";
 import AnimatedPage from "../components/AnimatedPage";
 import AddClientButton from "../components/AddClientButton";
-import LoadingComponent from "../components/LoadingComponent";
 import axios from "axios";
 
 const Guests = () => {
