@@ -1,5 +1,5 @@
 import React from "react";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward, IoIosArrowBack, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import GuestsList from "./GuestList";
 
@@ -12,6 +12,8 @@ const TableCard = ({
   totalGuests,
   handlePrevPage,
   handleNextPage,
+  handleSort,
+  sortConfig,
 }) => {
   const { t } = useTranslation();
 
@@ -59,8 +61,14 @@ const TableCard = ({
           <thead className="uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {columns.map((col) => (
-                <th key={col.key} className="px-6 py-3">
+                <th key={col.key} className="px-6 py-2 cursor-pointer" onClick={() => handleSort(col.key)}>
                   {col.header}
+                  {sortConfig.key === col.key &&
+                    (sortConfig.direction === "asc" ? (
+                      <IoIosArrowUp className="inline ml-1 mb-1 text-green-400" />
+                    ) : (
+                      <IoIosArrowDown className="inline ml-1 mb-1 text-green-400" />
+                    ))}
                 </th>
               ))}
               <th className="px-6 py-3">
@@ -79,7 +87,8 @@ const TableCard = ({
             <li>
               <button
                 onClick={handlePrevPage}
-                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 
+                dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
               >
                 <IoIosArrowBack />
               </button>
@@ -87,7 +96,8 @@ const TableCard = ({
             <li>
               <button
                 onClick={handleNextPage}
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-green-400 dark:bg-gray-800
+                dark:border-gray-700 dark:text-gray-400 dark:hover:text-green-500 dark:hover:bg-gray-700"
               >
                 <IoIosArrowForward />
               </button>

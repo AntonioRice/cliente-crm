@@ -33,15 +33,15 @@ const GuestDetails = () => {
     return <LoadingComponent />;
   }
 
-  console.log(selectedGuest);
-
   return (
     <AnimatedPage>
       <div className="pb-8">
         <h1 className="inline-flex items-center">
           <span className="text-green-400 pr-1"> - </span>
           {t("guest_details")}
-          <span className="inline-flex items-center ml-2">{StatusIndicator(selectedGuest.guest_status)}</span>
+          <span className="inline-flex items-center ml-2">
+            <StatusIndicator status={selectedGuest.guest_status} />
+          </span>
         </h1>
       </div>
       <div className="grid md:grid-cols-4 md:gap-6">
@@ -150,7 +150,7 @@ const GuestDetails = () => {
             {t("first_name")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.emergency_contact.first_name || "N/A"}
+            {selectedGuest.emergency_contact?.first_name || "N/A"}
           </p>
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -158,7 +158,7 @@ const GuestDetails = () => {
             {t("last_name")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.emergency_contact.last_name || "N/A"}
+            {selectedGuest.emergency_contact?.last_name || "N/A"}
           </p>
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -166,7 +166,7 @@ const GuestDetails = () => {
             {t("phone_number")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.emergency_contact.phone_number || "N/A"}
+            {selectedGuest.emergency_contact?.phone_number || "N/A"}
           </p>
         </div>
       </div>
@@ -198,7 +198,7 @@ const GuestDetails = () => {
             {t("plate_number")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.vehicle.plate_number || "N/A"}
+            {selectedGuest.vehicle?.plate_number || "N/A"}
           </p>
         </div>
       </div>
