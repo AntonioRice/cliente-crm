@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import NewGuestForm from "../components/NewGuestForm";
 import AnimatedPage from "../components/AnimatedPage";
 import SearchBar from "../components/SearchBar";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
-import { useGuest } from "../context/GuestProvider";
+import { useGuestContext } from "../context/GuestProvider";
 
 const RegisterGuest = () => {
   const navigate = useNavigate();
-  const { selectedGuest, clearGuests } = useGuest();
+  const { selectedGuest, clearGuests } = useGuestContext();
   const [showNewGuestForm, setShowNewGuestForm] = useState(false);
+  const { t } = useTranslation();
   const submitRef = useRef();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const RegisterGuest = () => {
       <div className="flex flex-col">
         <div className="p-5 inline-flex justify-between">
           <div>
-            <h1 className="font-semibold text-2xl">Registration</h1>
+            <h1 className="font-semibold text-2xl">{t("registration")}</h1>
           </div>
           <div className="w-full md:w-1/2">
             <SearchBar />
@@ -47,11 +49,11 @@ const RegisterGuest = () => {
                 className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
                 {showNewGuestForm ? (
-                  <CgMathMinus className="-ml-1 mr-1.5 size-4" />
+                  <CgMathMinus className="-ml-1 mr-1.5 size-4 text-green-400" />
                 ) : (
-                  <CgMathPlus className="-ml-1 mr-1.5 size-4" />
+                  <CgMathPlus className="-ml-1 mr-1.5 size-4 text-green-400" />
                 )}
-                {showNewGuestForm ? "Clear Form" : "New Guest"}
+                {showNewGuestForm ? t("clear_form") : t("new_guest")}
               </button>
             </div>
           </div>
@@ -62,13 +64,13 @@ const RegisterGuest = () => {
             onClick={() => navigate("/guests")}
             className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
           >
-            Cancel
+            {t("cancel")}
           </button>
           <button
             onClick={handleSubmit}
             className="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800"
           >
-            Submit
+            {t("submit")}
           </button>
         </div>
       </div>

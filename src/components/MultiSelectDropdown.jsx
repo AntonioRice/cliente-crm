@@ -45,7 +45,7 @@ const MultiSelectDropdown = ({ onRoomSelectionChange }) => {
          focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600
          dark:hover:text-white dark:hover:bg-gray-700"
       >
-        <CgMathPlus className="-ml-1 mr-1.5 size-4" />
+        <CgMathPlus className="-ml-1 mr-1.5 size-4 text-green-400" />
         {selectedRoomsText}
       </button>
 

@@ -9,6 +9,7 @@ const Guests = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalGuests, setTotalGuests] = useState(0);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
   const columns = [
     { header: "First Name", key: "first_name" },
@@ -19,10 +20,10 @@ const Guests = () => {
     { header: "Status", key: "guest_status" },
   ];
 
-  const fetchAllGuests = async (page = 1) => {
+  const fetchAllGuests = async (page = 1, sortKey = null, sortDirection = "asc") => {
     try {
       const response = await axios.get("http://localhost:3015/api/v1/guests", {
-        params: { page, limit: 10 },
+        params: { page, limit: 10, sortKey, sortDirection },
       });
       setAllGuests(response.data.data);
       setTotalPages(response.data.meta.totalPages);
@@ -34,8 +35,8 @@ const Guests = () => {
   };
 
   useEffect(() => {
-    fetchAllGuests(currentPage);
-  }, [currentPage]);
+    fetchAllGuests(currentPage, sortConfig.key, sortConfig.direction);
+  }, [currentPage, sortConfig]);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -47,6 +48,14 @@ const Guests = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
     }
+  };
+
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
   };
 
   return (
@@ -65,6 +74,8 @@ const Guests = () => {
           totalGuests={totalGuests}
           handlePrevPage={handlePrevPage}
           handleNextPage={handleNextPage}
+          handleSort={handleSort}
+          sortConfig={sortConfig}
         />
       </div>
     </AnimatedPage>

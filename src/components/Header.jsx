@@ -31,7 +31,7 @@ const Header = () => {
             </button>
 
             <Link to="/dashboard" className="flex ms-2 md:me-24">
-              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-green-500">
+              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-green-500">
                 Cliente
               </span>
             </Link>

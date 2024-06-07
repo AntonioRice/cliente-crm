@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { formatDateTime } from "../utils/standardMethods";
+import { useTranslation } from "react-i18next";
 
 const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState(guest);
   const [touched, setTouched] = useState({});
 
@@ -31,7 +33,7 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
     <>
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">First Name</label>
+          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
               isFieldInvalid("first_name") ? "border-red-500" : "border-gray-200"
@@ -39,16 +41,16 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             id={`guests_${guest.id}_first_name`}
             name="first_name"
             type="text"
-            placeholder="First Name"
+            placeholder="Jane"
             value={formData.first_name}
             onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("first_name") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+          {isFieldInvalid("first_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
         </div>
         <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Last Name</label>
+          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
               isFieldInvalid("last_name") ? "border-red-500" : "border-gray-200"
@@ -56,16 +58,16 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             id={`guests_${guest.id}_last_name`}
             name="last_name"
             type="text"
-            placeholder="Last Name"
+            placeholder="Doe"
             value={formData.last_name}
             onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("last_name") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+          {isFieldInvalid("last_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
         </div>
         <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Date of Birth</label>
+          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("dob")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
               isFieldInvalid("date_of_birth") ? "border-red-500" : "border-gray-200"
@@ -79,12 +81,10 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("date_of_birth") && (
-            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-          )}
+          {isFieldInvalid("date_of_birth") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
         </div>
         <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Email</label>
+          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
               isFieldInvalid("email") ? "border-red-500" : "border-gray-200"
@@ -92,16 +92,18 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             id={`guests_${guest.id}_email`}
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="---@---.com"
             value={formData.email}
             onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+          {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
         </div>
         <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Identification Number</label>
+          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
+            {t("identification_number")}
+          </label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
               isFieldInvalid("identification_number") ? "border-red-500" : "border-gray-200"
@@ -109,14 +111,14 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             id={`guests_${guest.id}_identification_number`}
             name="identification_number"
             type="text"
-            placeholder="ID Number"
+            placeholder="#"
             value={formData.identification_number}
             onChange={handleInputChange}
             onBlur={handleBlur}
             required
           />
           {isFieldInvalid("identification_number") && (
-            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+            <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
           )}
         </div>
         <div className="flex flex-row justify-center items-center">

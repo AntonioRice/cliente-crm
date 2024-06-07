@@ -21,6 +21,9 @@ const GuestsList = ({ guests, columns }) => {
     if (col.header === "Last Visit") {
       return getLastVisit(guest) || formatDateTime(guest[col.key]);
     }
+    if (col.key === "check_in" || col.key === "check_out") {
+      return formatDateTime(guest[col.key]);
+    }
     return guest[col.key];
   };
 
@@ -30,15 +33,15 @@ const GuestsList = ({ guests, columns }) => {
         <tr
           key={guest.guest_id}
           onClick={() => handleRowClick(guest)}
-          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer"
+          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer dark:hover:text-green-400"
         >
           {columns.map((col) => (
-            <td key={col.key} className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td key={col.key} className="px-6 py-2 font-light text-gray-900 whitespace-nowrap dark:text-white">
               {renderCellContent(guest, col)}
             </td>
           ))}
           <td className="px-6 py-2 text-right">
-            <button className="font-medium text-blue-600 dark:text-blue-500">
+            <button className="font-medium">
               <IoIosArrowForward />
             </button>
           </td>
