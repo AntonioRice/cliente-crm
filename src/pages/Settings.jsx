@@ -1,13 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../context/AuthProvider";
+import { useAuthContext } from "../context/AuthProvider";
+import { useStateContext } from "../context/StateProvider";
 import AnimatedPage from "../components/AnimatedPage";
 import LoadingComponent from "../components/LoadingComponent";
 
 const Settings = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuthContext();
   const [newUserData, setNewUserData] = useState(user);
   const [loading, setLoading] = useState(false);
+  const { setMode } = useStateContext();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -35,6 +37,10 @@ const Settings = () => {
         [id]: newValue,
       },
     }));
+
+    if (id === "ui_mode") {
+      setMode(newValue);
+    }
   };
 
   const handleSave = async () => {
@@ -138,7 +144,7 @@ const Settings = () => {
                       id="ui_mode"
                       type="checkbox"
                       className="sr-only peer"
-                      checked={newUserData?.preferences?.ui_mode?.toLowerCase() === "dark"}
+                      checked={newUserData.preferences.ui_mode?.toLowerCase() === "dark"}
                       onChange={handleToggleChange}
                     />
                     <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>

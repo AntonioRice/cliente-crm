@@ -3,6 +3,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { AnimatePresence } from "framer-motion";
 import LoadingComponent from "../components/LoadingComponent";
+import { useStateContext } from "./StateProvider";
 
 const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { setMode } = useStateContext();
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
@@ -51,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const userData = await fetchedUserData(token);
       setUser(userData);
+      setMode(userData.preferences.ui_mode);
     } catch (error) {
       alert("Incorrect Username or Password, please try again or gain access from Admin");
       console.error("Login error:", error);

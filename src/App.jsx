@@ -30,13 +30,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <AuthProvider>
-      <StateProvider>
+    <StateProvider>
+      <AuthProvider>
         <GuestProvider>
           <RouterProvider router={router} />;
         </GuestProvider>
-      </StateProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </StateProvider>
   );
 }
 

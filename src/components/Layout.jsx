@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import { useStateContext } from "../context/StateProvider";
 
 const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { activeSideBar, setActiveSideBar, currentMode } = useStateContext();
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  useEffect(() => {
+    document.body.className = currentMode === "dark" ? "dark" : "";
+  }, [currentMode]);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setIsSidebarOpen(true);
+        setActiveSideBar(true);
       } else {
-        setIsSidebarOpen(false);
+        setActiveSideBar(false);
       }
     };
 
@@ -27,13 +28,13 @@ const Layout = () => {
 
   return (
     <div className="flex h-full">
-      <Sidebar isOpen={isSidebarOpen} />
+      <Sidebar activeSideBar />
       <div
         className={`flex flex-col flex-grow transition-all duration-300 ${
-          isSidebarOpen && window.innerWidth >= 768 ? "ml-64" : ""
+          activeSideBar && window.innerWidth >= 768 ? "ml-64" : ""
         }`}
       >
-        <Header toggleSidebar={toggleSidebar} />
+        <Header toggleSidebar={() => setActiveSideBar((prev) => !prev)} />
         <main className="flex-grow p-6 mt-16">
           <Outlet />
         </main>
