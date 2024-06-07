@@ -1,20 +1,31 @@
 import React from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { useTranslation } from "react-i18next";
 import GuestsList from "./GuestList";
-import LoadingComponent from "../components/LoadingComponent";
 
-const TableCard = ({ guests, title, currentPage, totalPages, handlePrevPage, handleNextPage, loading }) => {
+const TableCard = ({
+  guests,
+  columns,
+  title,
+  currentPage,
+  totalPages,
+  totalGuests,
+  handlePrevPage,
+  handleNextPage,
+}) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col mb-4 rounded-xl border bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
       <div className="p-5 inline-flex justify-between">
         <div>
           <h1 className="text-sm">{title}</h1>
-          <p className="text-gray-500 text-xs">Total: {guests.length}</p>
+          <p className="text-gray-500 text-xs">Total: {totalGuests}</p>
         </div>
         <div className="w-full md:w-1/2">
           <form className="flex items-center">
             <label htmlFor="simple-search" className="sr-only">
-              Search
+              {t("search")}
             </label>
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -36,7 +47,7 @@ const TableCard = ({ guests, title, currentPage, totalPages, handlePrevPage, han
                 type="text"
                 id="simple-search"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Search"
+                placeholder={t("search")}
                 required=""
               />
             </div>
@@ -47,22 +58,21 @@ const TableCard = ({ guests, title, currentPage, totalPages, handlePrevPage, han
         <table className="min-w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th className="px-6 py-3">First Name</th>
-              <th className="px-6 py-3 sm:hidden">Last Name</th>
-              <th className="px-6 py-3">Room(s)</th>
-              <th className="px-6 py-3 sm:hidden">Check-in</th>
-              <th className="px-6 py-3">Check-Out</th>
-              <th className="px-6 py-3">Status</th>
+              {columns.map((col) => (
+                <th key={col.key} className="px-6 py-3">
+                  {col.header}
+                </th>
+              ))}
               <th className="px-6 py-3">
                 <span className="sr-only">Edit</span>
               </th>
             </tr>
           </thead>
-          <GuestsList guests={guests} />
+          <GuestsList guests={guests} columns={columns} />
         </table>
         <nav className="p-4 flex items-center flex-col flex-wrap md:flex-row justify-between pt-4">
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-            Page <span className="font-semibold text-gray-900 dark:text-white">{currentPage}</span> of
+            {t("page")} <span className="font-semibold text-gray-900 dark:text-white">{currentPage}</span> of
             <span className="font-semibold text-gray-900 dark:text-white"> {totalPages}</span>
           </span>
           <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">

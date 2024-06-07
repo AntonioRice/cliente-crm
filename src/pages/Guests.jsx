@@ -5,23 +5,30 @@ import AddClientButton from "../components/AddClientButton";
 import axios from "axios";
 
 const Guests = () => {
-  const [loading, setLoading] = useState(false);
   const [allGuests, setAllGuests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalGuests, setTotalGuests] = useState(0);
+
+  const columns = [
+    { header: "First Name", key: "first_name" },
+    { header: "Last Name", key: "last_name" },
+    { header: "Email", key: "email" },
+    { header: "Phone Number", key: "phone_number" },
+    { header: "Last Visit", key: "check_out" },
+    { header: "Status", key: "guest_status" },
+  ];
 
   const fetchAllGuests = async (page = 1) => {
     try {
-      setLoading(true);
       const response = await axios.get("http://localhost:3015/api/v1/guests", {
         params: { page, limit: 10 },
       });
       setAllGuests(response.data.data);
       setTotalPages(response.data.meta.totalPages);
       setCurrentPage(response.data.meta.currentPage);
-      setLoading(false);
+      setTotalGuests(response.data.meta.totalGuests);
     } catch (error) {
-      setLoading(false);
       console.error("Error fetching all guests", error);
     }
   };
@@ -50,13 +57,14 @@ const Guests = () => {
       </div>
       <div className="h-full">
         <TableCard
+          columns={columns}
           guests={allGuests}
           title={"All Guests"}
           currentPage={currentPage}
           totalPages={totalPages}
+          totalGuests={totalGuests}
           handlePrevPage={handlePrevPage}
           handleNextPage={handleNextPage}
-          loading={loading}
         />
       </div>
     </AnimatedPage>
