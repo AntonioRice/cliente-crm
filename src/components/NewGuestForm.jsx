@@ -3,7 +3,8 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { CgMathPlus } from "react-icons/cg";
 import { formatDateTime } from "../utils/standardMethods";
-import { useGuest } from "../context/GuestProvider";
+import { useGuestContext } from "../context/GuestProvider";
+import { useTranslation } from "react-i18next";
 import AddGuestToParty from "./AddGuestToParty";
 import MultiSelectDropdown from "./MultiSelectDropdown";
 import Pill from "../components/Pill";
@@ -11,7 +12,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const NewGuestForm = ({ submitRef }) => {
-  const { primaryGuest, additionalGuests } = useGuest();
+  const { t } = useTranslation();
+  const { primaryGuest, additionalGuests } = useGuestContext();
   const [touched, setTouched] = useState({});
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
@@ -222,11 +224,12 @@ const NewGuestForm = ({ submitRef }) => {
       <div className="px-4 mb-4">
         <form className="w-full" onSubmit={handleSubmit}>
           <h1 className="pb-2 text-green-400">
-            <span className="text-green-400"> - </span>Primary Guest
+            <span className="text-green-400"> - </span>
+            {t("primary_guest")}
           </h1>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/4 px-3 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">First Name</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("first_name") ? "border-red-500" : "border-gray-200"
@@ -239,12 +242,10 @@ const NewGuestForm = ({ submitRef }) => {
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("first_name") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("first_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Last Name</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("last_name") ? "border-red-500" : "border-gray-200"
@@ -257,50 +258,44 @@ const NewGuestForm = ({ submitRef }) => {
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("last_name") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("last_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Date of Birth</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("dob")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("date_of_birth") ? "border-red-500" : "border-gray-200"
                 } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
                 data-field="date_of_birth"
                 type="text"
-                placeholder="DOB"
+                placeholder={t("dob")}
                 value={formatDateTime(registrationData.date_of_birth)}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("date_of_birth") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("date_of_birth") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Nationality</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("nationality")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("nationality") ? "border-red-500" : "border-gray-200"
                 } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
                 data-field="nationality"
                 type="text"
-                placeholder="Nationality"
+                placeholder={t("nationality")}
                 value={registrationData.nationality}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("nationality") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("nationality") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">City</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("city")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("address_city") ? "border-red-500" : "border-gray-200"
@@ -308,18 +303,16 @@ const NewGuestForm = ({ submitRef }) => {
                 data-group="address"
                 data-field="city"
                 type="text"
-                placeholder="City"
+                placeholder={t("city")}
                 value={registrationData.address.city}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("address_city") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("address_city") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">State</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("state")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("address_state") ? "border-red-500" : "border-gray-200"
@@ -327,18 +320,16 @@ const NewGuestForm = ({ submitRef }) => {
                 data-group="address"
                 data-field="state"
                 type="text"
-                placeholder="State"
+                placeholder={t("state")}
                 value={registrationData.address.state}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("address_state") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("address_state") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Postal Code</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("postal_code")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("address_postal_code") ? "border-red-500" : "border-gray-200"
@@ -353,11 +344,11 @@ const NewGuestForm = ({ submitRef }) => {
                 required
               />
               {isFieldInvalid("address_postal_code") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+                <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
               )}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Country</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("country")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("address_country") ? "border-red-500" : "border-gray-200"
@@ -365,54 +356,54 @@ const NewGuestForm = ({ submitRef }) => {
                 data-group="address"
                 data-field="country"
                 type="text"
-                placeholder="Country"
+                placeholder={t("country")}
                 value={registrationData.address.country}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("address_country") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("address_country") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Passport / I.D.</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
+                {t("identification_number")}
+              </label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("identification_number") ? "border-red-500" : "border-gray-200"
                 } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
                 data-field="identification_number"
                 type="text"
-                placeholder="Passport or I.D. #"
+                placeholder="#"
                 value={registrationData.identification_number}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
               {isFieldInvalid("identification_number") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+                <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
               )}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Email</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("email") ? "border-red-500" : "border-gray-200"
                 } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
                 data-field="email"
                 type="email"
-                placeholder="Email"
+                placeholder="---@---.com"
                 value={registrationData.email}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+              {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Phone Number</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("phone_number")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("phone_number") ? "border-red-500" : "border-gray-200"
@@ -425,17 +416,16 @@ const NewGuestForm = ({ submitRef }) => {
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("phone_number") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("phone_number") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
           </div>
           <h1 className="pb-2 text-green-400">
-            <span className="text-green-400"> - </span>Emergency Contact
+            <span className="text-green-400"> - </span>
+            {t("emergency_contact")}
           </h1>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">First Name</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("emergency_first_name") ? "border-red-500" : "border-gray-200"
@@ -450,11 +440,11 @@ const NewGuestForm = ({ submitRef }) => {
                 required
               />
               {isFieldInvalid("emergency_first_name") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+                <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
               )}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Last Name</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("emergency_last_name") ? "border-red-500" : "border-gray-200"
@@ -469,11 +459,11 @@ const NewGuestForm = ({ submitRef }) => {
                 required
               />
               {isFieldInvalid("emergency_last_name") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+                <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
               )}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Phone Number</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("phone_number")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("emergency_phone_number") ? "border-red-500" : "border-gray-200"
@@ -488,14 +478,16 @@ const NewGuestForm = ({ submitRef }) => {
                 required
               />
               {isFieldInvalid("emergency_phone_number") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+                <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
               )}
             </div>
           </div>
           <div className="border-t dark:border-gray-600 pt-4 px-4">
             {registrationData.guests.map((guest, i) => (
               <div key={guest.id}>
-                <h2 className="pb-2 text-white">Guest {i + 1}</h2>
+                <h2 className="pb-2 text-white">
+                  {t("guest")} {i + 1}
+                </h2>
                 <AddGuestToParty guest={guest} updateGuest={updateGuest} removeGuestFromParty={removeGuestFromParty} />
               </div>
             ))}
@@ -507,78 +499,63 @@ const NewGuestForm = ({ submitRef }) => {
               className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
             >
               <CgMathPlus className="-ml-1 mr-1.5 size-4" />
-              Add Guest
+              {t("add_guest")}
             </button>
           </div>
 
           <h1 className="pb-2 text-green-400">
-            <span className="text-green-400"> - </span>Vehicle Information
+            <span className="text-green-400"> - </span>
+            {t("vehicle_information")}
           </h1>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Make</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("make")}</label>
               <input
-                className={`appearance-none block w-full bg-gray-200 border text-black ${
-                  isFieldInvalid("vehicle_make") ? "border-red-500" : "border-gray-200"
-                } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+                className={`appearance-none block w-full bg-gray-200 border text-black border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
                 data-group="vehicle"
                 data-field="make"
                 type="text"
-                placeholder="Make"
+                placeholder={t("make")}
                 value={registrationData.vehicle.make}
                 onChange={handleInputChange}
-                onBlur={handleBlur}
-                required
               />
-              {isFieldInvalid("vehicle_make") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Model</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("model")}</label>
               <input
-                className={`appearance-none block w-full bg-gray-200 border text-black ${
-                  isFieldInvalid("vehicle_model") ? "border-red-500" : "border-gray-200"
-                } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+                className={`appearance-none block w-full bg-gray-200 border text-black border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
                 data-group="vehicle"
                 data-field="model"
                 type="text"
-                placeholder="Model"
+                placeholder={t("model")}
                 value={registrationData.vehicle.model}
                 onChange={handleInputChange}
-                onBlur={handleBlur}
-                required
               />
-              {isFieldInvalid("vehicle_model") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Plate Number</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("plate_number")}</label>
               <input
-                className={`appearance-none block w-full bg-gray-200 border text-black border-gray-200"
-                } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+                className="appearance-none block w-full bg-gray-200 border text-black border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 data-group="vehicle"
                 data-field="plate_number"
                 type="text"
                 placeholder="#"
                 value={registrationData.vehicle.plate_number}
                 onChange={handleInputChange}
-                onBlur={handleBlur}
-                required
               />
             </div>
           </div>
 
           <h1 className="pb-2 text-green-400">
-            <span className="text-green-400"> - </span>Room Information
+            <span className="text-green-400"> - </span>
+            {t("room_information")}
           </h1>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col justify-center">
               <MultiSelectDropdown onRoomSelectionChange={handleRoomsChange} />
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-1">Room(s)</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-1">{t("rooms")}</label>
               <div
                 className={`border rounded-lg p-2 min-h-[2.5rem] items-center flex-wrap ${
                   !registrationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-600"
@@ -589,58 +566,29 @@ const NewGuestForm = ({ submitRef }) => {
                 ))}
               </div>
               {!registrationData.room_numbers.length > 0 && (
-                <p className="text-red-500 text-xs italic pt-1">Please Select at least 1 Room.</p>
+                <p className="text-red-500 text-xs italic pt-1">{t("room_warning")}</p>
               )}
             </div>
 
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Check-In</label>
-              <input
-                className={`appearance-none block w-full bg-gray-200 border text-black ${
-                  isFieldInvalid("vehicle_make") ? "border-red-500" : "border-gray-200"
-                } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-                data-group="vehicle"
-                data-field="make"
-                type="text"
-                placeholder="Make"
-                value={registrationData.vehicle.make}
-                onChange={handleInputChange}
-                onBlur={handleBlur}
-                required
-              />
-              {isFieldInvalid("vehicle_make") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
-            </div>
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Check-Out</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_in")}</label>
               <DatePicker className="z-50" selected={startDate} onChange={(date) => setStartDate(date)} />
-
-              {/* <input
-                className={`appearance-none block w-full bg-gray-200 border text-black ${
-                  isFieldInvalid("vehicle_make") ? "border-red-500" : "border-gray-200"
-                } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-                data-group="vehicle"
-                data-field="make"
-                type="text"
-                placeholder="Make"
-                value={registrationData.vehicle.make}
-                onChange={handleInputChange}
-                onBlur={handleBlur}
-                required
-              /> */}
-              {isFieldInvalid("vehicle_make") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("vehicle_make") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+            </div>
+            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_out")}</label>
+              <DatePicker className="z-50" selected={startDate} onChange={(date) => setStartDate(date)} />
+              {isFieldInvalid("vehicle_make") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
           </div>
 
           <h1 className="pb-2 text-green-400">
-            <span className="text-green-400"> - </span>Payment Information
+            <span className="text-green-400"> - </span>
+            {t("payment_information")}
           </h1>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 relative">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Payment Method</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("payment_method")}</label>
               <select
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("payment_method") ? "border-red-500" : "border-gray-200"
@@ -656,7 +604,7 @@ const NewGuestForm = ({ submitRef }) => {
                   disabled
                   className="text-gray-700 border-gray-200 rounded leading-tight focus:outline-none focus:bg-white"
                 >
-                  Select Payment Method...
+                  {t("payment_selection")}
                 </option>
                 {["Cash", "Credit", "Transfer"].map((method, i) => (
                   <option key={i}>{method}</option>
@@ -669,25 +617,23 @@ const NewGuestForm = ({ submitRef }) => {
               </div>
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Total</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("total")}</label>
               <input
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("total_amount") ? "border-red-500" : "border-gray-200"
                 } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
                 data-field="total_amount"
                 type="number"
-                placeholder="Total"
+                placeholder={t("total")}
                 value={registrationData.total_amount}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
               />
-              {isFieldInvalid("total_amount") && (
-                <p className="text-red-500 text-xs italic">Please fill out this field.</p>
-              )}
+              {isFieldInvalid("total_amount") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 relative">
-              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">Status</label>
+              <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("payment_status")}</label>
               <select
                 className={`appearance-none block w-full bg-gray-200 border text-black ${
                   isFieldInvalid("payment_status") ? "border-red-500" : "border-gray-200"
@@ -703,7 +649,7 @@ const NewGuestForm = ({ submitRef }) => {
                   disabled
                   className="text-gray-700 border-gray-200 rounded leading-tight focus:outline-none focus:bg-white"
                 >
-                  Select Payment Status...
+                  {t("payment_status_selection")}
                 </option>
                 {["Pending", "Completed", "Failed"].map((status, i) => (
                   <option key={i}>{status}</option>
