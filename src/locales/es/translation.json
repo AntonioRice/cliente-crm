@@ -1,7 +1,10 @@
 {
   "welcome": "Bienvenido",
   "settings": "Configuración",
+  "login": "Acceso",
   "sign_out": "Desconectar",
+  "username": "Nombre de usuario",
+  "password": "Contraseña",
   "dashboard": "Panel",
   "guest": "Invitado",
   "guests": "Invitados",

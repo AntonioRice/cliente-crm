@@ -1,7 +1,10 @@
 {
   "welcome": "Welcome",
   "settings": "Settings",
+  "login": "Login",
   "sign_out": "Sign Out",
+  "username": "User Name",
+  "password": "password",
   "dashboard": "Dashboard",
   "guest": "Guest",
   "guests": "Guests",
