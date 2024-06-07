@@ -7,6 +7,7 @@
   "guests": "Guests",
   "current_guests": "Current Guests",
   "primary_guest": "Primary Guests",
+  "guest_details": "Guest Details",
   "new_guest": "New Guest",
   "add_guest": "Add Guests",
   "calendar": "Calendar",
@@ -56,6 +57,7 @@
   "payment_status": "Status",
   "payment_status_selection": "Select Payment Status...",
   "registration": "Registration",
+  "current_reservation": "Current Registration",
   "clear_form": "Clear Form",
   "cancel": "Cancel",
   "submit": "Submit"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGuest } from "../context/GuestProvider";
+import { useTranslation } from "react-i18next";
+import { useGuestContext } from "../context/GuestProvider";
 import axios from "axios";
 import AnimatedPage from "../components/AnimatedPage";
 import LoadingComponent from "../components/LoadingComponent";
@@ -9,7 +10,8 @@ import { formatDateTime } from "../utils/standardMethods";
 
 const GuestDetails = () => {
   const { id } = useParams();
-  const { selectedGuest, setSelectedGuest } = useGuest();
+  const { t } = useTranslation();
+  const { selectedGuest, setSelectedGuest } = useGuestContext();
   const [guest, setGuest] = useState(selectedGuest);
 
   useEffect(() => {
@@ -31,18 +33,21 @@ const GuestDetails = () => {
     return <LoadingComponent />;
   }
 
+  console.log(selectedGuest);
+
   return (
     <AnimatedPage>
       <div className="pb-8">
         <h1 className="inline-flex items-center">
-          <span className="text-green-400 pr-1"> - </span>Guest Details
-          {/* <span className="inline-flex items-center ml-2">{StatusIndicator(selectedGuest.check_out)}</span> */}
+          <span className="text-green-400 pr-1"> - </span>
+          {t("guest_details")}
+          <span className="inline-flex items-center ml-2">{StatusIndicator(selectedGuest.guest_status)}</span>
         </h1>
       </div>
       <div className="grid md:grid-cols-4 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            First Name
+            {t("first_name")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 peer">
             {selectedGuest.first_name || "N/A"}
@@ -50,7 +55,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Last Name
+            {t("last_name")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 peer">
             {selectedGuest.last_name || "N/A"}
@@ -58,7 +63,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            DOB
+            {t("dob")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 peer">
             {formatDateTime(selectedGuest.date_of_birth) || "N/A"}
@@ -66,7 +71,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Nationality
+            {t("nationality")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0  peer">
             {selectedGuest.nationality || "N/A"}
@@ -76,7 +81,7 @@ const GuestDetails = () => {
       <div className="grid md:grid-cols-4 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            City
+            {t("city")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0 peer">
             {selectedGuest.address.city || "N/A"}
@@ -84,7 +89,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            State
+            {t("state")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.address.state || "N/A"}
@@ -92,7 +97,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Postal Code
+            {t("postal_code")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.address.postal_code || "N/A"}
@@ -100,7 +105,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Country
+            {t("country")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.address.country || "N/A"}
@@ -110,7 +115,7 @@ const GuestDetails = () => {
       <div className="grid md:grid-cols-3 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Passport / I.D #
+            {t("identification_number")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.identification_number || "N/A"}
@@ -118,7 +123,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Phone number
+            {t("phone_number")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.phone_number || "N/A"}
@@ -126,7 +131,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Email
+            {t("email")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600 focus:outline-none focus:ring-0  peer">
             {selectedGuest.email || "N/A"}
@@ -135,13 +140,14 @@ const GuestDetails = () => {
       </div>
       <div className="py-5">
         <h1>
-          <span className="text-green-400"> - </span>Emergency Contact
+          <span className="text-green-400"> - </span>
+          {t("emergency_contact")}
         </h1>
       </div>
       <div className="grid md:grid-cols-3 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            First name
+            {t("first_name")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.emergency_contact.first_name || "N/A"}
@@ -149,7 +155,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Last name
+            {t("last_name")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.emergency_contact.last_name || "N/A"}
@@ -157,7 +163,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Phone Number
+            {t("phone_number")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.emergency_contact.phone_number || "N/A"}
@@ -166,13 +172,14 @@ const GuestDetails = () => {
       </div>
       <div className="py-5">
         <h1>
-          <span className="text-green-400"> - </span>Vehicle
+          <span className="text-green-400"> - </span>
+          {t("vehicle_information")}
         </h1>
       </div>
       <div className="grid md:grid-cols-3 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Make
+            {t("make")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.vehicle?.make || "N/A"}
@@ -180,7 +187,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Model
+            {t("model")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.vehicle?.model || "N/A"}
@@ -188,7 +195,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Plate Number
+            {t("plate_number")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.vehicle.plate_number || "N/A"}
@@ -197,13 +204,14 @@ const GuestDetails = () => {
       </div>
       <div className="py-5">
         <h1>
-          <span className="text-green-400"> - </span>Current Reservation
+          <span className="text-green-400"> - </span>
+          {t("current_reservation")}
         </h1>
       </div>
-      <div className="grid md:grid-cols-4 md:gap-6">
+      <div className="grid md:grid-cols-5 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Room
+            {t("rooms")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.room_numbers || "N/A"}
@@ -211,7 +219,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Check-In
+            {t("check_in")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {formatDateTime(selectedGuest.check_in) || "N/A"}
@@ -219,7 +227,7 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Check-Out
+            {t("check_out")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {formatDateTime(selectedGuest.check_out) || "N/A"}
@@ -227,10 +235,18 @@ const GuestDetails = () => {
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            Payment Method
+            {t("payment_method")}
           </label>
           <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
             {selectedGuest.payment_method || "N/A"}
+          </p>
+        </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+            {t("payment_status")}
+          </label>
+          <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+            {selectedGuest.payment_status || "N/A"}
           </p>
         </div>
       </div>
