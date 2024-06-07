@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { IoIosSearch } from "react-icons/io";
-import { useGuest } from "../context/GuestProvider";
+import { useGuestContext } from "../context/GuestProvider";
 
 const SearchBar = () => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { selectGuest } = useGuest();
+  const { selectGuest } = useGuestContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +44,7 @@ const SearchBar = () => {
 
   return (
     <div className="relative">
-      <label className="sr-only">Search</label>
+      <label className="sr-only">{t("search")}</label>
       <div className="relative w-full">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <IoIosSearch className="size-5 text-gray-500 dark:text-gray-400" />
@@ -52,7 +54,7 @@ const SearchBar = () => {
           value={query}
           onChange={handleInputChange}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-          placeholder="Search for Existing Guests"
+          placeholder={t("search_placeholder_existing")}
         />
       </div>
       {query && (
@@ -78,7 +80,7 @@ const SearchBar = () => {
                 </svg>
               </li>
             ) : results.length === 0 ? (
-              <li className="block px-4 py-2">No results found</li>
+              <li className="block px-4 py-2">{t("search_not_found")}</li>
             ) : (
               results.map((result) => (
                 <li key={result.guest_id} onClick={() => handleSelectGuest(result)}>
