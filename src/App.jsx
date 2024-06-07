@@ -1,16 +1,9 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
-import Layout from "./components/Layout";
-import Dashboard from "./pages/Dashboard";
-import Guests from "./pages/Guests";
-import RegisterGuest from "./pages/RegisterGuest";
-import GuestDetails from "./pages/GuestDetails";
-import Settings from "./pages/Settings";
-import Login from "./pages/Login";
-import PrivateRoute from "./components/PrivateRoute";
-import AuthProvider from "./context/AuthProvider";
-import { GuestProvider } from "./context/GuestProvider";
+import "./App.css";
+import { Layout, PrivateRoute } from "./components";
+import { Dashboard, Guests, GuestDetails, RegisterGuest, Settings, Login } from "./pages";
+import { AuthProvider, GuestProvider, StateProvider } from "./context";
 
 const router = createBrowserRouter([
   {
@@ -38,9 +31,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <GuestProvider>
-        <RouterProvider router={router} />;
-      </GuestProvider>
+      <StateProvider>
+        <GuestProvider>
+          <RouterProvider router={router} />;
+        </GuestProvider>
+      </StateProvider>
     </AuthProvider>
   );
 }
