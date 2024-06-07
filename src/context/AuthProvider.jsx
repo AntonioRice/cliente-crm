@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { AnimatePresence } from "framer-motion";
 import LoadingComponent from "../components/LoadingComponent";
 import { useStateContext } from "./StateProvider";
+import { useTranslation } from "react-i18next";
 
 const AuthContext = createContext();
 
@@ -12,7 +13,7 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { setMode } = useStateContext();
+  const { setMode, setLanguage } = useStateContext();
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
@@ -54,6 +55,7 @@ export const AuthProvider = ({ children }) => {
       const userData = await fetchedUserData(token);
       setUser(userData);
       setMode(userData.preferences.ui_mode);
+      setLanguage(userData.preferences.language);
     } catch (error) {
       alert("Incorrect Username or Password, please try again or gain access from Admin");
       console.error("Login error:", error);

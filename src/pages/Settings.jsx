@@ -9,7 +9,7 @@ const Settings = () => {
   const { user } = useAuthContext();
   const [newUserData, setNewUserData] = useState(user);
   const [loading, setLoading] = useState(false);
-  const { setMode } = useStateContext();
+  const { setMode, setLanguage } = useStateContext();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -40,6 +40,10 @@ const Settings = () => {
 
     if (id === "ui_mode") {
       setMode(newValue);
+    }
+
+    if (id === "language") {
+      setLanguage(newValue);
     }
   };
 
