@@ -76,7 +76,7 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             name="date_of_birth"
             type="text"
             placeholder="DOB"
-            value={formatDateTime(formData.date_of_birth)}
+            value={formData.date_of_birth}
             onChange={handleInputChange}
             onBlur={handleBlur}
             required

@@ -3,7 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { Layout, PrivateRoute } from "./components";
 import { Dashboard, Guests, GuestDetails, RegisterGuest, Settings, Login } from "./pages";
-import { AuthProvider, GuestProvider, StateProvider } from "./context";
+import { AuthProvider, GuestProvider, StateProvider, ReservationsProvider } from "./context";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const router = createBrowserRouter([
   {
@@ -30,13 +32,17 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <StateProvider>
-      <AuthProvider>
-        <GuestProvider>
-          <RouterProvider router={router} />;
-        </GuestProvider>
-      </AuthProvider>
-    </StateProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <StateProvider>
+        <ReservationsProvider>
+          <AuthProvider>
+            <GuestProvider>
+              <RouterProvider router={router} />;
+            </GuestProvider>
+          </AuthProvider>
+        </ReservationsProvider>
+      </StateProvider>
+    </LocalizationProvider>
   );
 }
 

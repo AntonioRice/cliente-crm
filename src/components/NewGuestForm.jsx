@@ -16,7 +16,9 @@ const NewGuestForm = ({ submitRef }) => {
   const { primaryGuest, additionalGuests } = useGuestContext();
   const [touched, setTouched] = useState({});
   const [loading, setLoading] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const defaultCheckInDate = new Date();
+  const defaultCheckOutDate = new Date();
+  defaultCheckOutDate.setDate(defaultCheckOutDate.getDate() + 1);
   const [registrationData, setRegistrationData] = useState({
     first_name: "",
     last_name: "",
@@ -46,8 +48,8 @@ const NewGuestForm = ({ submitRef }) => {
     payment_status: "",
     guests: [],
     room_numbers: [],
-    check_in: "",
-    check_out: "",
+    check_in: defaultCheckInDate,
+    check_out: defaultCheckOutDate,
   });
 
   useEffect(() => {
@@ -110,8 +112,16 @@ const NewGuestForm = ({ submitRef }) => {
     }));
   };
 
+  const handleDateChange = (field, date) => {
+    setRegistrationData((prevData) => ({
+      ...prevData,
+      [field]: date,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(registrationData);
     if (isFormValid()) {
       try {
         setLoading(true);
@@ -269,7 +279,7 @@ const NewGuestForm = ({ submitRef }) => {
                 data-field="date_of_birth"
                 type="text"
                 placeholder={t("dob")}
-                value={formatDateTime(registrationData.date_of_birth)}
+                value={registrationData.date_of_birth}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 required
@@ -551,13 +561,13 @@ const NewGuestForm = ({ submitRef }) => {
             {t("room_information")}
           </h1>
           <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col justify-center">
+            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col justify-center py-2">
               <MultiSelectDropdown onRoomSelectionChange={handleRoomsChange} />
             </div>
             <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-[10px] font-light mb-1">{t("rooms")}</label>
               <div
-                className={`border rounded-lg p-2 min-h-[2.5rem] items-center flex-wrap ${
+                className={`border rounded-lg p-2 min-h-12 items-center flex-wrap bg-gray-200  ${
                   !registrationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-600"
                 }`}
               >
@@ -569,16 +579,24 @@ const NewGuestForm = ({ submitRef }) => {
                 <p className="text-red-500 text-xs italic pt-1">{t("room_warning")}</p>
               )}
             </div>
-
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col">
               <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_in")}</label>
-              <DatePicker className="z-50" selected={startDate} onChange={(date) => setStartDate(date)} />
-              {isFieldInvalid("vehicle_make") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+              <DatePicker
+                className="appearance-none min-h-12 flex items-center w-full -mt-1 py-2 px-4 text-sm font-medium focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-100 text-black leading-tight focus:bg-white"
+                id="check_in"
+                selected={registrationData.check_in}
+                onChange={(date) => handleDateChange("check_in", date)}
+              />
             </div>
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col">
               <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_out")}</label>
-              <DatePicker className="z-50" selected={startDate} onChange={(date) => setStartDate(date)} />
-              {isFieldInvalid("vehicle_make") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+              <DatePicker
+                className="appearance-none min-h-12 flex items-center w-full -mt-1 py-2 px-4 text-sm font-medium focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-100 text-black leading-tight focus:bg-white"
+                id="check_out"
+                startDate={new Date()}
+                selected={registrationData.check_out}
+                onChange={(date) => handleDateChange("check_out", date)}
+              />
             </div>
           </div>
 
@@ -606,7 +624,7 @@ const NewGuestForm = ({ submitRef }) => {
                 >
                   {t("payment_selection")}
                 </option>
-                {["Cash", "Credit", "Transfer"].map((method, i) => (
+                {["cash", "credit", "transfer"].map((method, i) => (
                   <option key={i}>{method}</option>
                 ))}
               </select>
@@ -649,9 +667,9 @@ const NewGuestForm = ({ submitRef }) => {
                   disabled
                   className="text-gray-700 border-gray-200 rounded leading-tight focus:outline-none focus:bg-white"
                 >
-                  {t("payment_status_selection")}
+                  {t("payment_status")}
                 </option>
-                {["Pending", "Completed", "Failed"].map((status, i) => (
+                {["pending", "completed", "failed"].map((status, i) => (
                   <option key={i}>{status}</option>
                 ))}
               </select>
