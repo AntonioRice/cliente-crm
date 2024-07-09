@@ -63,6 +63,7 @@ export const GuestProvider = ({ children }) => {
         selectGuest,
         clearGuests,
         currentPage,
+        setCurrentPage,
         totalPages,
         totalCurrentGuests,
         loading,
