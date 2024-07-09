@@ -74,7 +74,7 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
             id={`guests_${guest.id}_date_of_birth`}
             name="date_of_birth"
-            type="text"
+            type="date"
             placeholder="DOB"
             value={formData.date_of_birth}
             onChange={handleInputChange}

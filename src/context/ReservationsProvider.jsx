@@ -13,7 +13,6 @@ export const ReservationsProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.get("http://localhost:3015/api/v1/reservations/analytics");
-      console.log(response.data.data.reservationsByWeek);
       setReservationsAnalytics(response.data.data.reservationsByWeek);
       setLoading(false);
     } catch (error) {
