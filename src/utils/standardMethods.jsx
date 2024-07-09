@@ -1,10 +1,17 @@
 import moment from "moment";
 
-export const formatDateTime = (isoDate) => {
-  if (!isoDate || !moment(isoDate, moment.ISO_8601, true).isValid()) {
-    return null;
-  }
-  return moment(isoDate).format("MM-DD-YYYY");
+export const formatDateTime = (isoDate, datePicker = false) => {
+  const format = (date, datePicker) => {
+    if (!date || !moment(date, moment.ISO_8601, true).isValid()) {
+      return null;
+    }
+    if (datePicker) {
+      return moment(date).format("YYYY-MM-DD");
+    }
+    return moment(date).format("MM-DD-YYYY");
+  };
+
+  return format(isoDate, datePicker);
 };
 
 export const getLastVisit = (guest) => {

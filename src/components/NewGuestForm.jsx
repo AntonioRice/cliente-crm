@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { CgMathPlus } from "react-icons/cg";
-import { formatDateTime } from "../utils/standardMethods";
 import { useGuestContext } from "../context/GuestProvider";
 import { useTranslation } from "react-i18next";
 import AddGuestToParty from "./AddGuestToParty";
@@ -10,6 +9,7 @@ import MultiSelectDropdown from "./MultiSelectDropdown";
 import LoadingComponent from "./LoadingComponent";
 import AnimatedPage from "./AnimatedPage";
 import Pill from "../components/Pill";
+import { formatDateTime } from "../utils/standardMethods";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -56,6 +56,7 @@ const NewGuestForm = ({ submitRef }) => {
 
   useEffect(() => {
     if (primaryGuest) {
+      primaryGuest.date_of_birth = formatDateTime(primaryGuest.date_of_birth, true);
       setRegistrationData((prevData) => ({
         ...prevData,
         ...primaryGuest,
@@ -128,7 +129,7 @@ const NewGuestForm = ({ submitRef }) => {
         setLoading(true);
         await Promise.all([
           axios.post(`http://localhost:3015/api/v1/guests`, registrationData),
-          new Promise((resolve) => setTimeout(resolve, 3000)), // Ensures at least 3 seconds delay
+          new Promise((resolve) => setTimeout(resolve, 3000)),
         ]);
       } catch (error) {
         console.error(error);
