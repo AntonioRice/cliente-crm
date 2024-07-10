@@ -21,13 +21,13 @@ const Sidebar = () => {
         activeSideBar ? "translate-x-0" : "-translate-x-full"
       } sm:-translate-x-full`}
     >
-      <div className="fixed px-2 ms-3 mt-2 text-xs font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
+      <div className="fixed px-2 mt-2 text-xs font-medium text-gray-800 bg-gray-100 rounded-full ms-3 dark:bg-gray-700 dark:text-gray-300">
         Pro
       </div>
       <div className="h-full px-3 py-4 overflow-y-auto bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <ul className="space-y-2 font-extralight">
-          <li className=" p-5">
-            <p className="flex justify-center ms-3 text-xs text-gray-400">
+          <li className="p-5 ">
+            <p className="flex justify-center text-xs text-gray-400 ms-3">
               {t("welcome")}, {user.first_name}
             </p>
           </li>
@@ -37,7 +37,7 @@ const Sidebar = () => {
               className="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <RxDashboard size={20} />
-              <span className="ms-3 whitespace-nowrap text-sm">{t("dashboard")}</span>
+              <span className="text-sm ms-3 whitespace-nowrap">{t("dashboard")}</span>
             </button>
           </li>
           <li>
@@ -46,7 +46,7 @@ const Sidebar = () => {
               className="w-full flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <IoPeople size={20} />
-              <span className="ms-3 whitespace-nowrap text-sm">{t("guests")}</span>
+              <span className="text-sm ms-3 whitespace-nowrap">{t("guests")}</span>
             </button>
           </li>
           <li>
@@ -55,12 +55,10 @@ const Sidebar = () => {
               className="w-full flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <SlCalender size={20} />
-              {/* <span className="ms-3 whitespace-nowrap text-sm">{t("calendar")}</span> */}
-              <span className="ms-3 whitespace-nowrap text-sm">Reservations</span>
+              <span className="text-sm ms-3 whitespace-nowrap">{t("reservations")}</span>
             </button>
           </li>
-
-          <div className="fixed bottom-0 pb-2 w-full flex justify-between">
+          <div className="fixed bottom-0 flex justify-between w-full pb-2">
             <ul className="flex flex-row space-x-2">
               <li>
                 <a
@@ -68,7 +66,7 @@ const Sidebar = () => {
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <CiSettings size={15} />
-                  <span className="flex-1 ms-2 whitespace-nowrap text-xs">{t("settings")}</span>
+                  <span className="flex-1 text-xs ms-2 whitespace-nowrap">{t("settings")}</span>
                 </a>
               </li>
               <li>
@@ -77,7 +75,7 @@ const Sidebar = () => {
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <PiSignOutLight size={15} />
-                  <span className="flex-1 ms-2 whitespace-nowrap text-xs">{t("sign_out")}</span>
+                  <span className="flex-1 text-xs ms-2 whitespace-nowrap">{t("sign_out")}</span>
                 </button>
               </li>
             </ul>

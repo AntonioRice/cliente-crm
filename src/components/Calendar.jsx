@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
-const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const reservations = [
   {
     reservation_id: "1",
@@ -61,9 +61,34 @@ const reservations = [
 ];
 
 const Calendar = () => {
+  const { t } = useTranslation();
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   const [dates, setDates] = useState([]);
+  const months = [
+    `${t("months.january")}`,
+    `${t("months.february")}`,
+    `${t("months.march")}`,
+    `${t("months.april")}`,
+    `${t("months.may")}`,
+    `${t("months.june")}`,
+    `${t("months.july")}`,
+    `${t("months.august")}`,
+    `${t("months.september")}`,
+    `${t("months.october")}`,
+    `${t("months.november")}`,
+    `${t("months.december")}`,
+  ];
+
+  const daysOfWeek = [
+    `${t("daysOfWeek.sun")}`,
+    `${t("daysOfWeek.mon")}`,
+    `${t("daysOfWeek.tue")}`,
+    `${t("daysOfWeek.wed")}`,
+    `${t("daysOfWeek.thu")}`,
+    `${t("daysOfWeek.fri")}`,
+    `${t("daysOfWeek.sat")}`,
+  ];
 
   useEffect(() => {
     generateDates(month, year);
@@ -86,7 +111,9 @@ const Calendar = () => {
     setYear(parseInt(e.target.value));
   };
 
-  const handleReservationClick = (reservation_id) => {};
+  const handleReservationClick = (reservation_id) => {
+    // Implement navigation to reservation details
+  };
 
   const getReservationsForDate = (date) => {
     const selectedDate = new Date(year, month, date).toISOString().split("T")[0];
@@ -96,12 +123,12 @@ const Calendar = () => {
   return (
     <div className="p-4">
       <div className="flex justify-between">
-        <h1 className="text-2xl font-bold mb-4">Calendar</h1>
-        <div className="flex space-x-2 mb-4">
+        <h1 className="mb-4 text-2xl font-bold">{t("calendar")}</h1>
+        <div className="flex mb-4 space-x-2">
           <select value={month} onChange={handleMonthChange} className="p-2 bg-gray-700 rounded-md">
-            {Array.from({ length: 12 }, (_, i) => (
-              <option key={i} value={i}>
-                {new Date(0, i).toLocaleString("default", { month: "long" })}
+            {months.map((monthName, index) => (
+              <option key={index} value={index}>
+                {monthName}
               </option>
             ))}
           </select>
@@ -118,21 +145,21 @@ const Calendar = () => {
 
       <div className="grid grid-cols-7 gap-1">
         {daysOfWeek.map((day) => (
-          <div key={day} className="p-2 text-center font-bold bg-gray-700">
+          <div key={day} className="p-2 font-bold text-center bg-gray-700 rounded-md">
             {day}
           </div>
         ))}
         {dates.map((date, index) => (
           <div
             key={index}
-            className={`h-32 flex flex-col border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : ""}`}
+            className={`h-32 flex flex-col border rounded-md border-gray-700 ${!date ? "bg-gray-700 opacity-25" : ""}`}
           >
             <p className="p-2 text-gray-300">{date}</p>
-            <div className="overflow-y-auto h-full">
+            <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (
                 <div
                   key={reservation.reservation_id}
-                  className="bg-green-600 p-.5 m-1 text-xs text-white cursor-pointer"
+                  className="bg-green-600 p-0.5 m-1 text-white text-xs cursor-pointer rounded-sm"
                   onClick={() => handleReservationClick(reservation.reservation_id)}
                 >
                   <p className="px-1">{`Reservation ${reservation.reservation_id}`}</p>

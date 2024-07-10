@@ -31,12 +31,12 @@ const Header = () => {
             </button>
 
             <Link to="/dashboard" className="flex ms-2 md:me-24">
-              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-green-500">
+              <span className="self-center text-xl font-semibold text-green-500 sm:text-2xl whitespace-nowrap">
                 Cliente
               </span>
             </Link>
           </div>
-          <div className="fixed right-4 flex items-center">
+          <div className="fixed flex items-center right-4">
             <div className="flex items-center ms-3">
               <div>
                 <button
