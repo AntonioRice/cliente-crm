@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { Layout, PrivateRoute } from "./components";
-import { Dashboard, Guests, GuestDetails, RegisterGuest, Settings, Login } from "./pages";
+import { Dashboard, Guests, GuestDetails, RegisterGuest, Reservations, Settings, Login } from "./pages";
 import { AuthProvider, GuestProvider, StateProvider, ReservationsProvider } from "./context";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
       { path: "guests", element: <Guests /> },
       { path: "guests/register", element: <RegisterGuest /> },
       { path: "guests/details/:id", element: <GuestDetails /> },
+      { path: "reservations", element: <Reservations /> },
       { path: "settings", element: <Settings /> },
     ],
   },
@@ -37,7 +38,7 @@ function App() {
         <ReservationsProvider>
           <AuthProvider>
             <GuestProvider>
-              <RouterProvider router={router} />;
+              <RouterProvider router={router} />
             </GuestProvider>
           </AuthProvider>
         </ReservationsProvider>

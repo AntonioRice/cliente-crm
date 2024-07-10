@@ -51,11 +51,12 @@ const Sidebar = () => {
           </li>
           <li>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/reservations")}
               className="w-full flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <SlCalender size={20} />
-              <span className="ms-3 whitespace-nowrap text-sm">{t("calendar")}</span>
+              {/* <span className="ms-3 whitespace-nowrap text-sm">{t("calendar")}</span> */}
+              <span className="ms-3 whitespace-nowrap text-sm">Reservations</span>
             </button>
           </li>
 

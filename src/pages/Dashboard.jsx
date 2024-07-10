@@ -74,7 +74,7 @@ const Dashboard = () => {
       if (currentCount === 0) {
         return "0%";
       } else {
-        return `+${(currentCount * 100).toFixed(2)}%`; // Showing true percentage increase from 0
+        return `+${(currentCount * 100).toFixed(2)}%`;
       }
     }
 
