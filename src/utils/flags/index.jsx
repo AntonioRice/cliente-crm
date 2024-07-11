@@ -1,0 +1,12 @@
+export { default as ArgentinaFlag } from "./ArgentinaFlag";
+export { default as BrazilFlag } from "./BrazilFlag";
+export { default as BoliviaFlag } from "./BoliviaFlag";
+export { default as ChileFlag } from "./ChileFlag";
+export { default as ColombiaFlag } from "./ColombiaFlag";
+export { default as EcuadorFlag } from "./EcuadorFlag";
+export { default as USAFlag } from "./USAFlag";
+export { default as CanadaFlag } from "./CanadaFlag";
+export { default as ParaguayFlag } from "./ParaguayFlag";
+export { default as PeruFlag } from "./PeruFlag";
+export { default as UruguayFlag } from "./UruguayFlag";
+export { default as VenezuelaFlag } from "./VenezuelaFlag";
