@@ -28,3 +28,24 @@ export const getLastVisit = (guest) => {
 export const calculateTotalAmountSpent = (reservations) => {
   return reservations.reduce((total, reservation) => total + parseFloat(reservation.total_amount), 0).toFixed(2);
 };
+
+export const formatPhoneNumber = (input) => {
+  input = input.replace(/\D/g, "");
+
+  if (input.length > 10) {
+    input = input.slice(0, 10);
+  }
+
+  let formatted = "";
+  if (input.length > 0) {
+    formatted = `${input.slice(0, 3)}`;
+  }
+  if (input.length > 3) {
+    formatted += `-${input.slice(3, 6)}`;
+  }
+  if (input.length > 6) {
+    formatted += `-${input.slice(6, 10)}`;
+  }
+
+  return formatted;
+};

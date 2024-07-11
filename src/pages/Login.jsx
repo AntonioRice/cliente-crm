@@ -1,28 +1,44 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../context";
 import { AnimatedPage, NewUserRegistrationForm, LoginForm } from "../components";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuthContext();
-  const { t } = useTranslation();
+  const { login, user } = useAuthContext();
+  const [registrationStatus, setRegistrationStatus] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      if (user.status === "Active") {
+        navigate("/dashboard");
+      } else if (user.status === "Inactive") {
+        setRegistrationStatus("Inactive");
+      }
+    }
+  }, [user, navigate]);
 
   const onSubmit = async (username, password) => {
     try {
       await login(username, password);
-      navigate("/dashboard");
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleRegistrationCompletion = () => {
+    navigate("/dashboard");
   };
 
   return (
     <AnimatedPage>
       <div className="h-screen page-wrapper">
         <div className="w-full max-w-lg">
-          {/* <LoginForm onSubmit={onSubmit} /> */}
-          <NewUserRegistrationForm />
+          {registrationStatus === "Inactive" ? (
+            <NewUserRegistrationForm onComplete={handleRegistrationCompletion} />
+          ) : (
+            <LoginForm onSubmit={onSubmit} />
+          )}
         </div>
       </div>
     </AnimatedPage>

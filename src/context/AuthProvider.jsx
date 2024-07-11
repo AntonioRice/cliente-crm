@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const userData = await fetchedUserData(token);
       setUser(userData);
-      setMode(userData.preferences.ui_mode);
+      setMode(userData.preferences.display_mode);
       setLanguage(userData.preferences.language);
     } catch (error) {
       alert("Incorrect Username or Password, please try again or gain access from Admin");
@@ -67,8 +67,24 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const completeRegistration = async (updatedData) => {
+    try {
+      const response = await axios.put("http://localhost:3015/api/v1/complete-registration", {
+        user_id: user.user_id,
+        ...updatedData,
+      });
+      const userData = response.data.data;
+      setUser(userData);
+      setMode(userData.preferences.display_mode);
+      setLanguage(userData.preferences.language);
+    } catch (error) {
+      alert("Unable to complete new user registration");
+      console.error("New user registration error:", error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, completeRegistration, loading }}>
       <AnimatePresence>{loading ? <LoadingComponent key="loading" /> : children}</AnimatePresence>
     </AuthContext.Provider>
   );

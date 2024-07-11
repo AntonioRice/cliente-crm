@@ -22,7 +22,7 @@
     "tue": "Tue",
     "wed": "Wed"
   },
-  "display": "Display",
+  "display_mode": "Display Mode",
   "dob": "Date Of Birth",
   "email": "Email",
   "emergency_contact": "Emergency Contact",

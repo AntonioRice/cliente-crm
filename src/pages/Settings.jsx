@@ -38,7 +38,7 @@ const Settings = () => {
       },
     }));
 
-    if (id === "ui_mode") {
+    if (id === "display_mode") {
       setMode(newValue);
     }
 
@@ -144,13 +144,15 @@ const Settings = () => {
                   </label>
                 </div>
                 <div className="items-center mb-6">
-                  <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("display")}</label>
+                  <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
+                    {t("display_mode")}
+                  </label>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
-                      id="ui_mode"
+                      id="display_mode"
                       type="checkbox"
                       className="sr-only peer"
-                      checked={newUserData.preferences.ui_mode?.toLowerCase() === "dark"}
+                      checked={newUserData.preferences.display_mode?.toLowerCase() === "dark"}
                       onChange={handleToggleChange}
                     />
                     <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>

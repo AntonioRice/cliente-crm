@@ -1,25 +1,27 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAuthContext } from "../context";
 import { FaUser } from "react-icons/fa";
 import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
 import getDataUtil from "../utils/dataUtil";
+import { formatPhoneNumber } from "../utils/standardMethods";
 
-const NewUserRegistrationForm = ({ onSubmit }) => {
+const NewUserRegistrationForm = ({ onComplete }) => {
   const { t } = useTranslation();
   const { countries } = getDataUtil();
+  const { completeRegistration } = useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(countries[5]);
   const [formData, setFormData] = useState({
-    username: "",
     password: "",
     first_name: "",
     last_name: "",
     email: "",
-    country_code: "",
+    country_code: selectedCountry.code,
     phone_number: "",
     language: "en",
-    display_mode: "",
+    display_mode: "dark",
   });
 
   const handleInputChange = (e) => {
@@ -27,6 +29,10 @@ const NewUserRegistrationForm = ({ onSubmit }) => {
     setFormData((prevData) => {
       if (id === "language") {
         return { ...prevData, [id]: prevData.language === "en" ? "es" : "en" };
+      }
+
+      if (id === "display_mode") {
+        return { ...prevData, [id]: prevData.display_mode === "light" ? "dark" : "light" };
       }
 
       if (id === "phone_number") {
@@ -47,30 +53,27 @@ const NewUserRegistrationForm = ({ onSubmit }) => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const formattedForm = {
+      password: formData.password,
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      email: formData.email,
+      phone_number: `${formData.country_code}-${formData.phone_number}`,
+      preferences: {
+        language: formData.language,
+        display_mode: formData.display_mode,
+      },
+    };
+
+    try {
+      await completeRegistration(formattedForm);
+    } catch (error) {
+      console.error(error);
+    }
+
     e.preventDefault();
-    onSubmit(formData);
-  };
-
-  const formatPhoneNumber = (input) => {
-    input = input.replace(/\D/g, "");
-
-    if (input.length > 10) {
-      input = input.slice(0, 10);
-    }
-
-    let formatted = "";
-    if (input.length > 0) {
-      formatted = `(${input.slice(0, 3)}`;
-    }
-    if (input.length > 3) {
-      formatted += `) ${input.slice(3, 6)}`;
-    }
-    if (input.length > 6) {
-      formatted += `-${input.slice(6, 10)}`;
-    }
-
-    return formatted;
+    onComplete();
   };
 
   return (
@@ -133,13 +136,9 @@ const NewUserRegistrationForm = ({ onSubmit }) => {
               className="flex items-center justify-between border border-gray-300 text-gray-900 bg-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              {selectedCountry ? (
-                <p className="inline-flex gap-2">
-                  {selectedCountry.flag} {selectedCountry.name} ({selectedCountry.code})
-                </p>
-              ) : (
-                <p className="flex justify-center w-full font-normal text-gray-400">Select a Country</p>
-              )}
+              <p className="inline-flex gap-2">
+                {selectedCountry.flag} {selectedCountry.name} ({selectedCountry.code})
+              </p>
               <svg
                 className="size-2 ms-2.5"
                 aria-hidden="true"
@@ -202,19 +201,41 @@ const NewUserRegistrationForm = ({ onSubmit }) => {
         </div>
       </div>
 
-      <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("language")}</label>
-      <div className="items-center mb-6">
-        <label className="inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            id="language"
-            className="sr-only peer"
-            checked={formData.language?.toLowerCase() === "es"}
-            onChange={handleInputChange}
-          />
-          <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-          <span className="text-xs font-medium text-gray-400 ms-3">EN / ES</span>
-        </label>
+      <div className="flex gap-3">
+        <div className="w-1/2">
+          <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("language")}</label>
+          <div className="items-center mb-6">
+            <label className="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                id="language"
+                className="sr-only peer"
+                checked={formData.language?.toLowerCase() === "es"}
+                onChange={handleInputChange}
+              />
+              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="text-xs font-medium text-gray-400 ms-3">EN / ES</span>
+            </label>
+          </div>
+        </div>
+        <div className="w-1/2">
+          <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("display_mode")}</label>
+          <div className="items-center mb-6">
+            <label className="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                id="display_mode"
+                className="sr-only peer"
+                checked={formData.display_mode?.toLowerCase() === "dark"}
+                onChange={handleInputChange}
+              />
+              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full  after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="text-xs font-medium text-gray-400 ms-3">
+                {t("light")} / {t("dark")}
+              </span>
+            </label>
+          </div>
+        </div>
       </div>
 
       <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">
@@ -243,7 +264,7 @@ const NewUserRegistrationForm = ({ onSubmit }) => {
 
       <button
         type="submit"
-        disabled={!formData.username.length || !formData.password.length}
+        disabled={!formData.password.length}
         className="disabled:cursor-not-allowed text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         {t("register")}
