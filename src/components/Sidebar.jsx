@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext, useStateContext } from "../context";
 import { SlCalender } from "react-icons/sl";
 import { CiSettings } from "react-icons/ci";
 import { PiSignOutLight } from "react-icons/pi";
 import { IoPeople } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
-import { useAuthContext } from "../context/AuthProvider";
-import { useStateContext } from "../context/StateProvider";
-import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const { t } = useTranslation();

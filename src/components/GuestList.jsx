@@ -1,9 +1,8 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useGuestContext } from "../context/GuestProvider";
-import { IoIosArrowForward } from "react-icons/io";
-import StatusIndicator from "./StatusIndicator";
+import { useGuestContext } from "../context";
+import { StatusIndicator } from "../components";
 import { formatDateTime, getLastVisit } from "../utils/standardMethods";
+import { IoIosArrowForward } from "react-icons/io";
 
 const GuestsList = ({ guests, columns }) => {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ const GuestsList = ({ guests, columns }) => {
         <tr
           key={guest.guest_id}
           onClick={() => handleRowClick(guest)}
-          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer dark:hover:text-green-400"
+          className="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 dark:hover:text-green-400"
         >
           {columns.map((col) => (
             <td key={col.key} className="px-6 py-2 font-light text-gray-900 whitespace-nowrap dark:text-white">

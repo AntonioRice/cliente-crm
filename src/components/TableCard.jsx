@@ -1,4 +1,3 @@
-import React from "react";
 import { IoIosArrowForward, IoIosArrowBack, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import GuestsList from "./GuestList";
@@ -18,11 +17,11 @@ const TableCard = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col mb-4 rounded-xl border bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-      <div className="p-5 inline-flex justify-between">
+    <div className="flex flex-col mb-4 border border-gray-200 rounded-xl bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+      <div className="inline-flex justify-between p-5">
         <div>
           <h1 className="text-sm">{title}</h1>
-          <p className="text-gray-500 text-xs">Total: {totalGuests}</p>
+          <p className="text-xs text-gray-500">Total: {totalGuests}</p>
         </div>
         <div className="w-full md:w-1/2">
           <form className="flex items-center">
@@ -48,7 +47,7 @@ const TableCard = ({
               <input
                 type="text"
                 id="simple-search"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder={t("search")}
                 required=""
               />
@@ -57,7 +56,7 @@ const TableCard = ({
         </div>
       </div>
       <div className="overflow-x-hidden rounded-b-xl">
-        <table className="min-w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table className="min-w-full text-xs text-left text-gray-500 rtl:text-right dark:text-gray-400">
           <thead className="uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               {columns.map((col) => (
@@ -65,9 +64,9 @@ const TableCard = ({
                   {col.header}
                   {sortConfig.key === col.key &&
                     (sortConfig.direction === "asc" ? (
-                      <IoIosArrowUp className="inline ml-1 mb-1 text-green-400" />
+                      <IoIosArrowUp className="inline mb-1 ml-1 text-green-400" />
                     ) : (
-                      <IoIosArrowDown className="inline ml-1 mb-1 text-green-400" />
+                      <IoIosArrowDown className="inline mb-1 ml-1 text-green-400" />
                     ))}
                 </th>
               ))}
@@ -78,17 +77,16 @@ const TableCard = ({
           </thead>
           <GuestsList guests={guests} columns={columns} />
         </table>
-        <nav className="p-4 flex items-center flex-col flex-wrap md:flex-row justify-between pt-4">
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+        <nav className="flex flex-col flex-wrap items-center justify-between p-4 pt-4 md:flex-row">
+          <span className="block w-full mb-4 text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
             {t("page")} <span className="font-semibold text-gray-900 dark:text-white">{currentPage}</span> of
             <span className="font-semibold text-gray-900 dark:text-white"> {totalPages}</span>
           </span>
-          <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+          <ul className="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
             <li>
               <button
                 onClick={handlePrevPage}
-                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 
-                dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
+                className="flex items-center justify-center h-8 px-3 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
               >
                 <IoIosArrowBack />
               </button>
@@ -96,8 +94,7 @@ const TableCard = ({
             <li>
               <button
                 onClick={handleNextPage}
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-green-400 dark:bg-gray-800
-                dark:border-gray-700 dark:text-gray-400 dark:hover:text-green-500 dark:hover:bg-gray-700"
+                className="flex items-center justify-center h-8 px-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-green-400 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-green-500 dark:hover:bg-gray-700"
               >
                 <IoIosArrowForward />
               </button>

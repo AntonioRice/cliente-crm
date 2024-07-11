@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useAuthContext } from "../context/AuthProvider";
-import { useStateContext } from "../context/StateProvider";
-import AnimatedPage from "../components/AnimatedPage";
-import LoadingComponent from "../components/LoadingComponent";
 import { useTranslation } from "react-i18next";
+import { useAuthContext, useStateContext } from "../context";
+import { AnimatedPage, LoadingComponent } from "../components";
 
 const Settings = () => {
   const { t } = useTranslation();
@@ -71,9 +69,9 @@ const Settings = () => {
               <h1>{t("general.title")}</h1>
               <p className="text-xs text-gray-600">{t("general.description")}</p>
             </div>
-            <div className="md:col-span-2 flex flex-col gap-6">
-              <div className="flex flex-col md:flex-row gap-3 w-full">
-                <div className="w-full md:w-1/2 mb-6 items-center">
+            <div className="flex flex-col gap-6 md:col-span-2">
+              <div className="flex flex-col w-full gap-3 md:flex-row">
+                <div className="items-center w-full mb-6 md:w-1/2">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
                   <input
                     className="appearance-none block w-full bg-[#111827] border border-gray-400 rounded-lg py-3 px-4 mb-3 leading-tight text-sm focus:outline-none focus:bg-[#141d2f]"
@@ -84,7 +82,7 @@ const Settings = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="w-full md:w-1/2 mb-6">
+                <div className="w-full mb-6 md:w-1/2">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
                   <input
                     className="appearance-none block w-full bg-[#111827] border border-gray-400 rounded-lg py-3 px-4 mb-3 leading-tight text-sm focus:outline-none focus:bg-[#141d2f]"
@@ -96,8 +94,8 @@ const Settings = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row gap-3 w-full">
-                <div className="w-full md:w-1/2 mb-6 items-center">
+              <div className="flex flex-col w-full gap-3 md:flex-row">
+                <div className="items-center w-full mb-6 md:w-1/2">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
                   <input
                     className="appearance-none block w-full bg-[#111827] border border-gray-400 rounded-lg py-3 px-4 mb-3 leading-tight text-sm focus:outline-none focus:bg-[#141d2f]"
@@ -108,7 +106,7 @@ const Settings = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="w-full md:w-1/2 mb-6">
+                <div className="w-full mb-6 md:w-1/2">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("phone_number")}
                   </label>
@@ -129,9 +127,9 @@ const Settings = () => {
               <h1>{t("preferences.title")}</h1>
               <p className="text-xs text-gray-600">{t("preferences.description")}</p>
             </div>
-            <div className="md:col-span-2 flex flex-col">
-              <div className="flex flex-col md:flex-row gap-10">
-                <div className="mb-6 items-center">
+            <div className="flex flex-col md:col-span-2">
+              <div className="flex flex-col gap-10 md:flex-row">
+                <div className="items-center mb-6">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("language")}</label>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -142,10 +140,10 @@ const Settings = () => {
                       onChange={handleToggleChange}
                     />
                     <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                    <span className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">EN / ES</span>
+                    <span className="text-xs font-medium text-gray-900 ms-3 dark:text-gray-400">EN / ES</span>
                   </label>
                 </div>
-                <div className="mb-6 items-center">
+                <div className="items-center mb-6">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("display")}</label>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -156,7 +154,7 @@ const Settings = () => {
                       onChange={handleToggleChange}
                     />
                     <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                    <span className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">
+                    <span className="text-xs font-medium text-gray-900 ms-3 dark:text-gray-400">
                       {t("light")} / {t("dark")}
                     </span>
                   </label>
@@ -167,7 +165,7 @@ const Settings = () => {
           <div className="flex justify-end mt-6">
             <button
               onClick={handleSave}
-              className="px-4 py-2 text-white rounded-lg p-1 dark:hover:bg-gray-600 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:hover:text-white"
+              className="p-1 px-4 py-2 text-white border border-gray-200 rounded-lg dark:hover:bg-gray-600 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:hover:text-white"
             >
               {t("save")}
             </button>

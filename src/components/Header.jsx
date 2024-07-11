@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { useStateContext } from "../context/StateProvider";
+import { useStateContext } from "../context";
 
 const Header = () => {
   const { setActiveSideBar } = useStateContext();

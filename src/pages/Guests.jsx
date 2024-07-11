@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import TableCard from "../components/TableCard";
-import AnimatedPage from "../components/AnimatedPage";
-import AddClientButton from "../components/AddClientButton";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { AnimatedPage, TableCard, AddClientButton } from "../components";
 
 const Guests = () => {
   const [allGuests, setAllGuests] = useState([]);
@@ -10,6 +8,7 @@ const Guests = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalGuests, setTotalGuests] = useState(0);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [isLoading, setIsLoading] = useState(false);
 
   const columns = [
     { header: "First Name", key: "first_name" },
@@ -21,6 +20,8 @@ const Guests = () => {
   ];
 
   const fetchAllGuests = async (page = 1, sortKey = null, sortDirection = "asc") => {
+    if (isLoading) return;
+    setIsLoading(true);
     try {
       const response = await axios.get("http://localhost:3015/api/v1/guests", {
         params: { page, limit: 10, sortKey, sortDirection },
@@ -31,6 +32,8 @@ const Guests = () => {
       setTotalGuests(response.data.meta.totalGuests);
     } catch (error) {
       console.error("Error fetching all guests", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,8 +63,8 @@ const Guests = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex justify-between items-center pb-4">
-        <h1 className="font-semibold text-2xl">Guests</h1>
+      <div className="flex items-center justify-between pb-4">
+        <h1 className="text-2xl font-semibold">Guests</h1>
         <AddClientButton />
       </div>
       <div className="h-full">

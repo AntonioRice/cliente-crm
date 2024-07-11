@@ -31,8 +31,8 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
 
   return (
     <>
-      <div className="flex flex-wrap -mx-3 mb-6">
-        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div className="flex flex-wrap mb-6 -mx-3">
+        <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -47,9 +47,9 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("first_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+          {isFieldInvalid("first_name") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
         </div>
-        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+        <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -64,9 +64,9 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("last_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+          {isFieldInvalid("last_name") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
         </div>
-        <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+        <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("dob")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -81,9 +81,9 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("date_of_birth") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+          {isFieldInvalid("date_of_birth") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
         </div>
-        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+        <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
           <input
             className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -98,9 +98,9 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             onBlur={handleBlur}
             required
           />
-          {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+          {isFieldInvalid("email") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
         </div>
-        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+        <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
           <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
             {t("identification_number")}
           </label>
@@ -118,10 +118,10 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
             required
           />
           {isFieldInvalid("identification_number") && (
-            <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+            <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
           )}
         </div>
-        <div className="flex flex-row justify-center items-center">
+        <div className="flex flex-row items-center justify-center">
           <button
             title="Remove Guest"
             type="button"

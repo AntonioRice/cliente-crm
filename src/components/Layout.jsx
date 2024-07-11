@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { Outlet } from "react-router-dom";
-import { useStateContext } from "../context/StateProvider";
+import { useStateContext } from "../context";
 
 const Layout = () => {
   const { activeSideBar, setActiveSideBar, currentMode } = useStateContext();

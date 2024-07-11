@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { AnimatePresence } from "framer-motion";
-import LoadingComponent from "../components/LoadingComponent";
-import { useStateContext } from "./StateProvider";
-import { useTranslation } from "react-i18next";
+import { LoadingComponent } from "../components";
+import { useStateContext } from "../context";
 
 const AuthContext = createContext();
 

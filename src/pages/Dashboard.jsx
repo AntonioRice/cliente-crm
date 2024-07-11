@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
-import ChartCard from "../components/ChartCard";
-import TableCard from "../components/TableCard";
-import AddClientButton from "../components/AddClientButton";
-import AnimatedPage from "../components/AnimatedPage";
-import { useGuestContext } from "../context/GuestProvider";
-import { useReservationsContext } from "../context/ReservationsProvider";
+import { useEffect, useState } from "react";
+import { AnimatedPage, ChartCard, TableCard, AddClientButton, BarChart } from "../components";
+import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
-import BarChart from "../components/BarChart";
 
 const Dashboard = () => {
   const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage } =
@@ -118,11 +113,11 @@ const Dashboard = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex justify-between items-center pb-4">
-        <h1 className="font-semibold text-2xl">{t("dashboard")}</h1>
+      <div className="flex items-center justify-between pb-4">
+        <h1 className="text-2xl font-semibold">{t("dashboard")}</h1>
         <AddClientButton />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+      <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2 lg:grid-cols-3">
         <ChartCard
           title="Reservations"
           week={currentWeek}

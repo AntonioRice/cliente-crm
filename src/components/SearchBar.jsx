@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import { useGuestContext } from "../context";
 import { IoIosSearch } from "react-icons/io";
-import { useGuestContext } from "../context/GuestProvider";
 
 const SearchBar = () => {
   const { t } = useTranslation();
@@ -47,24 +47,24 @@ const SearchBar = () => {
       <label className="sr-only">{t("search")}</label>
       <div className="relative w-full">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <IoIosSearch className="size-5 text-gray-500 dark:text-gray-400" />
+          <IoIosSearch className="text-gray-500 size-5 dark:text-gray-400" />
         </div>
         <input
           type="text"
           value={query}
           onChange={handleInputChange}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
           placeholder={t("search_placeholder_existing")}
         />
       </div>
       {query && (
-        <div className="absolute z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700 mt-4">
+        <div className="absolute z-50 w-full mt-4 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
             {loading ? (
-              <li className="block px-4 p-2">
+              <li className="block p-2 px-4">
                 <svg
                   aria-hidden="true"
-                  className="size-4 text-gray-200 animate-spin dark:text-gray-600 fill-green-400"
+                  className="text-gray-200 size-4 animate-spin dark:text-gray-600 fill-green-400"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const LoadingComponent = () => {
@@ -11,7 +10,7 @@ const LoadingComponent = () => {
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="size-20 bg-green-500"
+        className="bg-green-500 size-20"
         animate={{
           scale: [1, 2, 2, 1, 1],
           rotate: [0, 0, 180, 180, 0],

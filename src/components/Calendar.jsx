@@ -1,95 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import getDataUtil from "../utils/dataUtil";
 
-const reservations = [
-  {
-    reservation_id: "1",
-    tenant_id: "",
-    primary_guest_id: "",
-    check_in: "2024-07-05",
-    check_out: "2024-07-12",
-    room_numbers: "",
-    payment_method: "",
-    guest_status: "",
-    payment_status: "",
-    total_amount: "",
-    created_date: "",
-    updated_date: "",
-  },
-  {
-    reservation_id: "2",
-    tenant_id: "",
-    primary_guest_id: "",
-    check_in: "2024-07-08",
-    check_out: "2024-07-15",
-    room_numbers: "",
-    payment_method: "",
-    guest_status: "",
-    payment_status: "",
-    total_amount: "",
-    created_date: "",
-    updated_date: "",
-  },
-  {
-    reservation_id: "3",
-    tenant_id: "",
-    primary_guest_id: "",
-    check_in: "2024-07-09",
-    check_out: "2024-07-26",
-    room_numbers: "",
-    payment_method: "",
-    guest_status: "",
-    payment_status: "",
-    total_amount: "",
-    created_date: "",
-    updated_date: "",
-  },
-  {
-    reservation_id: "4",
-    tenant_id: "",
-    primary_guest_id: "",
-    check_in: "2024-07-09",
-    check_out: "2024-07-26",
-    room_numbers: "",
-    payment_method: "",
-    guest_status: "",
-    payment_status: "",
-    total_amount: "",
-    created_date: "",
-    updated_date: "",
-  },
-];
-
-const Calendar = () => {
+const Calendar = ({ reservations }) => {
+  const { months, daysOfWeek } = getDataUtil();
   const { t } = useTranslation();
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   const [dates, setDates] = useState([]);
-  const months = [
-    `${t("months.january")}`,
-    `${t("months.february")}`,
-    `${t("months.march")}`,
-    `${t("months.april")}`,
-    `${t("months.may")}`,
-    `${t("months.june")}`,
-    `${t("months.july")}`,
-    `${t("months.august")}`,
-    `${t("months.september")}`,
-    `${t("months.october")}`,
-    `${t("months.november")}`,
-    `${t("months.december")}`,
-  ];
-
-  const daysOfWeek = [
-    `${t("daysOfWeek.sun")}`,
-    `${t("daysOfWeek.mon")}`,
-    `${t("daysOfWeek.tue")}`,
-    `${t("daysOfWeek.wed")}`,
-    `${t("daysOfWeek.thu")}`,
-    `${t("daysOfWeek.fri")}`,
-    `${t("daysOfWeek.sat")}`,
-  ];
-
   useEffect(() => {
     generateDates(month, year);
   }, [month, year]);
@@ -121,7 +39,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       <div className="flex justify-between">
         <h1 className="mb-4 text-2xl font-bold">{t("calendar")}</h1>
         <div className="flex mb-4 space-x-2">

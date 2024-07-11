@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import NewGuestForm from "../components/NewGuestForm";
-import AnimatedPage from "../components/AnimatedPage";
-import SearchBar from "../components/SearchBar";
+import { useGuestContext } from "../context";
+import { AnimatedPage, NewGuestForm, SearchBar } from "../components";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
-import { useGuestContext } from "../context/GuestProvider";
 
 const RegisterGuest = () => {
   const navigate = useNavigate();
@@ -34,19 +32,19 @@ const RegisterGuest = () => {
   return (
     <AnimatedPage>
       <div className="flex flex-col">
-        <div className="p-5 inline-flex justify-between">
+        <div className="inline-flex justify-between p-5">
           <div>
-            <h1 className="font-semibold text-2xl">{t("registration")}</h1>
+            <h1 className="text-2xl font-semibold">{t("registration")}</h1>
           </div>
           <div className="w-full md:w-1/2">
             <SearchBar />
           </div>
-          <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-            <div className="flex items-center space-x-3 w-full md:w-auto">
+          <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
+            <div className="flex items-center w-full space-x-3 md:w-auto">
               <button
                 type="button"
                 onClick={toggleGuestForm}
-                className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
                 {showNewGuestForm ? (
                   <CgMathMinus className="-ml-1 mr-1.5 size-4 text-green-400" />

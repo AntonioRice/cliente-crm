@@ -1,6 +1,7 @@
 export { default as AddClientButton } from "./AddClientButton";
 export { default as AddGuestToParty } from "./AddGuestToParty";
 export { default as ChartCard } from "./ChartCard";
+export { default as BarChart } from "./BarChart";
 export { default as GuestList } from "./GuestList";
 export { default as Header } from "./Header";
 export { default as LoadingComponent } from "./LoadingComponent";
@@ -8,7 +9,8 @@ export { default as MultiSelectDropdown } from "./MultiSelectDropdown";
 export { default as NewGuestForm } from "./NewGuestForm";
 export { default as Pill } from "./Pill";
 export { default as ProfileModal } from "./ProfileModal";
-// export { default as ReservationsChart } from "./ReservationsChart";
+export { default as LoginForm } from "./LoginForm";
+export { default as NewUserRegistrationForm } from "./NewUserRegistrationForm";
 export { default as Calendar } from "./Calendar";
 export { default as SearchBar } from "./SearchBar";
 export { default as Sidebar } from "./Sidebar";

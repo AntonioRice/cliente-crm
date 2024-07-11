@@ -1,11 +1,10 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
 import { Layout, PrivateRoute } from "./components";
 import { Dashboard, Guests, GuestDetails, RegisterGuest, Reservations, Settings, Login } from "./pages";
 import { AuthProvider, GuestProvider, StateProvider, ReservationsProvider } from "./context";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import "./App.css";
 
 const router = createBrowserRouter([
   {

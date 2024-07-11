@@ -1,5 +1,3 @@
-// BarChart.js
-import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 
@@ -20,7 +18,7 @@ const BarChart = ({ data, title, week }) => {
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg bg-gray-800">
+    <div className="p-6 bg-gray-800 border border-gray-200 shadow-lg rounded-xl dark:border-gray-700">
       <h3 className="text-lg font-bold text-white">{title}</h3>
       <p className="text-xs">Week: {week}</p>
       <Bar

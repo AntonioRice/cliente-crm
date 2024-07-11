@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useGuestContext } from "../context/GuestProvider";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import AnimatedPage from "../components/AnimatedPage";
-import LoadingComponent from "../components/LoadingComponent";
-import StatusIndicator from "../components/StatusIndicator";
+import { useParams } from "react-router-dom";
+import { CgMathMinus } from "react-icons/cg";
+import { useTranslation } from "react-i18next";
+import { useGuestContext } from "../context";
+import { AnimatedPage, LoadingComponent, StatusIndicator } from "../components";
 import { formatDateTime } from "../utils/standardMethods";
 
 const GuestDetails = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const { selectedGuest, setSelectedGuest } = useGuestContext();
+  const [loading, setLoading] = useState(false);
   const [guest, setGuest] = useState(selectedGuest);
 
   useEffect(() => {
@@ -19,25 +19,48 @@ const GuestDetails = () => {
       const fetchGuest = async () => {
         try {
           const response = await axios.get(`http://localhost:3015/api/v1/guests/${id}`);
-          setGuest(response.data.data);
-          setSelectedGuest(response.data.data);
+          if (response.data.data.guest) {
+            setGuest(response.data.data.guest);
+            setSelectedGuest(response.data.data.guest);
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
         } catch (error) {
           console.error("Error fetching guest data:", error);
+          setLoading(false);
         }
       };
       fetchGuest();
+    } else {
+      setLoading(false);
     }
   }, [id, selectedGuest, setSelectedGuest]);
 
-  if (!guest) {
+  const handleDeleteGuest = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(`http://localhost:3015/api/v1/guests/${id}`);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log("Error deleting guest:", error);
+    }
+  };
+
+  if (loading) {
     return <LoadingComponent />;
+  }
+
+  if (!guest) {
+    return <div>Guest Not Found</div>;
   }
 
   return (
     <AnimatedPage>
       <div className="pb-8">
         <h1 className="inline-flex items-center">
-          <span className="text-green-400 pr-1"> - </span>
+          <span className="pr-1 text-green-400"> - </span>
           {t("guest_details")}
           <span className="inline-flex items-center ml-2">
             <StatusIndicator status={selectedGuest.guest_status} />
@@ -257,6 +280,17 @@ const GuestDetails = () => {
             {selectedGuest.payment_status || "N/A"}
           </p>
         </div>
+      </div>
+
+      <div className="flex justify-end pt-20">
+        <button
+          type="button"
+          onClick={handleDeleteGuest}
+          className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        >
+          <CgMathMinus className="-ml-1 mr-1.5 size-4 text-red-400" />
+          Delete Guest
+        </button>
       </div>
     </AnimatedPage>
   );
