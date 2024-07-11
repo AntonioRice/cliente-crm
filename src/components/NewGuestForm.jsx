@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import { CgMathPlus } from "react-icons/cg";
-import { useGuestContext } from "../context/GuestProvider";
 import { useTranslation } from "react-i18next";
-import AddGuestToParty from "./AddGuestToParty";
-import MultiSelectDropdown from "./MultiSelectDropdown";
-import LoadingComponent from "./LoadingComponent";
-import AnimatedPage from "./AnimatedPage";
-import Pill from "../components/Pill";
+import { v4 as uuidv4 } from "uuid";
+import { useGuestContext } from "../context";
+import { AnimatedPage, AddGuestToParty, MultiSelectDropdown, LoadingComponent, Pill } from "../components";
 import { formatDateTime } from "../utils/standardMethods";
+import { CgMathPlus } from "react-icons/cg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -247,8 +243,8 @@ const NewGuestForm = ({ submitRef }) => {
                 <span className="text-green-400"> - </span>
                 {t("primary_guest")}
               </h1>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/4 px-3 md:mb-0">
+              <div className="flex flex-wrap mb-6 -mx-3">
+                <div className="w-full px-3 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -262,9 +258,9 @@ const NewGuestForm = ({ submitRef }) => {
                     onBlur={handleBlur}
                     required
                   />
-                  {isFieldInvalid("first_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+                  {isFieldInvalid("first_name") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -278,9 +274,9 @@ const NewGuestForm = ({ submitRef }) => {
                     onBlur={handleBlur}
                     required
                   />
-                  {isFieldInvalid("last_name") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+                  {isFieldInvalid("last_name") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("dob")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -295,10 +291,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("date_of_birth") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("nationality")}
                   </label>
@@ -314,11 +310,11 @@ const NewGuestForm = ({ submitRef }) => {
                     onBlur={handleBlur}
                     required
                   />
-                  {isFieldInvalid("nationality") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+                  {isFieldInvalid("nationality") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
                 </div>
               </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <div className="flex flex-wrap mb-6 -mx-3">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("city")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -334,10 +330,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("city", "address") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("state")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -353,10 +349,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("state", "address") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("postal_code")}
                   </label>
@@ -374,10 +370,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("postal_code", "address") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("country")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -393,12 +389,12 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("country", "address") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
               </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="flex flex-wrap mb-6 -mx-3">
+                <div className="w-full px-3 mb-6 md:w-1/2 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("identification_number")}
                   </label>
@@ -415,10 +411,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("identification_number") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -432,9 +428,9 @@ const NewGuestForm = ({ submitRef }) => {
                     onBlur={handleBlur}
                     required
                   />
-                  {isFieldInvalid("email") && <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>}
+                  {isFieldInvalid("email") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("phone_number")}
                   </label>
@@ -451,7 +447,7 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("phone_number") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
               </div>
@@ -459,8 +455,8 @@ const NewGuestForm = ({ submitRef }) => {
                 <span className="text-green-400"> - </span>
                 {t("emergency_contact")}
               </h1>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <div className="flex flex-wrap mb-6 -mx-3">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -476,10 +472,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("first_name", "emergency_contact") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -495,10 +491,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("last_name", "emergency_contact") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("phone_number")}
                   </label>
@@ -516,11 +512,11 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("phone_number", "emergency_contact") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
               </div>
-              <div className="border-t dark:border-gray-600 pt-4 px-4">
+              <div className="px-4 pt-4 border-t dark:border-gray-600">
                 {registrationData.guests.map((guest, i) => (
                   <div key={guest.id}>
                     <h2 className="pb-2 text-white">
@@ -538,7 +534,7 @@ const NewGuestForm = ({ submitRef }) => {
                 <button
                   type="button"
                   onClick={addGuestToParty}
-                  className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                  className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                 >
                   <CgMathPlus className="-ml-1 mr-1.5 size-4 text-green-400" />
                   {t("add_guest")}
@@ -549,8 +545,8 @@ const NewGuestForm = ({ submitRef }) => {
                 <span className="text-green-400"> - </span>
                 {t("vehicle_information")}
               </h1>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <div className="flex flex-wrap mb-6 -mx-3">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("make")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
@@ -562,7 +558,7 @@ const NewGuestForm = ({ submitRef }) => {
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("model")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
@@ -574,12 +570,12 @@ const NewGuestForm = ({ submitRef }) => {
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("plate_number")}
                   </label>
                   <input
-                    className="appearance-none block w-full bg-gray-200 border text-black border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    className="block w-full px-4 py-2 mb-3 leading-tight text-black bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
                     data-group="vehicle"
                     data-field="plate_number"
                     type="text"
@@ -594,11 +590,11 @@ const NewGuestForm = ({ submitRef }) => {
                 <span className="text-green-400"> - </span>
                 {t("room_information")}
               </h1>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col justify-center py-2">
+              <div className="flex flex-wrap mb-6 -mx-3">
+                <div className="flex flex-col justify-center w-full px-3 py-2 mb-6 md:w-1/4 md:mb-0">
                   <MultiSelectDropdown onRoomSelectionChange={handleRoomsChange} />
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-1">{t("rooms")}</label>
                   <div
                     className={`border rounded-lg p-2 min-h-12 items-center flex-wrap bg-gray-200  ${
@@ -610,22 +606,22 @@ const NewGuestForm = ({ submitRef }) => {
                     ))}
                   </div>
                   {!registrationData.room_numbers.length > 0 && (
-                    <p className="text-red-500 text-xs italic pt-1">{t("room_warning")}</p>
+                    <p className="pt-1 text-xs italic text-red-500">{t("room_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col">
+                <div className="flex flex-col w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_in")}</label>
                   <DatePicker
-                    className="appearance-none min-h-12 flex items-center w-full -mt-1 py-2 px-4 text-sm font-medium focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-100 text-black leading-tight focus:bg-white"
+                    className="flex items-center w-full px-4 py-2 -mt-1 text-sm font-medium leading-tight text-black bg-gray-200 border border-gray-200 rounded-lg appearance-none min-h-12 focus:outline-none hover:bg-gray-100 focus:bg-white"
                     id="check_in"
                     selected={registrationData.check_in}
                     onChange={(date) => handleDateChange("check_in", date)}
                   />
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 flex flex-col">
+                <div className="flex flex-col w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_out")}</label>
                   <DatePicker
-                    className="appearance-none min-h-12 flex items-center w-full -mt-1 py-2 px-4 text-sm font-medium focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-100 text-black leading-tight focus:bg-white"
+                    className="flex items-center w-full px-4 py-2 -mt-1 text-sm font-medium leading-tight text-black bg-gray-200 border border-gray-200 rounded-lg appearance-none min-h-12 focus:outline-none hover:bg-gray-100 focus:bg-white"
                     id="check_out"
                     startDate={new Date()}
                     selected={registrationData.check_out}
@@ -638,8 +634,8 @@ const NewGuestForm = ({ submitRef }) => {
                 <span className="text-green-400"> - </span>
                 {t("payment_information")}
               </h1>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 relative">
+              <div className="flex flex-wrap mb-6 -mx-3">
+                <div className="relative w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("payment_method")}
                   </label>
@@ -656,7 +652,7 @@ const NewGuestForm = ({ submitRef }) => {
                     <option
                       value=""
                       disabled
-                      className="text-gray-700 border-gray-200 rounded leading-tight focus:outline-none focus:bg-white"
+                      className="leading-tight text-gray-700 border-gray-200 rounded focus:outline-none focus:bg-white"
                     >
                       {t("payment_selection")}
                     </option>
@@ -664,13 +660,13 @@ const NewGuestForm = ({ submitRef }) => {
                       <option key={i}>{method}</option>
                     ))}
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center px-2 text-gray-700">
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <div className="absolute inset-y-0 flex items-center px-2 text-gray-700 pointer-events-none right-3">
+                    <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </div>
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("total")}</label>
                   <input
                     className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -685,10 +681,10 @@ const NewGuestForm = ({ submitRef }) => {
                     required
                   />
                   {isFieldInvalid("total_amount") && (
-                    <p className="text-red-500 text-xs italic">{t("entry_warning")}</p>
+                    <p className="text-xs italic text-red-500">{t("entry_warning")}</p>
                   )}
                 </div>
-                <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0 relative">
+                <div className="relative w-full px-3 mb-6 md:w-1/4 md:mb-0">
                   <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
                     {t("payment_status")}
                   </label>
@@ -705,7 +701,7 @@ const NewGuestForm = ({ submitRef }) => {
                     <option
                       value=""
                       disabled
-                      className="text-gray-700 border-gray-200 rounded leading-tight focus:outline-none focus:bg-white"
+                      className="leading-tight text-gray-700 border-gray-200 rounded focus:outline-none focus:bg-white"
                     >
                       {t("payment_status")}
                     </option>
@@ -713,8 +709,8 @@ const NewGuestForm = ({ submitRef }) => {
                       <option key={i}>{status}</option>
                     ))}
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center px-2 text-gray-700">
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <div className="absolute inset-y-0 flex items-center px-2 text-gray-700 pointer-events-none right-3">
+                    <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </div>
