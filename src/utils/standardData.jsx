@@ -14,10 +14,10 @@ import {
   VenezuelaFlag,
 } from "./flags";
 
-const getDataUtil = () => {
+export const months = () => {
   const { t } = useTranslation();
 
-  const months = [
+  return [
     t("months.january"),
     t("months.february"),
     t("months.march"),
@@ -31,8 +31,11 @@ const getDataUtil = () => {
     t("months.november"),
     t("months.december"),
   ];
+};
 
-  const daysOfWeek = [
+export const daysOfWeek = () => {
+  const { t } = useTranslation();
+  return [
     t("daysOfWeek.sun"),
     t("daysOfWeek.mon"),
     t("daysOfWeek.tue"),
@@ -41,8 +44,10 @@ const getDataUtil = () => {
     t("daysOfWeek.fri"),
     t("daysOfWeek.sat"),
   ];
+};
 
-  const countries = [
+export const countries = () => {
+  return [
     { name: "Argentina", code: "+54", flag: <ArgentinaFlag /> },
     { name: "Bolivia", code: "+591", flag: <BoliviaFlag /> },
     { name: "Brazil", code: "+55", flag: <BrazilFlag /> },
@@ -56,7 +61,4 @@ const getDataUtil = () => {
     { name: "Uruguay", code: "+598", flag: <UruguayFlag /> },
     { name: "Venezuela", code: "+58", flag: <VenezuelaFlag /> },
   ];
-  return { months, daysOfWeek, countries };
 };
-
-export default getDataUtil;

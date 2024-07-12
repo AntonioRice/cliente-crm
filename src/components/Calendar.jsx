@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import getDataUtil from "../utils/dataUtil";
+import { months, daysOfWeek } from "../utils/standardData";
 
 const Calendar = ({ reservations }) => {
-  const { months, daysOfWeek } = getDataUtil();
   const { t } = useTranslation();
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -44,7 +43,7 @@ const Calendar = ({ reservations }) => {
         <h1 className="mb-4 text-2xl font-bold">{t("calendar")}</h1>
         <div className="flex mb-4 space-x-2">
           <select value={month} onChange={handleMonthChange} className="p-2 bg-gray-700 rounded-md">
-            {months.map((monthName, index) => (
+            {months().map((monthName, index) => (
               <option key={index} value={index}>
                 {monthName}
               </option>
@@ -62,7 +61,7 @@ const Calendar = ({ reservations }) => {
       </div>
 
       <div className="grid grid-cols-7 gap-1">
-        {daysOfWeek.map((day) => (
+        {daysOfWeek().map((day) => (
           <div key={day} className="p-2 font-bold text-center bg-gray-700 rounded-md">
             {day}
           </div>

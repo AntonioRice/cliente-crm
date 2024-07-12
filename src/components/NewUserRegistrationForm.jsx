@@ -3,16 +3,15 @@ import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../context";
 import { FaUser } from "react-icons/fa";
 import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
-import getDataUtil from "../utils/dataUtil";
+import { countries } from "../utils/standardData";
 import { formatPhoneNumber } from "../utils/standardMethods";
 
 const NewUserRegistrationForm = ({ onComplete }) => {
   const { t } = useTranslation();
-  const { countries } = getDataUtil();
   const { completeRegistration } = useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(countries[5]);
+  const [selectedCountry, setSelectedCountry] = useState(countries()[5]);
   const [formData, setFormData] = useState({
     password: "",
     first_name: "",
@@ -160,7 +159,7 @@ const NewUserRegistrationForm = ({ onComplete }) => {
                 <div className="overflow-auto rounded-lg ">
                   <div className="rounded-lg max-h-52">
                     <ul className="py-1">
-                      {countries.map((country) => (
+                      {countries().map((country) => (
                         <li key={country.code}>
                           <button
                             type="button"
