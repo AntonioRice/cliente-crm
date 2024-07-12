@@ -1,8 +1,28 @@
-# React + Vite
+# Cliente
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to Cliente, a guest management platform for small hotels in South America. I invite you to explore what our SaaS product has to offer.
 
-Currently, two official plugins are available:
+Link: Coming Soon!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Built With
+
+Frontend:
+
+- Javascript
+- React
+- Tailwind Css
+
+Backend:
+
+- [cliente-crm-api](https://github.com/AntonioRice/cliente-crm-api)
+
+Deployment:
+
+- Github Actions
+- Docker
+- AWS EC2
+- AWS CloudFront
+
+## Creator and Developer
+
+- [Antonio Rice](https://www.antoniorice.com)

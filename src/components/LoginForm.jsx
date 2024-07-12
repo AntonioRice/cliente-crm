@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaUser } from "react-icons/fa";
 import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
