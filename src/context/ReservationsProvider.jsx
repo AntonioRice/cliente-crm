@@ -7,6 +7,7 @@ export const useReservationsContext = () => useContext(ReservationsContext);
 
 export const ReservationsProvider = ({ children }) => {
   const [reservationsAnalytics, setReservationsAnalytics] = useState([]);
+  const [selectedReservation, setSelectedReservation] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchReservationsAnalytics = async () => {
@@ -23,7 +24,15 @@ export const ReservationsProvider = ({ children }) => {
 
   return (
     <ReservationsContext.Provider
-      value={{ fetchReservationsAnalytics, reservationsAnalytics, setReservationsAnalytics, loading, setLoading }}
+      value={{
+        fetchReservationsAnalytics,
+        reservationsAnalytics,
+        setReservationsAnalytics,
+        selectedReservation,
+        setSelectedReservation,
+        loading,
+        setLoading,
+      }}
     >
       {children}
     </ReservationsContext.Provider>

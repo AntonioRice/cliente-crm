@@ -81,7 +81,6 @@ const Dashboard = () => {
   const previousWeekData =
     reservationsAnalytics[moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD")] || [];
   const delta = calculateDelta(currentWeekData, previousWeekData);
-
   const getWeekData = (weekStart) => {
     const start = moment(weekStart);
     const weekData = Array(7).fill(0);
@@ -105,7 +104,7 @@ const Dashboard = () => {
   const columns = [
     { header: "First Name", key: "first_name" },
     { header: "Last Name", key: "last_name" },
-    { header: "Room(s)", key: "room_numbers" },
+    { header: "Room Number(s)", key: "room_numbers" },
     { header: "Check-in", key: "check_in" },
     { header: "Check-Out", key: "check_out" },
     { header: "Status", key: "guest_status" },

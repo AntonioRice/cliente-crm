@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import { months, daysOfWeek } from "../utils/standardData";
 
 const Calendar = ({ reservations }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { setSelectedReservation } = useReservationsContext();
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   const [dates, setDates] = useState([]);
@@ -28,8 +32,9 @@ const Calendar = ({ reservations }) => {
     setYear(parseInt(e.target.value));
   };
 
-  const handleReservationClick = (reservation_id) => {
-    // Implement navigation to reservation details
+  const handleReservationOnClick = (reservation) => {
+    setSelectedReservation(reservation);
+    navigate(`/reservations/details/${reservation.reservation_id}`);
   };
 
   const getReservationsForDate = (date) => {
@@ -37,6 +42,7 @@ const Calendar = ({ reservations }) => {
     return reservations.filter((res) => selectedDate >= res.check_in && selectedDate <= res.check_out);
   };
 
+  console.log(reservations);
   return (
     <div className="p-2">
       <div className="flex justify-between">
@@ -77,9 +83,9 @@ const Calendar = ({ reservations }) => {
                 <div
                   key={reservation.reservation_id}
                   className="bg-green-600 p-0.5 m-1 text-white text-xs cursor-pointer rounded-sm"
-                  onClick={() => handleReservationClick(reservation.reservation_id)}
+                  onClick={() => handleReservationOnClick(reservation)}
                 >
-                  <p className="px-1">{`Reservation ${reservation.reservation_id}`}</p>
+                  <p className="px-1">{`${reservation.primary_guest.last_name}: [ ${reservation.room_numbers} ]`}</p>
                 </div>
               ))}
             </div>

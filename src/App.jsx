@@ -1,6 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Layout, PrivateRoute } from "./components";
-import { Dashboard, Guests, GuestDetails, RegisterGuest, Reservations, Settings, Login } from "./pages";
+import {
+  Dashboard,
+  Guests,
+  GuestDetails,
+  GuestRegistration,
+  Reservations,
+  ReservationDetails,
+  Settings,
+  Login,
+} from "./pages";
 import { AuthProvider, GuestProvider, StateProvider, ReservationsProvider } from "./context";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -22,9 +31,10 @@ const router = createBrowserRouter([
       { path: "/", element: <Dashboard /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "guests", element: <Guests /> },
-      { path: "guests/register", element: <RegisterGuest /> },
+      { path: "guests/register", element: <GuestRegistration /> },
       { path: "guests/details/:id", element: <GuestDetails /> },
       { path: "reservations", element: <Reservations /> },
+      { path: "reservations/details/:id", element: <ReservationDetails /> },
       { path: "settings", element: <Settings /> },
     ],
   },

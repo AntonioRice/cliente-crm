@@ -42,7 +42,7 @@ const initialNewReservationData = {
   check_out: defaultCheckOutDate,
 };
 
-const RegisterGuest = () => {
+const GuestRegistration = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [showNewReservationForm, setShowNewReservationForm] = useState(false);
@@ -243,4 +243,4 @@ const RegisterGuest = () => {
   );
 };
 
-export default RegisterGuest;
+export default GuestRegistration;
