@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext, useStateContext } from "../context";
 import { SlCalender } from "react-icons/sl";
 import { CiSettings } from "react-icons/ci";
@@ -12,6 +12,17 @@ const Sidebar = () => {
   const { user, logout } = useAuthContext();
   const { activeSideBar } = useStateContext();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const getActiveClass = (path) => {
+    return location.pathname.startsWith(path) ? "bg-gray-700 rounded-lg" : "";
+  };
+
+  const sidebarItems = [
+    { path: "/dashboard", label: t("dashboard"), icon: <RxDashboard size={20} /> },
+    { path: "/guests", label: t("guests"), icon: <IoPeople size={20} /> },
+    { path: "/reservations", label: t("reservations"), icon: <SlCalender size={20} /> },
+  ];
 
   return (
     <aside
@@ -24,41 +35,25 @@ const Sidebar = () => {
       </div>
       <div className="h-full px-3 py-4 overflow-y-auto bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <ul className="space-y-2 font-extralight">
-          <li className="p-5 ">
+          <li className="p-5">
             <p className="flex justify-center text-xs text-gray-400 ms-3">
               {t("welcome")}, {user.first_name}
             </p>
           </li>
-          <li>
-            <button
-              onClick={() => navigate("/dashboard")}
-              className="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <RxDashboard size={20} />
-              <span className="text-sm ms-3 whitespace-nowrap">{t("dashboard")}</span>
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => navigate("/guests")}
-              className="w-full flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <IoPeople size={20} />
-              <span className="text-sm ms-3 whitespace-nowrap">{t("guests")}</span>
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => navigate("/reservations")}
-              className="w-full flex items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <SlCalender size={20} />
-              <span className="text-sm ms-3 whitespace-nowrap">{t("reservations")}</span>
-            </button>
-          </li>
+          {sidebarItems.map((item) => (
+            <li key={item.path} className={getActiveClass(item.path)}>
+              <button
+                onClick={() => navigate(item.path)}
+                className="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                {item.icon}
+                <span className="text-sm ms-3 whitespace-nowrap">{item.label}</span>
+              </button>
+            </li>
+          ))}
           <div className="fixed bottom-0 flex justify-between w-full pb-2">
             <ul className="flex flex-row space-x-2">
-              <li>
+              <li className={getActiveClass("/settings")}>
                 <a
                   href="/settings"
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
