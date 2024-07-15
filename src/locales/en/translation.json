@@ -78,6 +78,7 @@
   "register": "Register",
   "registration": "Registration",
   "reservations": "Reservations",
+  "reservation_details": "Reservation Details",
   "remove_reservation": "Remove Reservation",
   "room_information": "Room Information",
   "room_warning": "Please Select at least 1 Room.",
