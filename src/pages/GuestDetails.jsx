@@ -1,41 +1,46 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { CgMathMinus } from "react-icons/cg";
 import { useTranslation } from "react-i18next";
-import { useGuestContext } from "../context";
+import { useGuestContext, useReservationsContext } from "../context";
 import { AnimatedPage, LoadingComponent, StatusIndicator } from "../components";
 import { formatDateTime } from "../utils/standardMethods";
 
 const GuestDetails = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { selectedGuest, setSelectedGuest } = useGuestContext();
+  const { selectedReservation, setSelectedReservation } = useReservationsContext();
   const [loading, setLoading] = useState(false);
-  const [guest, setGuest] = useState(selectedGuest);
 
   useEffect(() => {
-    if (!selectedGuest) {
-      const fetchGuest = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3015/api/v1/guests/${id}`);
-          if (response.data.data.guest) {
-            setGuest(response.data.data.guest);
-            setSelectedGuest(response.data.data.guest);
-            setLoading(false);
-          } else {
-            setLoading(false);
+    const fetchGuestAndReservations = async () => {
+      try {
+        setLoading(true);
+        const guestResponse = await axios.get(`http://localhost:3015/api/v1/guests/${id}`);
+        if (guestResponse.data.data) {
+          setSelectedGuest(guestResponse.data.data);
+
+          const reservationsResponse = await axios.get(`http://localhost:3015/api/v1/guests/${id}/reservations`);
+          if (reservationsResponse.data.data) {
+            setSelectedReservation(reservationsResponse.data.data);
           }
-        } catch (error) {
-          console.error("Error fetching guest data:", error);
-          setLoading(false);
         }
-      };
-      fetchGuest();
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching guest data:", error);
+        setLoading(false);
+      }
+    };
+
+    if (!selectedGuest) {
+      fetchGuestAndReservations();
     } else {
       setLoading(false);
     }
-  }, [id, selectedGuest, setSelectedGuest]);
+  }, [id, setSelectedGuest, setSelectedReservation]);
 
   const handleDeleteGuest = async () => {
     try {
@@ -48,11 +53,15 @@ const GuestDetails = () => {
     }
   };
 
+  const handleNavigation = (id) => {
+    navigate(`/reservations/details/${id}`);
+  };
+
   if (loading) {
     return <LoadingComponent />;
   }
 
-  if (!guest) {
+  if (!selectedGuest) {
     return <div>Guest Not Found</div>;
   }
 
@@ -63,7 +72,7 @@ const GuestDetails = () => {
           <span className="pr-1 text-green-400"> - </span>
           {t("guest_details")}
           <span className="inline-flex items-center ml-2">
-            <StatusIndicator status={selectedGuest.guest_status} />
+            <StatusIndicator status={selectedReservation.guest_status} />
           </span>
         </h1>
       </div>
@@ -225,60 +234,66 @@ const GuestDetails = () => {
           </p>
         </div>
       </div>
+
       <div className="py-5">
         <h1>
           <span className="text-green-400"> - </span>
           {t("current_reservation")}
         </h1>
       </div>
-      <div className="grid md:grid-cols-6 md:gap-6">
-        <div className="relative z-0 w-full mb-5 group">
-          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            {t("rooms")}
-          </label>
-          <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.room_numbers || "N/A"}
-          </p>
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            {t("check_in")}
-          </label>
-          <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {formatDateTime(selectedGuest.check_in) || "N/A"}
-          </p>
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            {t("check_out")}
-          </label>
-          <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {formatDateTime(selectedGuest.check_out) || "N/A"}
-          </p>
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            {t("total")}
-          </label>
-          <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.total_amount || "N/A"}
-          </p>
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            {t("payment_method")}
-          </label>
-          <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.payment_method || "N/A"}
-          </p>
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-            {t("payment_status")}
-          </label>
-          <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-            {selectedGuest.payment_status || "N/A"}
-          </p>
+      <div
+        className="p-4 pt-8 bg-gray-700 bg-opacity-50 rounded-lg hover:cursor-pointer hover:bg-opacity-100"
+        onClick={() => handleNavigation(selectedReservation.reservation_id)}
+      >
+        <div className="grid items-center md:grid-cols-6 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+              {t("rooms")}
+            </label>
+            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+              {selectedReservation.room_numbers || "N/A"}
+            </p>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+              {t("check_in")}
+            </label>
+            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+              {formatDateTime(selectedReservation.check_in) || "N/A"}
+            </p>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+              {t("check_out")}
+            </label>
+            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+              {formatDateTime(selectedReservation.check_out) || "N/A"}
+            </p>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+              {t("total")}
+            </label>
+            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+              {selectedReservation.total_amount || "N/A"}
+            </p>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+              {t("payment_method")}
+            </label>
+            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+              {selectedReservation.payment_method || "N/A"}
+            </p>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+              {t("payment_status")}
+            </label>
+            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+              {selectedReservation.payment_status || "N/A"}
+            </p>
+          </div>
         </div>
       </div>
 
