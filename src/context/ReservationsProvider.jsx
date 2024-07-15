@@ -22,6 +22,10 @@ export const ReservationsProvider = ({ children }) => {
     }
   };
 
+  const clearReservation = () => {
+    setSelectedReservation(null);
+  };
+
   return (
     <ReservationsContext.Provider
       value={{
@@ -32,6 +36,7 @@ export const ReservationsProvider = ({ children }) => {
         setSelectedReservation,
         loading,
         setLoading,
+        clearReservation,
       }}
     >
       {children}

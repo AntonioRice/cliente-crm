@@ -12,46 +12,65 @@ const GuestDetails = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { selectedGuest, setSelectedGuest } = useGuestContext();
-  const { selectedReservation, setSelectedReservation } = useReservationsContext();
-  const [loading, setLoading] = useState(false);
+  const { selectedReservation, setSelectedReservation, clearReservation } = useReservationsContext();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchGuestAndReservations = async () => {
+    const fetchGuest = async () => {
       try {
         setLoading(true);
         const guestResponse = await axios.get(`http://localhost:3015/api/v1/guests/${id}`);
         if (guestResponse.data.data) {
           setSelectedGuest(guestResponse.data.data);
-
-          const reservationsResponse = await axios.get(`http://localhost:3015/api/v1/guests/${id}/reservations`);
-          if (reservationsResponse.data.data) {
-            setSelectedReservation(reservationsResponse.data.data);
-          }
         }
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching guest data:", error);
         setLoading(false);
+        console.error("Error fetching guest data:", error);
       }
     };
 
     if (!selectedGuest) {
-      fetchGuestAndReservations();
+      fetchGuest();
     } else {
       setLoading(false);
     }
-  }, [id, setSelectedGuest, setSelectedReservation]);
+  }, [id, selectedGuest, setSelectedGuest]);
 
-  const handleDeleteGuest = async () => {
-    try {
-      setLoading(true);
-      await axios.delete(`http://localhost:3015/api/v1/guests/${id}`);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log("Error deleting guest:", error);
-    }
-  };
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        setLoading(true);
+        const reservationsResponse = await axios.get(`http://localhost:3015/api/v1/guests/${id}/reservations`);
+        if (reservationsResponse.data.data) {
+          setSelectedReservation(reservationsResponse.data.data);
+        }
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Error fetching reservation data:", error);
+      }
+    };
+
+    fetchReservations();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      clearReservation();
+    };
+  }, []);
+
+  // const handleDeleteGuest = async () => {
+  //   try {
+  //     setLoading(true);
+  //     await axios.delete(`http://localhost:3015/api/v1/guests/${id}`);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log("Error deleting guest:", error);
+  //   }
+  // };
 
   const handleNavigation = (id) => {
     navigate(`/reservations/details/${id}`);
@@ -72,7 +91,7 @@ const GuestDetails = () => {
           <span className="pr-1 text-green-400"> - </span>
           {t("guest_details")}
           <span className="inline-flex items-center ml-2">
-            <StatusIndicator status={selectedReservation.guest_status} />
+            <StatusIndicator status={selectedGuest.guest_status} />
           </span>
         </h1>
       </div>
@@ -235,69 +254,72 @@ const GuestDetails = () => {
         </div>
       </div>
 
-      <div className="py-5">
-        <h1>
-          <span className="text-green-400"> - </span>
-          {t("current_reservation")}
-        </h1>
-      </div>
-      <div
-        className="p-4 pt-8 bg-gray-700 bg-opacity-50 rounded-lg hover:cursor-pointer hover:bg-opacity-100"
-        onClick={() => handleNavigation(selectedReservation.reservation_id)}
-      >
-        <div className="grid items-center md:grid-cols-6 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-              {t("rooms")}
-            </label>
-            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-              {selectedReservation.room_numbers || "N/A"}
-            </p>
+      {selectedReservation && (
+        <div>
+          <div className="py-5">
+            <h1>
+              <span className="text-green-400"> - </span>
+              {t("current_reservation")}
+            </h1>
           </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-              {t("check_in")}
-            </label>
-            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-              {formatDateTime(selectedReservation.check_in) || "N/A"}
-            </p>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-              {t("check_out")}
-            </label>
-            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-              {formatDateTime(selectedReservation.check_out) || "N/A"}
-            </p>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-              {t("total")}
-            </label>
-            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-              {selectedReservation.total_amount || "N/A"}
-            </p>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-              {t("payment_method")}
-            </label>
-            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-              {selectedReservation.payment_method || "N/A"}
-            </p>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-              {t("payment_status")}
-            </label>
-            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-              {selectedReservation.payment_status || "N/A"}
-            </p>
+          <div
+            className="p-4 pt-8 bg-gray-700 bg-opacity-50 rounded-lg hover:cursor-pointer hover:bg-opacity-100"
+            onClick={() => handleNavigation(selectedReservation.reservation_id)}
+          >
+            <div className="grid items-center md:grid-cols-6 md:gap-6">
+              <div className="relative z-0 w-full mb-5 group">
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                  {t("rooms")}
+                </label>
+                <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                  {selectedReservation.room_numbers || "N/A"}
+                </p>
+              </div>
+              <div className="relative z-0 w-full mb-5 group">
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                  {t("check_in")}
+                </label>
+                <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                  {formatDateTime(selectedReservation.check_in) || "N/A"}
+                </p>
+              </div>
+              <div className="relative z-0 w-full mb-5 group">
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                  {t("check_out")}
+                </label>
+                <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                  {formatDateTime(selectedReservation.check_out) || "N/A"}
+                </p>
+              </div>
+              <div className="relative z-0 w-full mb-5 group">
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                  {t("total")}
+                </label>
+                <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                  {selectedReservation.total_amount || "N/A"}
+                </p>
+              </div>
+              <div className="relative z-0 w-full mb-5 group">
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                  {t("payment_method")}
+                </label>
+                <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                  {selectedReservation.payment_method || "N/A"}
+                </p>
+              </div>
+              <div className="relative z-0 w-full mb-5 group">
+                <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                  {t("payment_status")}
+                </label>
+                <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                  {selectedReservation.payment_status || "N/A"}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="flex justify-end pt-20">
+      )}
+      {/* <div className="flex justify-end pt-20">
         <button
           type="button"
           onClick={handleDeleteGuest}
@@ -306,7 +328,7 @@ const GuestDetails = () => {
           <CgMathMinus className="-ml-1 mr-1.5 size-4 text-red-400" />
           Delete Guest
         </button>
-      </div>
+      </div> */}
     </AnimatedPage>
   );
 };

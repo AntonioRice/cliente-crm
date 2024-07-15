@@ -26,6 +26,7 @@ const Guests = () => {
       const response = await axios.get("http://localhost:3015/api/v1/guests", {
         params: { page, limit: 10, sortKey, sortDirection },
       });
+
       setAllGuests(response.data.data);
       setTotalPages(response.data.meta.totalPages);
       setCurrentPage(response.data.meta.currentPage);

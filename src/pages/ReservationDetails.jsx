@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { CgMathMinus } from "react-icons/cg";
 import { useTranslation } from "react-i18next";
 import { useReservationsContext } from "../context";
@@ -10,50 +10,49 @@ import { formatDateTime } from "../utils/standardMethods";
 const ReservationDetails = () => {
   const { id } = useParams();
   const { t } = useTranslation();
-  const { selectedReservation, setSelectedReservation } = useReservationsContext();
+  const { selectedReservation, setSelectedReservation, clearReservation } = useReservationsContext();
   const [loading, setLoading] = useState(false);
-  const [reservation, setReservation] = useState(selectedReservation);
 
   useEffect(() => {
-    if (!selectedReservation) {
-      const fetchReservation = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3015/api/v1/reservations/${id}`);
-
-          if (response.data.data) {
-            setReservation(response.data.data);
-            setSelectedReservation(response.data.data);
-            setLoading(false);
-          } else {
-            setLoading(false);
-          }
-        } catch (error) {
-          console.error("Error fetching reservation data:", error);
-          setLoading(false);
+    const fetchReservation = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`http://localhost:3015/api/v1/reservations/${id}`);
+        if (response.data.data) {
+          setSelectedReservation(response.data.data);
         }
-      };
-      fetchReservation();
-    } else {
-      setLoading(false);
-    }
-  }, [id, selectedReservation, setSelectedReservation]);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching reservation data:", error);
+        setLoading(false);
+      }
+    };
 
-  const handleDeleteReservation = async () => {
-    try {
-      setLoading(true);
-      await axios.delete(`http://localhost:3015/api/v1/reservation/${id}`);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log("Error deleting guest:", error);
-    }
-  };
+    fetchReservation();
+  }, [id, setSelectedReservation]);
+
+  useEffect(() => {
+    return () => {
+      clearReservation();
+    };
+  }, []);
+
+  // const handleDeleteReservation = async () => {
+  //   try {
+  //     setLoading(true);
+  //     await axios.delete(`http://localhost:3015/api/v1/reservation/${id}`);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log("Error deleting reservation:", error);
+  //   }
+  // };
 
   if (loading) {
     return <LoadingComponent />;
   }
 
-  if (!reservation) {
+  if (!selectedReservation) {
     return <div>Reservation Not Found</div>;
   }
 
@@ -119,7 +118,7 @@ const ReservationDetails = () => {
         </div>
       </div>
 
-      <div className="flex justify-end pt-20">
+      {/* <div className="flex justify-end pt-20">
         <button
           type="button"
           onClick={handleDeleteReservation}
@@ -128,7 +127,7 @@ const ReservationDetails = () => {
           <CgMathMinus className="-ml-1 mr-1.5 size-4 text-red-400" />
           Delete Reservation
         </button>
-      </div>
+      </div> */}
     </AnimatedPage>
   );
 };
