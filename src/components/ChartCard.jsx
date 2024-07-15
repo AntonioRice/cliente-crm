@@ -1,12 +1,16 @@
 import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoTrendingUpOutline, IoTrendingDownOutline, IoArrowForwardOutline } from "react-icons/io5";
 
-const ChartCard = ({ title, week, value, description, bgColor, handlePrevWeek, handleNextWeek, delta }) => {
+const ChartCard = ({ title, week, value, description, handlePrevWeek, handleNextWeek, delta }) => {
+  let bgColor = "bg-gray-800";
   let TrendingIcon;
+
   if (parseFloat(delta) > 0) {
     TrendingIcon = IoTrendingUpOutline;
+    bgColor = "bg-green-400";
   } else if (parseFloat(delta) < 0) {
     TrendingIcon = IoTrendingDownOutline;
+    bgColor = "bg-red-400";
   } else {
     TrendingIcon = IoArrowForwardOutline;
   }
