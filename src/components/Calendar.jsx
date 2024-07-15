@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import { months, daysOfWeek } from "../utils/standardData";
+import PropTypes from "prop-types";
 
 const Calendar = ({ reservations }) => {
   const { t } = useTranslation();
@@ -94,6 +95,20 @@ const Calendar = ({ reservations }) => {
       </div>
     </div>
   );
+};
+
+Calendar.propTypes = {
+  reservations: PropTypes.arrayOf(
+    PropTypes.shape({
+      reservation_id: PropTypes.string.isRequired,
+      check_in: PropTypes.string.isRequired,
+      check_out: PropTypes.string.isRequired,
+      primary_guest: PropTypes.shape({
+        last_name: PropTypes.string.isRequired,
+      }).isRequired,
+      room_numbers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    })
+  ).isRequired,
 };
 
 export default Calendar;
