@@ -47,6 +47,7 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
         first_name: "",
         last_name: "",
         date_of_birth: "",
+        nationality: "",
         email: "",
         identification_number: "",
       };
@@ -137,16 +138,16 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
           />
         </div>
       </div>
-      <div className="px-4">
-        {newReservationData.guests.map((guest, i) => (
-          <div key={guest.id}>
-            <h2 className="pb-2 text-white">
-              {t("guest")} {i + 1}
-            </h2>
-            <AddGuestToParty guest={guest} updateGuest={updateGuest} removeGuestFromParty={removeGuestFromParty} />
-          </div>
-        ))}
-      </div>
+
+      {newReservationData.guests.map((guest, i) => (
+        <div key={guest.id}>
+          <h2 className="pb-2 mx-8 text-white">
+            {t("guest")} {i + 1}
+          </h2>
+          <AddGuestToParty guest={guest} updateGuest={updateGuest} removeGuestFromParty={removeGuestFromParty} />
+        </div>
+      ))}
+
       <div className="flex justify-end mt-4">
         <button
           type="button"

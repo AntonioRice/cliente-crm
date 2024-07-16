@@ -1,5 +1,6 @@
 {
   "add_guest": "Add Guests",
+  "additional_guests": "Additional Guests",
   "calendar": "Calendar",
   "cancel": "Cancel",
   "check_in": "Check-In",
@@ -74,7 +75,7 @@
     "description": "Control basic preference settings",
     "title": "Preferences"
   },
-  "primary_guest": "Primary Guests",
+  "primary_guest": "Primary Guest",
   "register": "Register",
   "registration": "Registration",
   "reservations": "Reservations",

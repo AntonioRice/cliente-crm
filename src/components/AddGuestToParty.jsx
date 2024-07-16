@@ -29,8 +29,8 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
   };
 
   return (
-    <div className="flex flex-wrap mb-6 -mx-3">
-      <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
+    <div className="flex flex-row mx-5 mb-6">
+      <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
         <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("first_name")}</label>
         <input
           className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -47,7 +47,7 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
         />
         {isFieldInvalid("first_name") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
       </div>
-      <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
+      <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
         <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("last_name")}</label>
         <input
           className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -81,7 +81,24 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
         />
         {isFieldInvalid("date_of_birth") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
       </div>
-      <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
+      <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
+        <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("nationality")}</label>
+        <input
+          className={`appearance-none block w-full bg-gray-200 border text-black ${
+            isFieldInvalid("nationality") ? "border-red-500" : "border-gray-200"
+          } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+          id={`guests_${guest.id}_nationality`}
+          name="nationality"
+          type="text"
+          placeholder="Doe"
+          value={formData.nationality}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          required
+        />
+        {isFieldInvalid("nationality") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
+      </div>
+      <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
         <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
         <input
           className={`appearance-none block w-full bg-gray-200 border text-black ${
@@ -98,7 +115,7 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
         />
         {isFieldInvalid("email") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
       </div>
-      <div className="w-full px-3 mb-6 md:w-1/5 md:mb-0">
+      <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
         <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
           {t("identification_number")}
         </label>
@@ -117,7 +134,7 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
         />
         {isFieldInvalid("identification_number") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
       </div>
-      <div className="flex flex-row items-center justify-center">
+      <div className="relative flex flex-row items-center justify-center">
         <button
           title="Remove Guest"
           type="button"
