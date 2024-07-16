@@ -69,7 +69,7 @@
   "payment_status": "Status",
   "payment_status_selection": "Select Payment Status...",
   "phone_number": "Phone Number",
-  "plate_number": "plate_number",
+  "plate_number": "Plate Number",
   "postal_code": "Postal Code",
   "preferences": {
     "description": "Control basic preference settings",

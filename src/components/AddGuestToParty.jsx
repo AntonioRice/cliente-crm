@@ -90,7 +90,7 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
           id={`guests_${guest.id}_nationality`}
           name="nationality"
           type="text"
-          placeholder="Doe"
+          placeholder="Nationality"
           value={formData.nationality}
           onChange={handleInputChange}
           onBlur={handleBlur}

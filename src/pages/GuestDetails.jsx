@@ -87,8 +87,7 @@ const GuestDetails = () => {
   return (
     <AnimatedPage>
       <div className="pb-8">
-        <h1 className="inline-flex items-center">
-          <span className="pr-1 text-green-400"> - </span>
+        <h1 className="inline-flex items-center text-2xl font-semibold">
           {t("guest_details")}
           <span className="inline-flex items-center ml-2">
             <StatusIndicator status={selectedGuest.guest_status} />

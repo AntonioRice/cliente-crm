@@ -36,7 +36,7 @@ const initialNewReservationData = {
   payment_method: "",
   total_amount: "",
   payment_status: "",
-  guests: [],
+  additional_guests: [],
   room_numbers: [],
   check_in: defaultCheckInDate,
   check_out: defaultCheckOutDate,
@@ -53,6 +53,7 @@ const GuestRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (isFormValid()) {
       try {
         setLoading(true);
@@ -64,6 +65,7 @@ const GuestRegistration = () => {
             ...newReservationData,
             primary_guest_id: guestResponse.data.data.guest_id,
           };
+
           await axios.post(`http://localhost:3015/api/v1/reservations`, reservationData);
         }
 
@@ -97,7 +99,7 @@ const GuestRegistration = () => {
           room_numbers: true,
           check_in: true,
           check_out: true,
-          guests: true,
+          additional_guests: true,
         }));
       }
     }
@@ -157,10 +159,10 @@ const GuestRegistration = () => {
 
     if (showNewReservationForm) {
       const reservationValid = reservationFields.every((field) => newReservationData[field].toString().trim() !== "");
-      const guestsValid = newReservationData.guests.every((guest) =>
+      const additionalGuestsValid = newReservationData.additional_guests.every((guest) =>
         Object.values(guest).every((field) => field.toString().trim() !== "")
       );
-      return reservationValid && guestsValid && newReservationData.room_numbers.length > 0;
+      return reservationValid && additionalGuestsValid && newReservationData.room_numbers.length > 0;
     }
 
     return true;
@@ -172,7 +174,11 @@ const GuestRegistration = () => {
     if (group) {
       return touched[`${group}_${field}`] && (!newGuestData[group] || !newGuestData[group][field]);
     } else {
-      return touched[fieldName] && !newGuestData[fieldName];
+      if (newReservationData[fieldName]) {
+        return touched[fieldName] && !newReservationData[fieldName];
+      } else {
+        return touched[fieldName] && !newGuestData[fieldName];
+      }
     }
   };
 

@@ -14,7 +14,10 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
   useEffect(() => {
     setNewReservationData((prevData) => ({
       ...prevData,
-      guests: [...prevData.guests, ...additionalGuests.filter((g) => !prevData.guests.some((pg) => pg.id === g.id))],
+      additional_guests: [
+        ...prevData.additional_guests,
+        ...additionalGuests.filter((g) => !prevData.additional_guests.some((pg) => pg.id === g.id)),
+      ],
     }));
   }, [additionalGuests]);
 
@@ -53,17 +56,17 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
       };
       return {
         ...prevState,
-        guests: [...prevState.guests, newGuest],
+        additional_guests: [...prevState.additional_guests, newGuest],
       };
     });
   };
 
   const removeGuestFromParty = (id) => {
     setNewReservationData((prevState) => {
-      const updatedGuests = prevState.guests.filter((guest) => guest.id !== id);
+      const updatedGuests = prevState.additional_guests.filter((guest) => guest.id !== id);
       return {
         ...prevState,
-        guests: updatedGuests,
+        additional_guests: updatedGuests,
       };
     });
   };
@@ -71,7 +74,9 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
   const updateGuest = (updatedGuest) => {
     setNewReservationData((prevState) => ({
       ...prevState,
-      guests: prevState.guests.map((guest) => (guest.id === updatedGuest.id ? updatedGuest : guest)),
+      additional_guests: prevState.additional_guests.map((guest) =>
+        guest.id === updatedGuest.id ? updatedGuest : guest
+      ),
     }));
   };
 
@@ -139,7 +144,7 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
         </div>
       </div>
 
-      {newReservationData.guests.map((guest, i) => (
+      {newReservationData.additional_guests.map((guest, i) => (
         <div key={guest.id}>
           <h2 className="pb-2 mx-8 text-white">
             {t("guest")} {i + 1}
@@ -147,7 +152,6 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
           <AddGuestToParty guest={guest} updateGuest={updateGuest} removeGuestFromParty={removeGuestFromParty} />
         </div>
       ))}
-
       <div className="flex justify-end mt-4">
         <button
           type="button"
