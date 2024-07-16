@@ -19,4 +19,5 @@ export { default as StatusIndicator } from "./StatusIndicator";
 export { default as TableCard } from "./TableCard";
 export { default as AnimatedPage } from "./AnimatedPage";
 export { default as Layout } from "./Layout";
-export { default as PrivateRoute } from "./PrivateRoute";
+
+export { default as ProtectedRoute } from "./ProtectedRoute";

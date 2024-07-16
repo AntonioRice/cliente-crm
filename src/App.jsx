@@ -1,5 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Layout, PrivateRoute } from "./components";
+import { AuthProvider, GuestProvider, StateProvider, ReservationsProvider } from "./context";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import "./App.css";
+import { Layout, ProtectedRoute } from "./components";
 import {
   Dashboard,
   Guests,
@@ -9,11 +13,10 @@ import {
   ReservationDetails,
   Settings,
   Login,
+  Tenants,
+  TeamMembers,
+  Unauthorized,
 } from "./pages";
-import { AuthProvider, GuestProvider, StateProvider, ReservationsProvider } from "./context";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import "./App.css";
 
 const router = createBrowserRouter([
   {
@@ -21,14 +24,18 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/unauthorized",
+    element: <Unauthorized />,
+  },
+  {
     path: "/",
     element: (
-      <PrivateRoute>
+      <ProtectedRoute>
         <Layout />
-      </PrivateRoute>
+      </ProtectedRoute>
     ),
     children: [
-      { path: "/", element: <Dashboard /> },
+      { index: true, element: <Dashboard /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "guests", element: <Guests /> },
       { path: "guests/register", element: <GuestRegistration /> },
@@ -36,6 +43,22 @@ const router = createBrowserRouter([
       { path: "reservations", element: <Reservations /> },
       { path: "reservations/details/:id", element: <ReservationDetails /> },
       { path: "settings", element: <Settings /> },
+      {
+        path: "team-members",
+        element: (
+          <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
+            <TeamMembers />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "tenants",
+        element: (
+          <ProtectedRoute allowedRoles={["SuperAdmin"]}>
+            <Tenants />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);

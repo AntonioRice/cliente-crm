@@ -67,7 +67,7 @@ const Settings = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 border-b-[.5px] border-gray-700">
             <div className="md:col-span-1">
               <h1>{t("general.title")}</h1>
-              <p className="text-xs text-gray-600">{t("general.description")}</p>
+              <p className="text-xs text-gray-500">{t("general.description")}</p>
             </div>
             <div className="flex flex-col gap-6 md:col-span-2">
               <div className="flex flex-col w-full gap-3 md:flex-row">
@@ -125,7 +125,7 @@ const Settings = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 border-b-[.5px] border-gray-700">
             <div className="md:col-span-1">
               <h1>{t("preferences.title")}</h1>
-              <p className="text-xs text-gray-600">{t("preferences.description")}</p>
+              <p className="text-xs text-gray-500">{t("preferences.description")}</p>
             </div>
             <div className="flex flex-col md:col-span-2">
               <div className="flex flex-col gap-10 md:flex-row">
