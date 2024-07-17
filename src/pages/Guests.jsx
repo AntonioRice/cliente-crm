@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { AnimatedPage, TableCard, AddClientButton } from "../components";
+import { AnimatedPage, DataTable, AddClientButton } from "../components";
+import { useGuestContext } from "../context";
+import { useNavigate } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
 
 const Guests = () => {
   const [allGuests, setAllGuests] = useState([]);
@@ -9,6 +12,9 @@ const Guests = () => {
   const [totalGuests, setTotalGuests] = useState(0);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const { setSelectedGuest } = useGuestContext();
+  const navigate = useNavigate();
 
   const columns = [
     { header: "First Name", key: "first_name" },
@@ -19,12 +25,12 @@ const Guests = () => {
     { header: "Status", key: "guest_status" },
   ];
 
-  const fetchAllGuests = async (page = 1, sortKey = null, sortDirection = "asc") => {
+  const fetchAllGuests = async (page = 1, sortKey = null, sortDirection = "asc", search = "") => {
     if (isLoading) return;
     setIsLoading(true);
     try {
       const response = await axios.get("http://localhost:3015/api/v1/guests", {
-        params: { page, limit: 10, sortKey, sortDirection },
+        params: { page, limit: 10, sortKey, sortDirection, search },
       });
 
       setAllGuests(response.data.data);
@@ -39,8 +45,8 @@ const Guests = () => {
   };
 
   useEffect(() => {
-    fetchAllGuests(currentPage, sortConfig.key, sortConfig.direction);
-  }, [currentPage, sortConfig]);
+    fetchAllGuests(currentPage, sortConfig.key, sortConfig.direction, searchTerm);
+  }, [currentPage, sortConfig, searchTerm]);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -62,6 +68,37 @@ const Guests = () => {
     setSortConfig({ key, direction });
   };
 
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
+  const handleEditGuest = (guest) => {
+    setSelectedGuest(guest);
+    navigate(`/guests/details/${guest.guest_id}`);
+  };
+
+  const renderRow = (guest, index, editAction) => (
+    <tr
+      key={guest.id}
+      className="border-b-[1px] border-b-gray-500 hover:bg-gray-500 hover:text-white hover:cursor-pointer"
+      onClick={() => editAction(guest)}
+    >
+      {columns.map((col) => (
+        <td key={col.key} className="px-6 py-4">
+          {guest[col.key]}
+        </td>
+      ))}
+      {editAction && (
+        <td className="px-6 py-2 text-right">
+          <button className="font-medium">
+            <IoIosArrowForward />
+          </button>
+        </td>
+      )}
+    </tr>
+  );
+
   return (
     <AnimatedPage>
       <div className="flex items-center justify-between pb-4">
@@ -69,17 +106,21 @@ const Guests = () => {
         <AddClientButton />
       </div>
       <div className="h-full">
-        <TableCard
+        <DataTable
+          data={allGuests}
           columns={columns}
-          guests={allGuests}
-          title={"All Guests"}
+          title="All Guests"
           currentPage={currentPage}
           totalPages={totalPages}
-          totalGuests={totalGuests}
+          totalItems={totalGuests}
           handlePrevPage={handlePrevPage}
           handleNextPage={handleNextPage}
           handleSort={handleSort}
           sortConfig={sortConfig}
+          showSearch={true}
+          onSearch={handleSearch}
+          renderRow={renderRow}
+          editAction={handleEditGuest}
         />
       </div>
     </AnimatedPage>

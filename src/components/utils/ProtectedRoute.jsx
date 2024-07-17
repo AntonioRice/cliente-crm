@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../context";
-import { Unauthorized } from "../pages";
+import { useAuthContext } from "../../context";
+import { Unauthorized } from "../../pages";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user } = useAuthContext();

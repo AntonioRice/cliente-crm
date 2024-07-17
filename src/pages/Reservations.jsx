@@ -11,7 +11,7 @@ const Reservations = () => {
         const response = await axios.get(`http://localhost:3015/api/v1/reservations`);
         setReservations(response.data.data);
       } catch (error) {
-        console.error("Error fetching guest data:", error);
+        console.error("Error fetching reservation data:", error);
       }
     };
     fetchReservations();

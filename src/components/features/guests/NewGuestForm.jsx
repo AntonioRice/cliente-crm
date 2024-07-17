@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useGuestContext } from "../context";
-import { AnimatedPage } from "../components";
-import { formatDateTime } from "../utils/standardMethods";
+import { useGuestContext } from "../../../context";
+import { AnimatedPage } from "../../../components";
+import { formatDateTime } from "../../../utils/standardMethods";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
 
 const NewGuestForm = ({

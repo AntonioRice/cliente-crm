@@ -258,7 +258,7 @@ const GuestDetails = () => {
           <div className="py-5">
             <h1>
               <span className="text-green-400"> - </span>
-              {t("current_reservation")}
+              {t("latest_reservation")}
             </h1>
           </div>
           <div
@@ -268,7 +268,7 @@ const GuestDetails = () => {
             <div className="grid items-center md:grid-cols-6 md:gap-6">
               <div className="relative z-0 w-full mb-5 group">
                 <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
-                  {t("rooms")}
+                  {t("room_numbers")}
                 </label>
                 <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
                   {selectedReservation.room_numbers || "N/A"}

@@ -1,20 +1,31 @@
 import { useEffect, useState } from "react";
-import { AnimatedPage, ChartCard, TableCard, AddClientButton, BarChart } from "../components";
+import { AnimatedPage, ChartCard, DataTable, AddClientButton, BarChart } from "../components";
 import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
 
 const Dashboard = () => {
-  const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage } =
-    useGuestContext();
+  const {
+    currentGuests,
+    fetchCurrentGuests,
+    currentPage,
+    totalPages,
+    totalCurrentGuests,
+    setCurrentPage,
+    setSelectedGuest,
+  } = useGuestContext();
   const { fetchReservationsAnalytics, reservationsAnalytics, loading, setLoading } = useReservationsContext();
   const { t } = useTranslation();
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [currentWeek, setCurrentWeek] = useState(moment().startOf("isoWeek").format("YYYY-MM-DD"));
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCurrentGuests(currentPage, sortConfig.key, sortConfig.direction);
-  }, [currentPage, sortConfig]);
+    fetchCurrentGuests(currentPage, sortConfig.key, sortConfig.direction, searchTerm);
+  }, [currentPage, sortConfig, searchTerm]);
 
   useEffect(() => {
     fetchReservationsAnalytics();
@@ -48,20 +59,23 @@ const Dashboard = () => {
     setSortConfig({ key, direction });
   };
 
-  const countReservationsInWeek = (reservations, weekStart) => {
-    const start = moment(weekStart);
-    const end = start.clone().endOf("isoWeek");
-    return reservations.filter((reservation) => {
-      const checkIn = moment(reservation.check_in);
-      const checkOut = moment(reservation.check_out);
-      return checkIn.isBefore(end) && checkOut.isAfter(start);
-    }).length;
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
   };
 
+  const handleEditGuest = (guest) => {
+    setSelectedGuest(guest);
+    navigate(`/guests/details/${guest.guest_id}`);
+  };
+
+  const countReservationsInWeek = (reservations, weekStart) => {
+    return reservations.length;
+  };
   const calculateDelta = (currentData, previousData) => {
-    const currentCount = countReservationsInWeek(currentData, currentWeek);
+    const currentCount = countReservationsInWeek(currentData.reservations || [], currentWeek);
     const previousCount = countReservationsInWeek(
-      previousData,
+      previousData.reservations || [],
       moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD")
     );
 
@@ -76,17 +90,20 @@ const Dashboard = () => {
     const delta = ((currentCount - previousCount) / previousCount) * 100;
     return `${delta > 0 ? "+" : ""}${delta.toFixed(2)}%`;
   };
-
-  const currentWeekData = reservationsAnalytics[currentWeek] || [];
-  const previousWeekData =
-    reservationsAnalytics[moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD")] || [];
+  const currentWeekData = reservationsAnalytics[currentWeek] || { reservations: [], totalGuestsForWeek: 0 };
+  const previousWeekData = reservationsAnalytics[
+    moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD")
+  ] || {
+    reservations: [],
+    totalGuestsForWeek: 0,
+  };
   const delta = calculateDelta(currentWeekData, previousWeekData);
   const getWeekData = (weekStart) => {
     const start = moment(weekStart);
     const weekData = Array(7).fill(0);
-    Object.values(reservationsAnalytics)
-      .flat()
-      .forEach((reservation) => {
+
+    Object.values(reservationsAnalytics).forEach((week) => {
+      week.reservations.forEach((reservation) => {
         const checkIn = moment(reservation.check_in);
         const checkOut = moment(reservation.check_out);
         for (let i = 0; i < 7; i++) {
@@ -96,6 +113,8 @@ const Dashboard = () => {
           }
         }
       });
+    });
+
     return weekData;
   };
 
@@ -110,6 +129,27 @@ const Dashboard = () => {
     { header: "Status", key: "guest_status" },
   ];
 
+  const renderRow = (guest, index, editAction) => (
+    <tr
+      key={guest.id}
+      className="border-b-[1px] border-b-gray-500 hover:bg-gray-500 hover:text-white hover:cursor-pointer"
+      onClick={() => editAction(guest)}
+    >
+      {columns.map((col) => (
+        <td key={col.key} className="px-6 py-4">
+          {guest[col.key]}
+        </td>
+      ))}
+      {editAction && (
+        <td className="px-6 py-2 text-right">
+          <button className="font-medium">
+            <IoIosArrowForward />
+          </button>
+        </td>
+      )}
+    </tr>
+  );
+
   return (
     <AnimatedPage>
       <div className="flex items-center justify-between pb-4">
@@ -120,25 +160,38 @@ const Dashboard = () => {
         <ChartCard
           title="Reservations"
           week={currentWeek}
-          value={`${currentWeekData.length}`}
+          value={`${currentWeekData.reservations.length}`}
           description={`${delta} Since last week`}
-          bgColor={delta.startsWith("+") ? "bg-green-400" : "bg-red-400"}
           handlePrevWeek={handlePrevWeek}
           handleNextWeek={handleNextWeek}
+          delta={delta}
+        />
+        <ChartCard
+          title="Guests"
+          week={currentWeek}
+          value={`${currentWeekData.totalGuestsForWeek}`}
+          description={`${delta} Since last week`}
+          handlePrevWeek={handlePrevWeek}
+          handleNextWeek={handleNextWeek}
+          delta={delta}
         />
         <BarChart data={barChartData} title={"Breakdown"} week={currentWeek} />
       </div>
-      <TableCard
-        columns={columns}
-        guests={currentGuests}
+      <DataTable
         title={t("current_guests")}
+        columns={columns}
+        data={currentGuests}
         currentPage={currentPage}
         totalPages={totalPages}
-        totalGuests={totalCurrentGuests}
+        totalItems={totalCurrentGuests}
         handlePrevPage={handlePrevPage}
         handleNextPage={handleNextPage}
         handleSort={handleSort}
         sortConfig={sortConfig}
+        showSearch={true}
+        onSearch={handleSearch}
+        renderRow={renderRow}
+        editAction={handleEditGuest}
       />
     </AnimatedPage>
   );

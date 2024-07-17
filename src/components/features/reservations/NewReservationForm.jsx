@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
-import { useGuestContext } from "../context";
-import { MultiSelectDropdown, AddGuestToParty, Pill } from "../components";
+import { useGuestContext } from "../../../context";
+import { MultiSelectDropdown, AddGuestToParty, Pill } from "../../../components";
 import { CgMathPlus } from "react-icons/cg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

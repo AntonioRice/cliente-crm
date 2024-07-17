@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useStateContext } from "../context";
+import { useStateContext } from "../../context";
 
 const Header = () => {
   const { setActiveSideBar } = useStateContext();

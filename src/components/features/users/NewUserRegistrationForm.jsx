@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAuthContext } from "../context";
+import { useAuthContext } from "../../../context";
 import { FaUser } from "react-icons/fa";
 import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
-import { countries } from "../utils/standardData";
-import { formatPhoneNumber } from "../utils/standardMethods";
+import { countries } from "../../../utils/standardData";
+import { formatPhoneNumber } from "../../../utils/standardMethods";
 
 const NewUserRegistrationForm = ({ onComplete }) => {
   const { t } = useTranslation();

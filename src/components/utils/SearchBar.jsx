@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useGuestContext } from "../context";
+import { useGuestContext } from "../../context";
 import { IoIosSearch } from "react-icons/io";
 
 const SearchBar = () => {

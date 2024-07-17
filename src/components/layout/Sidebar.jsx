@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuthContext, useStateContext } from "../context";
+import { useAuthContext, useStateContext } from "../../context";
 import { SlCalender } from "react-icons/sl";
 import { CiSettings } from "react-icons/ci";
 import { PiSignOutLight } from "react-icons/pi";
@@ -22,7 +22,15 @@ const Sidebar = () => {
     { path: "/dashboard", label: t("dashboard"), icon: <RxDashboard size={20} /> },
     { path: "/guests", label: t("guests"), icon: <IoPeople size={20} /> },
     { path: "/reservations", label: t("reservations"), icon: <SlCalender size={20} /> },
+    { path: "/team-members", label: t("team_members"), icon: <IoPeople size={20} />, roles: ["Admin", "SuperAdmin"] },
+    { path: "/tenants", label: t("tenants"), icon: <SlCalender size={20} />, roles: ["SuperAdmin"] },
   ];
+
+  const filterSidebarItems = (items, userRole) => {
+    return items.filter((item) => !item.roles || item.roles.includes(userRole));
+  };
+
+  const filteredSidebarItems = filterSidebarItems(sidebarItems, user.role);
 
   return (
     <aside
@@ -40,7 +48,7 @@ const Sidebar = () => {
               {t("welcome")}, {user.first_name}
             </p>
           </li>
-          {sidebarItems.map((item) => (
+          {filteredSidebarItems.map((item) => (
             <li key={item.path} className={getActiveClass(item.path)}>
               <button
                 onClick={() => navigate(item.path)}

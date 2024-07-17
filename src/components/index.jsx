@@ -1,23 +1,28 @@
-export { default as AddClientButton } from "./AddClientButton";
-export { default as AddGuestToParty } from "./AddGuestToParty";
-export { default as ChartCard } from "./ChartCard";
-export { default as BarChart } from "./BarChart";
-export { default as GuestList } from "./GuestList";
-export { default as Header } from "./Header";
-export { default as LoadingComponent } from "./LoadingComponent";
-export { default as MultiSelectDropdown } from "./MultiSelectDropdown";
-export { default as NewGuestForm } from "./NewGuestForm";
-export { default as NewReservationForm } from "./NewReservationForm";
-export { default as NewUserRegistrationForm } from "./NewUserRegistrationForm";
-export { default as Pill } from "./Pill";
-export { default as ProfileModal } from "./ProfileModal";
-export { default as LoginForm } from "./LoginForm";
-export { default as Calendar } from "./Calendar";
-export { default as SearchBar } from "./SearchBar";
-export { default as Sidebar } from "./Sidebar";
-export { default as StatusIndicator } from "./StatusIndicator";
-export { default as TableCard } from "./TableCard";
-export { default as AnimatedPage } from "./AnimatedPage";
-export { default as Layout } from "./Layout";
+export { default as AddClientButton } from "./common/AddClientButton";
+export { default as DataTable } from "./common/DataTable";
+export { default as MultiSelectDropdown } from "./common/MultiSelectDropdown";
+export { default as Pill } from "./common/Pill";
+export { default as StatusIndicator } from "./common/StatusIndicator";
 
-export { default as ProtectedRoute } from "./ProtectedRoute";
+export { default as ChartCard } from "./features/dashboard/ChartCard";
+export { default as BarChart } from "./features/dashboard/BarChart";
+
+export { default as AddGuestToParty } from "./features/guests/AddGuestToParty";
+export { default as GuestList } from "./features/guests/GuestList";
+export { default as NewGuestForm } from "./features/guests/NewGuestForm";
+
+export { default as Calendar } from "./features/reservations/Calendar";
+export { default as NewReservationForm } from "./features/reservations/NewReservationForm";
+
+export { default as NewUserRegistrationForm } from "./features/users/NewUserRegistrationForm";
+export { default as ProfileModal } from "./features/users/ProfileModal";
+
+export { default as Header } from "./layout/Header";
+export { default as Layout } from "./layout/Layout";
+export { default as Sidebar } from "./layout/Sidebar";
+
+export { default as AnimatedPage } from "./utils/AnimatedPage";
+export { default as LoadingComponent } from "./utils/LoadingComponent";
+export { default as LoginForm } from "./utils/LoginForm";
+export { default as ProtectedRoute } from "./utils/ProtectedRoute";
+export { default as SearchBar } from "./utils/SearchBar";

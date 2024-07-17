@@ -1,19 +1,38 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useReservationsContext } from "../context";
+import axios from "axios";
+import { useReservationsContext } from "../../../context";
 import { useTranslation } from "react-i18next";
-import { months, daysOfWeek } from "../utils/standardData";
-import PropTypes from "prop-types";
+import { months, daysOfWeek } from "../../../utils/standardData";
 
-const Calendar = ({ reservations }) => {
+const Calendar = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { setSelectedReservation } = useReservationsContext();
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   const [dates, setDates] = useState([]);
+  const [reservations, setReservations] = useState([]);
+
   useEffect(() => {
     generateDates(month, year);
+  }, [month, year]);
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        console.log(month, year);
+        const response = await axios.get(`http://localhost:3015/api/v1/reservations/calendar`, {
+          params: { month, year },
+        });
+
+        console.log(response.data.data);
+        setReservations(response.data.data);
+      } catch (error) {
+        console.error("Error fetching reservations:", error);
+      }
+    };
+    fetchReservations();
   }, [month, year]);
 
   const generateDates = (month, year) => {
@@ -43,7 +62,6 @@ const Calendar = ({ reservations }) => {
     return reservations.filter((res) => selectedDate >= res.check_in && selectedDate <= res.check_out);
   };
 
-  console.log(reservations);
   return (
     <div className="p-2">
       <div className="flex justify-between">
@@ -86,7 +104,7 @@ const Calendar = ({ reservations }) => {
                   className="bg-green-600 p-0.5 m-1 text-white text-xs cursor-pointer rounded-sm"
                   onClick={() => handleReservationOnClick(reservation)}
                 >
-                  <p className="px-1">{`${reservation.primary_guest.last_name}: [ ${reservation.room_numbers} ]`}</p>
+                  <p className="px-1">{`${reservation.primary_guest.first_name} ${reservation.primary_guest.last_name}`}</p>
                 </div>
               ))}
             </div>
@@ -95,20 +113,6 @@ const Calendar = ({ reservations }) => {
       </div>
     </div>
   );
-};
-
-Calendar.propTypes = {
-  reservations: PropTypes.arrayOf(
-    PropTypes.shape({
-      reservation_id: PropTypes.string.isRequired,
-      check_in: PropTypes.string.isRequired,
-      check_out: PropTypes.string.isRequired,
-      primary_guest: PropTypes.shape({
-        last_name: PropTypes.string.isRequired,
-      }).isRequired,
-      room_numbers: PropTypes.arrayOf(PropTypes.string).isRequired,
-    })
-  ).isRequired,
 };
 
 export default Calendar;

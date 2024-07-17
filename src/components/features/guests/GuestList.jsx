@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useGuestContext } from "../context";
-import { StatusIndicator } from "../components";
-import { formatDateTime, getLastVisit } from "../utils/standardMethods";
+import { useGuestContext } from "../../../context";
+import { StatusIndicator } from "../..";
+import { formatDateTime, getLastVisit } from "../../../utils/standardMethods";
 import { IoIosArrowForward } from "react-icons/io";
 
 const GuestsList = ({ guests, columns }) => {

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useGuestContext } from "../context";
+import { useGuestContext } from "../../context";
 
 const AddClientButton = () => {
   const navigate = useNavigate();
