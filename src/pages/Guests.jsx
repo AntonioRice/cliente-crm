@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { AnimatedPage, DataTable, AddClientButton } from "../components";
+import { AnimatedPage, DataTable, TableRow, AddClientButton } from "../components";
 import { useGuestContext } from "../context";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowForward } from "react-icons/io";
 
 const Guests = () => {
   const [allGuests, setAllGuests] = useState([]);
@@ -15,15 +14,6 @@ const Guests = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { setSelectedGuest } = useGuestContext();
   const navigate = useNavigate();
-
-  const columns = [
-    { header: "First Name", key: "first_name" },
-    { header: "Last Name", key: "last_name" },
-    { header: "Email", key: "email" },
-    { header: "Phone Number", key: "phone_number" },
-    { header: "Last Visit", key: "check_out" },
-    { header: "Status", key: "guest_status" },
-  ];
 
   const fetchAllGuests = async (page = 1, sortKey = null, sortDirection = "asc", search = "") => {
     if (isLoading) return;
@@ -78,25 +68,17 @@ const Guests = () => {
     navigate(`/guests/details/${guest.guest_id}`);
   };
 
-  const renderRow = (guest, index, editAction) => (
-    <tr
-      key={guest.id}
-      className="border-b-[1px] border-b-gray-500 hover:bg-gray-500 hover:text-white hover:cursor-pointer"
-      onClick={() => editAction(guest)}
-    >
-      {columns.map((col) => (
-        <td key={col.key} className="px-6 py-4">
-          {guest[col.key]}
-        </td>
-      ))}
-      {editAction && (
-        <td className="px-6 py-2 text-right">
-          <button className="font-medium">
-            <IoIosArrowForward />
-          </button>
-        </td>
-      )}
-    </tr>
+  const columns = [
+    { header: "First Name", key: "first_name" },
+    { header: "Last Name", key: "last_name" },
+    { header: "Email", key: "email" },
+    { header: "Phone Number", key: "phone_number" },
+    { header: "Last Visit", key: "check_out" },
+    { header: "Status", key: "guest_status" },
+  ];
+
+  const renderRow = (guest) => (
+    <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />
   );
 
   return (
@@ -120,7 +102,6 @@ const Guests = () => {
           showSearch={true}
           onSearch={handleSearch}
           renderRow={renderRow}
-          editAction={handleEditGuest}
         />
       </div>
     </AnimatedPage>

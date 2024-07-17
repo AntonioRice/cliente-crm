@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { AnimatedPage, ChartCard, DataTable, AddClientButton, BarChart } from "../components";
+import { AnimatedPage, ChartCard, DataTable, TableRow, AddClientButton, BarChart } from "../components";
 import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowForward } from "react-icons/io";
 
 const Dashboard = () => {
   const {
@@ -129,25 +128,8 @@ const Dashboard = () => {
     { header: "Status", key: "guest_status" },
   ];
 
-  const renderRow = (guest, index, editAction) => (
-    <tr
-      key={guest.id}
-      className="border-b-[1px] border-b-gray-500 hover:bg-gray-500 hover:text-white hover:cursor-pointer"
-      onClick={() => editAction(guest)}
-    >
-      {columns.map((col) => (
-        <td key={col.key} className="px-6 py-4">
-          {guest[col.key]}
-        </td>
-      ))}
-      {editAction && (
-        <td className="px-6 py-2 text-right">
-          <button className="font-medium">
-            <IoIosArrowForward />
-          </button>
-        </td>
-      )}
-    </tr>
+  const renderRow = (guest) => (
+    <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />
   );
 
   return (
@@ -191,7 +173,6 @@ const Dashboard = () => {
         showSearch={true}
         onSearch={handleSearch}
         renderRow={renderRow}
-        editAction={handleEditGuest}
       />
     </AnimatedPage>
   );

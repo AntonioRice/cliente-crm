@@ -1,5 +1,6 @@
 export { default as AddClientButton } from "./common/AddClientButton";
 export { default as DataTable } from "./common/DataTable";
+export { default as TableRow } from "./common/TableRow";
 export { default as MultiSelectDropdown } from "./common/MultiSelectDropdown";
 export { default as Pill } from "./common/Pill";
 export { default as StatusIndicator } from "./common/StatusIndicator";
