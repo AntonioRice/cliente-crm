@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useStateContext } from "../../context";
+import { useAuthContext, useStateContext } from "../../context";
 
 const Header = () => {
   const { setActiveSideBar } = useStateContext();
+  const { user } = useAuthContext();
 
   return (
     <nav className="fixed top-0 z-20 w-full bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -40,11 +41,7 @@ const Header = () => {
                 type="button"
                 className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
               >
-                <img
-                  className="w-8 h-8 rounded-full"
-                  src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  alt="user photo"
-                />
+                <img className="w-8 h-8 rounded-full" src={user.profile_picture} alt="user photo" />
               </button>
             </div>
           </div>

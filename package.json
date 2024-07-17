@@ -17,6 +17,7 @@
     "@mui/x-date-pickers": "^7.6.2",
     "@mui/x-date-pickers-pro": "^7.6.2",
     "axios": "^1.7.2",
+    "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.3",
     "dayjs": "^1.11.11",
     "flowbite": "^2.3.0",

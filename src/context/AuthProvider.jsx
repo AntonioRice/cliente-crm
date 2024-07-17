@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, completeRegistration, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, completeRegistration, loading }}>
       <AnimatePresence>{loading ? <LoadingComponent key="loading" /> : children}</AnimatePresence>
     </AuthContext.Provider>
   );

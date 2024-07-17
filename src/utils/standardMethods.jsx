@@ -1,4 +1,5 @@
 import moment from "moment";
+import imageCompression from "browser-image-compression";
 
 export const formatDateTime = (isoDate, datePicker = false) => {
   const format = (date, datePicker) => {
@@ -48,4 +49,20 @@ export const formatPhoneNumber = (input) => {
   }
 
   return formatted;
+};
+
+export const compressImage = async (file) => {
+  const options = {
+    maxSizeMB: 0.5,
+    maxWidthOrHeight: 400,
+    useWebWorker: true,
+    initialQuality: 0.7,
+  };
+
+  try {
+    return await imageCompression(file, options);
+  } catch (error) {
+    console.error("Error compressing image:", error);
+    return file;
+  }
 };

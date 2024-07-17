@@ -3,13 +3,15 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useAuthContext, useStateContext } from "../context";
 import { AnimatedPage, LoadingComponent } from "../components";
+import { compressImage } from "../utils/standardMethods";
 
 const Settings = () => {
   const { t } = useTranslation();
-  const { user } = useAuthContext();
+  const { user, setUser } = useAuthContext();
+  const { setMode, setLanguage } = useStateContext();
   const [newUserData, setNewUserData] = useState(user);
   const [loading, setLoading] = useState(false);
-  const { setMode, setLanguage } = useStateContext();
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -50,11 +52,47 @@ const Settings = () => {
   const handleSave = async () => {
     try {
       setLoading(true);
-      await axios.put(`http://localhost:3015/api/v1/users/${newUserData.user_id}`, newUserData);
+      const response = await axios.put(`http://localhost:3015/api/v1/users/${newUserData.user_id}`, newUserData);
+      setUser(response.data.data);
+
+      if (profilePicture) {
+        const resp = await uploadProfilePicture();
+        setUser(resp.data.data);
+      }
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error(error);
+    }
+  };
+
+  const handleSelectedImage = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const compressedFile = await compressImage(file);
+      setProfilePicture(compressedFile);
+    }
+  };
+
+  const uploadProfilePicture = async () => {
+    if (!profilePicture) {
+      console.error("No profile picture selected");
+      return;
+    }
+
+    try {
+      const compressedImage = await compressImage(profilePicture);
+      const formData = new FormData();
+      formData.append("profile_picture", compressedImage, compressedImage.name);
+
+      const response = await axios.put(
+        `http://localhost:3015/api/v1/users/profile-picture/${newUserData.user_id}`,
+        formData
+      );
+      return response;
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
     }
   };
 
@@ -160,6 +198,28 @@ const Settings = () => {
                       {t("light")} / {t("dark")}
                     </span>
                   </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 border-b-[.5px] border-gray-700">
+            <div className="md:col-span-1">
+              <h1>{t("Profile")}</h1>
+              <p className="text-xs text-gray-500">{t("general.description")}</p>
+            </div>
+            <div className="flex flex-col gap-6 md:col-span-2">
+              <div className="flex flex-col w-full gap-3 md:flex-row">
+                <div className="items-center w-full mb-6 md:w-1/2">
+                  <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
+                    {t("profile_picture")}
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-[#111827] border border-gray-400 rounded-lg py-3 px-4 mb-3 leading-tight text-sm focus:outline-none focus:bg-[#141d2f]"
+                    id="profile_picture"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    onChange={handleSelectedImage}
+                  />
                 </div>
               </div>
             </div>
