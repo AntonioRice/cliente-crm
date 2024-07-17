@@ -39,7 +39,7 @@ const Tenants = () => {
   }, [currentPage, sortConfig, searchTerm]);
 
   const handleEditItem = (item) => {
-    navigate(`/tenant/details/${item.tenant_id}`);
+    navigate(`/tenants/details/${item.tenant_id}`);
   };
 
   const handlePrevPage = () => {
