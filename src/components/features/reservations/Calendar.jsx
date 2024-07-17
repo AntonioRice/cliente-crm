@@ -4,6 +4,7 @@ import axios from "axios";
 import { useReservationsContext } from "../../../context";
 import { useTranslation } from "react-i18next";
 import { months, daysOfWeek } from "../../../utils/standardData";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 const Calendar = () => {
   const { t } = useTranslation();
@@ -21,12 +22,9 @@ const Calendar = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        console.log(month, year);
         const response = await axios.get(`http://localhost:3015/api/v1/reservations/calendar`, {
-          params: { month, year },
+          params: { month: month + 1, year },
         });
-
-        console.log(response.data.data);
         setReservations(response.data.data);
       } catch (error) {
         console.error("Error fetching reservations:", error);
@@ -41,6 +39,7 @@ const Calendar = () => {
     const tempDates = Array.from({ length: firstDay }, () => null).concat(
       Array.from({ length: daysInMonth }, (_, i) => i + 1)
     );
+
     setDates(tempDates);
   };
 
@@ -50,6 +49,24 @@ const Calendar = () => {
 
   const handleYearChange = (e) => {
     setYear(parseInt(e.target.value));
+  };
+
+  const handlePrevMonth = () => {
+    if (month === 0) {
+      setMonth(11);
+      setYear(year - 1);
+    } else {
+      setMonth(month - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (month === 11) {
+      setMonth(0);
+      setYear(year + 1);
+    } else {
+      setMonth(month + 1);
+    }
   };
 
   const handleReservationOnClick = (reservation) => {
@@ -64,10 +81,25 @@ const Calendar = () => {
 
   return (
     <div className="p-2">
-      <div className="flex justify-between">
+      <div className="flex justify-between h-15">
         <h1 className="mb-4 text-2xl font-bold">{t("calendar")}</h1>
         <div className="flex mb-4 space-x-2">
-          <select value={month} onChange={handleMonthChange} className="p-2 bg-gray-700 rounded-md">
+          <div className="inline-flex h-10 text-sm rtl:space-x-reverse">
+            <button
+              onClick={handlePrevMonth}
+              className="flex items-center justify-center h-full px-3 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
+            >
+              <IoIosArrowBack />
+            </button>
+
+            <button
+              onClick={handleNextMonth}
+              className="flex items-center justify-center h-full px-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-green-400 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-green-500 dark:hover:bg-gray-700"
+            >
+              <IoIosArrowForward />
+            </button>
+          </div>
+          <select value={month} onChange={handleMonthChange} className="h-10 p-2 bg-gray-700 rounded-md">
             {months().map((monthName, index) => (
               <option key={index} value={index}>
                 {monthName}
@@ -78,7 +110,7 @@ const Calendar = () => {
             type="number"
             value={year}
             onChange={handleYearChange}
-            className="px-4 bg-gray-700 rounded-md"
+            className="h-10 px-4 bg-gray-700 rounded-md"
             min="1900"
             max="2100"
           />
