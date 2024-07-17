@@ -75,11 +75,9 @@ const DataTable = ({
                     ))}
                 </th>
               ))}
-              {editAction && (
-                <th className="px-6 py-3">
-                  <span className="sr-only">Edit</span>
-                </th>
-              )}
+              <th className="px-6 py-3">
+                <span className="sr-only">edit</span>
+              </th>
             </tr>
           </thead>
           <tbody>{data.map((item, index) => renderRow(item, index, editAction))}</tbody>
