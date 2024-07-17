@@ -19,7 +19,6 @@ const ReservationDetails = () => {
       try {
         setLoading(true);
         const response = await axios.get(`http://localhost:3015/api/v1/reservations/${id}`);
-        console.log(response.data.data);
         if (response.data.data) {
           setSelectedReservation(response.data.data);
         }
@@ -134,9 +133,56 @@ const ReservationDetails = () => {
         <div className="p-4">
           {additionalGuests.map((guest, index) => (
             <div key={index}>
-              <p>
-                {guest.first_name} {guest.last_name}
-              </p>
+              <div className="grid md:grid-cols-6 md:gap-6">
+                <div className="relative z-0 w-full mb-5 group">
+                  <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                    {t("first_name")}
+                  </label>
+                  <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                    {guest.first_name || "N/A"}
+                  </p>
+                </div>
+                <div className="relative z-0 w-full mb-5 group">
+                  <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                    {t("last_name")}
+                  </label>
+                  <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                    {guest.last_name || "N/A"}
+                  </p>
+                </div>
+                <div className="relative z-0 w-full mb-5 group">
+                  <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                    {t("date_of_birth")}
+                  </label>
+                  <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                    {guest.date_of_birth || "N/A"}
+                  </p>
+                </div>
+                <div className="relative z-0 w-full mb-5 group">
+                  <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                    {t("nationality")}
+                  </label>
+                  <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                    {guest.nationality || "N/A"}
+                  </p>
+                </div>
+                <div className="relative z-0 w-full mb-5 group">
+                  <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                    {t("identification_number")}
+                  </label>
+                  <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                    {guest.identification_number || "N/A"}
+                  </p>
+                </div>
+                <div className="relative z-0 w-full mb-5 group">
+                  <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+                    {t("email")}
+                  </label>
+                  <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+                    {guest.email || "N/A"}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

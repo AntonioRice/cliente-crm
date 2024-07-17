@@ -99,23 +99,6 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
         {isFieldInvalid("nationality") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
       </div>
       <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
-        <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
-        <input
-          className={`appearance-none block w-full bg-gray-200 border text-black ${
-            isFieldInvalid("email") ? "border-red-500" : "border-gray-200"
-          } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-          id={`guests_${guest.id}_email`}
-          name="email"
-          type="email"
-          placeholder="---@---.com"
-          value={formData.email}
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          required
-        />
-        {isFieldInvalid("email") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
-      </div>
-      <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
         <label className="block uppercase tracking-wide text-[10px] font-light mb-2">
           {t("identification_number")}
         </label>
@@ -133,6 +116,23 @@ const AddGuestToParty = ({ guest, updateGuest, removeGuestFromParty }) => {
           required
         />
         {isFieldInvalid("identification_number") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
+      </div>
+      <div className="w-full px-3 mb-6 md:w-1/6 md:mb-0">
+        <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("email")}</label>
+        <input
+          className={`appearance-none block w-full bg-gray-200 border text-black ${
+            isFieldInvalid("email") ? "border-red-500" : "border-gray-200"
+          } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+          id={`guests_${guest.id}_email`}
+          name="email"
+          type="email"
+          placeholder="---@---.com"
+          value={formData.email}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          required
+        />
+        {isFieldInvalid("email") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
       </div>
       <div className="relative flex flex-row items-center justify-center">
         <button
