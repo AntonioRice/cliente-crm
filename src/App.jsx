@@ -16,7 +16,7 @@ import {
   Tenants,
   TeamMembers,
   Unauthorized,
-  UserDetails,
+  TeamMemberDetails,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         path: "team-members/details/:id",
         element: (
           <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
-            <UserDetails />
+            <TeamMemberDetails />
           </ProtectedRoute>
         ),
       },

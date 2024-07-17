@@ -9,3 +9,4 @@ export { default as ReservationDetails } from "./ReservationDetails";
 export { default as Settings } from "./Settings";
 export { default as Tenants } from "./Tenants";
 export { default as TeamMembers } from "./TeamMembers";
+export { default as TeamMemberDetails } from "./TeamMemberDetails";
