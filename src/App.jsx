@@ -14,6 +14,7 @@ import {
   Settings,
   Login,
   Tenants,
+  TenantDetails,
   TeamMembers,
   Unauthorized,
   TeamMemberDetails,
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute allowedRoles={["SuperAdmin"]}>
             <Tenants />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "tenants/details/:id",
+        element: (
+          <ProtectedRoute allowedRoles={["SuperAdmin"]}>
+            <TenantDetails />
           </ProtectedRoute>
         ),
       },
