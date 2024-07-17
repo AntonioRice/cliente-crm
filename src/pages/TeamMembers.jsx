@@ -25,7 +25,6 @@ const TeamMembers = () => {
   const fetchTeamMembers = async () => {
     try {
       const response = await axios.get(`http://localhost:3015/api/v1/users`);
-      response.data.data[0].profile_picture = "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
       setTeamMembers(response.data.data);
       setTotalPages(response.data.meta.totalPages);
       setCurrentPage(response.data.meta.currentPage);
