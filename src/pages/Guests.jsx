@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AnimatedPage, DataTable, TableRow, AddClientButton } from "../components";
 import { useGuestContext } from "../context";
-import { useNavigate } from "react-router-dom";
 
 const Guests = () => {
   const [allGuests, setAllGuests] = useState([]);
@@ -83,7 +83,7 @@ const Guests = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center justify-between pb-4">
+      <div className="flex items-center justify-between pb-10">
         <h1 className="text-2xl font-semibold">Guests</h1>
         <AddClientButton />
       </div>

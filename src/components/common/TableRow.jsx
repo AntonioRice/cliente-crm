@@ -2,8 +2,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import { StatusIndicator } from "../../components";
 
 const renderCellContent = (item, col) => {
-  if (col.key === "guest_status") {
+  if (col.key === "guest_status" || col.key === "status") {
     return <StatusIndicator status={item[col.key]} />;
+  }
+
+  if (col.key === "profile_picture") {
+    return <img className="w-8 h-8 rounded-full" src={item[col.key]} alt="user photo" />;
   }
 
   return item[col.key];
