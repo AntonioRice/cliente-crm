@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTeamContext } from "../context";
 import { AnimatedPage, DataTable, TableRow } from "../components";
 
 const TeamMembers = () => {
   const navigate = useNavigate();
+  const { setSelectedTeamMember } = useTeamContext();
   const [teamMembers, setTeamMembers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -39,6 +41,7 @@ const TeamMembers = () => {
   }, [currentPage, sortConfig, searchTerm]);
 
   const handleEditItem = (item) => {
+    setSelectedTeamMember(item);
     navigate(`/team-members/details/${item.user_id}`);
   };
 
