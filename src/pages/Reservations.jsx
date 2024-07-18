@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Calendar } from "../components";
+import { AnimatedPage, Calendar } from "../components";
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -17,7 +17,11 @@ const Reservations = () => {
     fetchReservations();
   }, []);
 
-  return <Calendar reservations={reservations} />;
+  return (
+    <AnimatedPage>
+      <Calendar reservations={reservations} />
+    </AnimatedPage>
+  );
 };
 
 export default Reservations;

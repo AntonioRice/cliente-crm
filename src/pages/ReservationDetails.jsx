@@ -75,13 +75,21 @@ const ReservationDetails = () => {
         {selectedReservation.primary_guest.first_name} {selectedReservation.primary_guest.last_name}
       </h1>
       <div className="p-4 pt-8 bg-gray-700 rounded-lg">
-        <div className="grid md:grid-cols-6 md:gap-6">
+        <div className="grid md:grid-cols-7 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
+              {t("reservation_id")}
+            </label>
+            <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
+              {selectedReservation.reservation_id || "N/A"}
+            </p>
+          </div>
           <div className="relative z-0 w-full mb-5 group">
             <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:-translate-y-6">
               {t("room_numbers")}
             </label>
             <p className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  dark:text-white dark:border-gray-600  focus:outline-none focus:ring-0  peer">
-              {selectedReservation.room_numbers || "N/A"}
+              {selectedReservation.room_numbers?.join(", ") || "N/A"}
             </p>
           </div>
           <div className="relative z-0 w-full mb-5 group">
