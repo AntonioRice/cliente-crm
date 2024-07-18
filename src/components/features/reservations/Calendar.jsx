@@ -75,14 +75,14 @@ const Calendar = () => {
   };
 
   const getReservationsForDate = (date) => {
-    const selectedDate = new Date(year, month, date).toISOString().split("T")[0];
+    const selectedDate = new Date(year, month, date).toISOString();
     return reservations.filter((res) => selectedDate >= res.check_in && selectedDate <= res.check_out);
   };
 
   return (
-    <div className="p-2">
+    <>
       <div className="flex justify-between h-15">
-        <h1 className="mb-4 text-2xl font-bold">{t("calendar")}</h1>
+        <h1 className="mb-4 text-2xl font-bold">{t("reservations")}</h1>
         <div className="flex mb-4 space-x-2">
           <div className="inline-flex h-10 text-sm rtl:space-x-reverse">
             <button
@@ -116,7 +116,6 @@ const Calendar = () => {
           />
         </div>
       </div>
-
       <div className="grid grid-cols-7 gap-1">
         {daysOfWeek().map((day) => (
           <div key={day} className="p-2 font-bold text-center bg-gray-700 rounded-md">
@@ -126,7 +125,9 @@ const Calendar = () => {
         {dates.map((date, index) => (
           <div
             key={index}
-            className={`h-32 flex flex-col border rounded-md border-gray-700 ${!date ? "bg-gray-700 opacity-25" : ""}`}
+            className={`h-[7.45rem] flex flex-col border rounded-md border-gray-700 ${
+              !date ? "bg-gray-700 opacity-25" : ""
+            }`}
           >
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
@@ -143,7 +144,7 @@ const Calendar = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
