@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
-import { useGuestContext } from "../../../context";
+import { useGuestContext, useReservationsContext } from "../../../context";
 import { MultiSelectDropdown, AddGuestToParty, Pill } from "../../../components";
 import { CgMathPlus } from "react-icons/cg";
 import DatePicker from "react-datepicker";
@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const NewReservationForm = ({ newReservationData, setNewReservationData, handleBlur, isFieldInvalid, setTouched }) => {
   const { t } = useTranslation();
   const { additionalGuests } = useGuestContext();
+  const { selectedRooms, setSelectedRooms } = useReservationsContext();
 
   useEffect(() => {
     setNewReservationData((prevData) => ({
@@ -80,11 +81,17 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
     }));
   };
 
-  const handleRoomsChange = (rooms) => {
+  const handleRoomsChange = (room) => {
+    const updatedRooms = selectedRooms.includes(room)
+      ? selectedRooms.filter((r) => r !== room)
+      : [...selectedRooms, room];
+
+    setSelectedRooms(updatedRooms);
     setNewReservationData((prevData) => ({
       ...prevData,
-      room_numbers: rooms,
+      room_numbers: updatedRooms,
     }));
+
     setTouched((prev) => ({
       ...prev,
       room_numbers: true,
@@ -116,7 +123,7 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
             }`}
           >
             {newReservationData.room_numbers?.map((room, i) => (
-              <Pill key={i} text={room} />
+              <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}
           </div>
           {!newReservationData.room_numbers.length > 0 && (
@@ -143,7 +150,6 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
           />
         </div>
       </div>
-
       {newReservationData.additional_guests.map((guest, i) => (
         <div key={guest.id}>
           <h2 className="pb-2 mx-8 text-white">

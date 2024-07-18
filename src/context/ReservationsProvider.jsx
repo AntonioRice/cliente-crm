@@ -8,6 +8,7 @@ export const useReservationsContext = () => useContext(ReservationsContext);
 export const ReservationsProvider = ({ children }) => {
   const [reservationsAnalytics, setReservationsAnalytics] = useState([]);
   const [selectedReservation, setSelectedReservation] = useState(null);
+  const [selectedRooms, setSelectedRooms] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchReservationsAnalytics = async () => {
@@ -34,6 +35,8 @@ export const ReservationsProvider = ({ children }) => {
         setReservationsAnalytics,
         selectedReservation,
         setSelectedReservation,
+        selectedRooms,
+        setSelectedRooms,
         loading,
         setLoading,
         clearReservation,

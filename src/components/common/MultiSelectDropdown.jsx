@@ -1,30 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { CgMathPlus } from "react-icons/cg";
+import { useReservationsContext } from "../../context";
 
 const MultiSelectDropdown = ({ onRoomSelectionChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRooms, setSelectedRooms] = useState([]);
+  const { selectedRooms, setSelectedRooms } = useReservationsContext();
   const dropdownRef = useRef(null);
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
-  const handleCheckboxChange = (room) => {
-    const newSelectedRooms = [...selectedRooms];
-    const roomIndex = newSelectedRooms.indexOf(room);
-    if (roomIndex === -1) {
-      newSelectedRooms.push(room);
-    } else {
-      newSelectedRooms.splice(roomIndex, 1);
-    }
-    setSelectedRooms(newSelectedRooms);
-    onRoomSelectionChange(newSelectedRooms);
-  };
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -32,6 +13,28 @@ const MultiSelectDropdown = ({ onRoomSelectionChange }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const handleCheckboxChange = (room) => {
+    const newSelectedRooms = [...selectedRooms];
+    const roomIndex = newSelectedRooms.indexOf(room);
+
+    if (roomIndex === -1) {
+      newSelectedRooms.push(room);
+    } else {
+      newSelectedRooms.splice(roomIndex, 1);
+    }
+
+    setSelectedRooms(newSelectedRooms);
+    onRoomSelectionChange(room);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
 
   const selectedRoomsText = selectedRooms.length > 0 ? `${selectedRooms.length} Room(s) Selected` : "Select Room(s)";
 

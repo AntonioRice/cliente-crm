@@ -2,49 +2,50 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useReservationsContext } from "../context";
 import { AnimatedPage, NewGuestForm, NewReservationForm, SearchBar, LoadingComponent } from "../components";
 import { CgMathMinus } from "react-icons/cg";
-
-const defaultCheckInDate = new Date().toISOString().split("T")[0];
-const defaultCheckOutDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
-const initialNewGuestData = {
-  first_name: "",
-  last_name: "",
-  date_of_birth: "",
-  nationality: "",
-  identification_number: "",
-  email: "",
-  phone_number: "",
-  address: {
-    city: "",
-    state: "",
-    postal_code: "",
-    country: "",
-  },
-  emergency_contact: {
-    first_name: "",
-    last_name: "",
-    phone_number: "",
-  },
-  vehicle: {
-    make: "",
-    model: "",
-    plate_number: "",
-  },
-};
-const initialNewReservationData = {
-  payment_method: "",
-  total_amount: "",
-  payment_status: "",
-  additional_guests: [],
-  room_numbers: [],
-  check_in: defaultCheckInDate,
-  check_out: defaultCheckOutDate,
-};
 
 const GuestRegistration = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { selectedRooms, setSelectedRooms } = useReservationsContext();
+  const defaultCheckInDate = new Date().toISOString().split("T")[0];
+  const defaultCheckOutDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
+  const initialNewGuestData = {
+    first_name: "",
+    last_name: "",
+    date_of_birth: "",
+    nationality: "",
+    identification_number: "",
+    email: "",
+    phone_number: "",
+    address: {
+      city: "",
+      state: "",
+      postal_code: "",
+      country: "",
+    },
+    emergency_contact: {
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+    },
+    vehicle: {
+      make: "",
+      model: "",
+      plate_number: "",
+    },
+  };
+  const initialNewReservationData = {
+    payment_method: "",
+    total_amount: "",
+    payment_status: "",
+    additional_guests: [],
+    room_numbers: selectedRooms,
+    check_in: defaultCheckInDate,
+    check_out: defaultCheckOutDate,
+  };
   const [showNewReservationForm, setShowNewReservationForm] = useState(false);
   const [newGuestData, setNewGuestData] = useState(initialNewGuestData);
   const [newReservationData, setNewReservationData] = useState(initialNewReservationData);
@@ -111,6 +112,7 @@ const GuestRegistration = () => {
 
   const toggleNewReservationForm = () => {
     setShowNewReservationForm(!showNewReservationForm);
+    setSelectedRooms(() => []);
   };
 
   const handleBlur = (e) => {
@@ -182,12 +184,19 @@ const GuestRegistration = () => {
     }
   };
 
+  const handleCancel = () => {
+    setSelectedRooms(() => []);
+    setNewGuestData(initialNewGuestData);
+    setNewReservationData(initialNewReservationData);
+    navigate(-1);
+  };
+
   return (
     <AnimatedPage>
       {loading ? (
         <LoadingComponent />
       ) : (
-        <div className="flex flex-col pb-10">
+        <div className="flex flex-col pb-24">
           <div className="inline-flex justify-between p-5">
             <div>
               <h1 className="text-2xl font-semibold">{t("guest_registration")}</h1>
@@ -231,7 +240,7 @@ const GuestRegistration = () => {
           </div>
           <div className="fixed bottom-0 left-0 right-0 flex justify-end p-4 border-t border-gray-200 dark:border-gray-600 space-x-2 bg-[#111827] z-40">
             <button
-              onClick={() => navigate("/guests")}
+              onClick={handleCancel}
               className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
             >
               {t("cancel")}
