@@ -35,7 +35,7 @@ const Layout = () => {
         }`}
       >
         <Header toggleSidebar={() => setActiveSideBar((prev) => !prev)} />
-        <main className="flex-grow p-6 mt-16">
+        <main className="flex-grow px-6 py-2 mt-16">
           <Outlet />
         </main>
       </div>

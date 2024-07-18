@@ -3,8 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext, useStateContext } from "../../context";
 import { SlCalender } from "react-icons/sl";
 import { CiSettings } from "react-icons/ci";
-import { PiSignOutLight } from "react-icons/pi";
-import { IoPeople } from "react-icons/io5";
+import { PiSignOutLight, PiBuildingLight } from "react-icons/pi";
+import { MdOutlineRoomService } from "react-icons/md";
+import { FaPeopleGroup } from "react-icons/fa6";
 import { RxDashboard } from "react-icons/rx";
 
 const Sidebar = () => {
@@ -15,15 +16,20 @@ const Sidebar = () => {
   const location = useLocation();
 
   const getActiveClass = (path) => {
-    return location.pathname.startsWith(path) ? "bg-gray-700 rounded-lg" : "";
+    return location.pathname.startsWith(path) ? "bg-gray-700 text-green-500 rounded-lg" : "";
   };
 
   const sidebarItems = [
     { path: "/dashboard", label: t("dashboard"), icon: <RxDashboard size={20} /> },
-    { path: "/guests", label: t("guests"), icon: <IoPeople size={20} /> },
+    { path: "/guests", label: t("guests"), icon: <MdOutlineRoomService size={20} /> },
     { path: "/reservations", label: t("reservations"), icon: <SlCalender size={20} /> },
-    { path: "/team-members", label: t("team_members"), icon: <IoPeople size={20} />, roles: ["Admin", "SuperAdmin"] },
-    { path: "/tenants", label: t("tenants"), icon: <SlCalender size={20} />, roles: ["SuperAdmin"] },
+    {
+      path: "/team-members",
+      label: t("team_members"),
+      icon: <FaPeopleGroup size={20} />,
+      roles: ["Admin", "SuperAdmin"],
+    },
+    { path: "/tenants", label: t("tenants"), icon: <PiBuildingLight size={20} />, roles: ["SuperAdmin"] },
   ];
 
   const filterSidebarItems = (items, userRole) => {
@@ -49,12 +55,14 @@ const Sidebar = () => {
             </p>
           </li>
           {filteredSidebarItems.map((item) => (
-            <li key={item.path} className={getActiveClass(item.path)}>
+            <li key={item.path}>
               <button
                 onClick={() => navigate(item.path)}
-                className="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-[#cccccc] hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className={`flex w-full items-center p-2 rounded-lg group hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass(
+                  item.path
+                )}`}
               >
-                {item.icon}
+                <span className="flex items-center">{item.icon}</span>
                 <span className="text-sm ms-3 whitespace-nowrap">{item.label}</span>
               </button>
             </li>
@@ -64,7 +72,9 @@ const Sidebar = () => {
               <li className={getActiveClass("/settings")}>
                 <a
                   href="/settings"
-                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  className={`flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group ${
+                    getActiveClass("/settings") || `dark:text-white`
+                  }`}
                 >
                   <CiSettings size={15} />
                   <span className="flex-1 text-xs ms-2 whitespace-nowrap">{t("settings")}</span>
