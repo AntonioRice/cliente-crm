@@ -99,12 +99,11 @@ const DataTable = ({
         <nav className="flex flex-col flex-wrap items-center justify-between p-4 pt-4 md:flex-row">
           <span className="mb-4 block w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
             {t("page")}
-            {t("page")}
-            <span className="font-semibold text-gray-900 dark:text-white">
+            <span className="mx-1 font-semibold text-gray-900 dark:text-white">
               {currentPage}
             </span>
             of
-            <span className="font-semibold text-gray-900 dark:text-white">
+            <span className="mx-1 font-semibold text-gray-900 dark:text-white">
               {totalPages}
             </span>
           </span>
