@@ -26,6 +26,10 @@
   "dob": "Fecha de Nacimiento",
   "email": "Correo Electrónico",
   "emergency_contact": "Contacto de emergencia",
+  "employment_status": {
+    "description": "Estado de control de la miembro del equipo",
+    "title": "Estado de Empleo"
+  },
   "entry_warning": "Por favor rellene este campo.",
   "first_name": "Nombre",
   "general": {
@@ -66,7 +70,7 @@
   "payment_information": "Información del pago",
   "payment_method": "Método de pago",
   "payment_selection": "Seleccione método de pago...",
-  "payment_status": "Estado de pago",
+  "payment_status": "Estado de Pago",
   "payment_status_selection": "Seleccionar estado de pago...",
   "phone_number": "Número de Teléfono",
   "plate_number": "Número de placa",

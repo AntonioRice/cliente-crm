@@ -26,6 +26,10 @@
   "dob": "Date Of Birth",
   "email": "Email",
   "emergency_contact": "Emergency Contact",
+  "employment_status": {
+    "description": "Control status of team member",
+    "title": "Employment Status"
+  },
   "entry_warning": "Please fill out this field.",
   "first_name": "First Name",
   "general": {
@@ -66,7 +70,7 @@
   "payment_information": "Payment Information",
   "payment_method": "Payment Method",
   "payment_selection": "Select Payment Method...",
-  "payment_status": "Status",
+  "payment_status": "Payment Status",
   "payment_status_selection": "Select Payment Status...",
   "phone_number": "Phone Number",
   "plate_number": "Plate Number",
