@@ -21,13 +21,20 @@ export const getLastVisit = (guest) => {
   }
 
   const lastReservation = guest.reservations.reduce((latest, reservation) => {
-    return new Date(reservation.check_out) > new Date(latest.check_out) ? reservation : latest;
+    return new Date(reservation.check_out) > new Date(latest.check_out)
+      ? reservation
+      : latest;
   }, guest.reservations[0]);
   return formatDateTime(lastReservation.check_out);
 };
 
 export const calculateTotalAmountSpent = (reservations) => {
-  return reservations.reduce((total, reservation) => total + parseFloat(reservation.total_amount), 0).toFixed(2);
+  return reservations
+    .reduce(
+      (total, reservation) => total + parseFloat(reservation.total_amount),
+      0,
+    )
+    .toFixed(2);
 };
 
 export const formatPhoneNumber = (input) => {
