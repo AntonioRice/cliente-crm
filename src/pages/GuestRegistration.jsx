@@ -1,137 +1,31 @@
 import axios from "axios";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useReservationsContext } from "../context";
-import { AnimatedPage, NewGuestForm, NewReservationForm, SearchBar, LoadingComponent } from "../components";
+import { useGuestRegistrationContext } from "../context";
+import {
+  AnimatedPage,
+  NewGuestForm,
+  NewReservationForm,
+  SearchBar,
+  LoadingComponent,
+} from "../components";
 import { CgMathMinus } from "react-icons/cg";
+import { useState } from "react";
 
 const GuestRegistration = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { selectedRooms, setSelectedRooms } = useReservationsContext();
-  const defaultCheckInDate = new Date().toISOString().split("T")[0];
-  const defaultCheckOutDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0];
-  const initialNewGuestData = {
-    first_name: "",
-    last_name: "",
-    date_of_birth: "",
-    nationality: "",
-    identification_number: "",
-    email: "",
-    phone_number: "",
-    address: {
-      city: "",
-      state: "",
-      postal_code: "",
-      country: "",
-    },
-    emergency_contact: {
-      first_name: "",
-      last_name: "",
-      phone_number: "",
-    },
-    vehicle: {
-      make: "",
-      model: "",
-      plate_number: "",
-    },
-  };
-  const initialNewReservationData = {
-    payment_method: "",
-    total_amount: "",
-    payment_status: "",
-    additional_guests: [],
-    room_numbers: selectedRooms,
-    check_in: defaultCheckInDate,
-    check_out: defaultCheckOutDate,
-  };
-  const [showNewReservationForm, setShowNewReservationForm] = useState(false);
-  const [newGuestData, setNewGuestData] = useState(initialNewGuestData);
-  const [newReservationData, setNewReservationData] = useState(initialNewReservationData);
-  const [touched, setTouched] = useState({});
+  const {
+    guestData,
+    setGuestData,
+    reservationData,
+    setReservationData,
+    initialGuestData,
+    initialReservationData,
+    showReservationForm,
+    setShowReservationForm,
+  } = useGuestRegistrationContext();
   const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (isFormValid()) {
-      try {
-        setLoading(true);
-
-        const guestResponse = await axios.post(`http://localhost:3015/api/v1/guests`, newGuestData);
-
-        if (showNewReservationForm) {
-          const reservationData = {
-            ...newReservationData,
-            primary_guest_id: guestResponse.data.data.guest_id,
-          };
-
-          await axios.post(`http://localhost:3015/api/v1/reservations`, reservationData);
-        }
-
-        setLoading(false);
-        navigate("/guests");
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-    } else {
-      setTouched({
-        first_name: true,
-        last_name: true,
-        date_of_birth: true,
-        nationality: true,
-        identification_number: true,
-        email: true,
-        phone_number: true,
-        address_city: true,
-        address_state: true,
-        address_postal_code: true,
-        address_country: true,
-      });
-
-      if (showNewReservationForm) {
-        setTouched((prev) => ({
-          ...prev,
-          payment_method: true,
-          total_amount: true,
-          payment_status: true,
-          room_numbers: true,
-          check_in: true,
-          check_out: true,
-          additional_guests: true,
-        }));
-      }
-    }
-  };
-
-  const resetForm = () => {
-    setNewGuestData(initialNewGuestData);
-  };
-
-  const toggleNewReservationForm = () => {
-    setShowNewReservationForm(!showNewReservationForm);
-    setSelectedRooms(() => []);
-  };
-
-  const handleBlur = (e) => {
-    const { dataset } = e.target;
-    const { group, field } = dataset;
-
-    if (group && field) {
-      setTouched((prev) => ({
-        ...prev,
-        [`${group}_${field}`]: true,
-      }));
-    } else {
-      const fieldName = field || group;
-      setTouched((prev) => ({
-        ...prev,
-        [fieldName]: true,
-      }));
-    }
-  };
 
   const isFormValid = () => {
     const guestFields = [
@@ -152,42 +46,75 @@ const GuestRegistration = () => {
       "check_in",
       "check_out",
     ];
-    const guestValid = guestFields.every((field) => newGuestData[field].toString().trim() !== "");
-    const addressValid = addressFields.every((field) => newGuestData.address[field].toString().trim() !== "");
+    const guestValid = guestFields.every(
+      (field) => guestData[field].toString().trim() !== "",
+    );
+    const addressValid = addressFields.every(
+      (field) => guestData.address[field].toString().trim() !== "",
+    );
 
     if (!guestValid || !addressValid) {
       return false;
     }
 
-    if (showNewReservationForm) {
-      const reservationValid = reservationFields.every((field) => newReservationData[field].toString().trim() !== "");
-      const additionalGuestsValid = newReservationData.additional_guests.every((guest) =>
-        Object.values(guest).every((field) => field.toString().trim() !== "")
+    if (setShowReservationForm) {
+      const reservationValid = reservationFields.every(
+        (field) => reservationData[field].toString().trim() !== "",
       );
-      return reservationValid && additionalGuestsValid && newReservationData.room_numbers.length > 0;
+      const additionalGuestsValid = reservationData.additional_guests.every(
+        (guest) =>
+          Object.values(guest).every((field) => field.toString().trim() !== ""),
+      );
+      return (
+        reservationValid &&
+        additionalGuestsValid &&
+        reservationData.room_numbers.length > 0
+      );
     }
 
     return true;
   };
 
-  const isFieldInvalid = (fieldName, group = null) => {
-    const field = fieldName;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (group) {
-      return touched[`${group}_${field}`] && (!newGuestData[group] || !newGuestData[group][field]);
-    } else {
-      if (newReservationData[fieldName]) {
-        return touched[fieldName] && !newReservationData[fieldName];
-      } else {
-        return touched[fieldName] && !newGuestData[fieldName];
+    if (isFormValid()) {
+      try {
+        setLoading(true);
+
+        const guestResponse = await axios.post(
+          `http://localhost:3015/api/v1/guests`,
+          guestData,
+        );
+
+        if (setShowReservationForm) {
+          const reservationDetails = {
+            ...reservationData,
+            primary_guest_id: guestResponse.data.data.guest_id,
+          };
+
+          await axios.post(
+            `http://localhost:3015/api/v1/reservations`,
+            reservationDetails,
+          );
+        }
+
+        setLoading(false);
+        navigate("/guests");
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
       }
     }
   };
 
+  const resetForm = () => {
+    setGuestData(initialGuestData);
+    setReservationData(initialReservationData);
+  };
+
   const handleCancel = () => {
-    setSelectedRooms(() => []);
-    setNewGuestData(initialNewGuestData);
-    setNewReservationData(initialNewReservationData);
+    resetForm();
     navigate(-1);
   };
 
@@ -198,18 +125,18 @@ const GuestRegistration = () => {
       ) : (
         <div className="flex flex-col pb-24">
           <div className="inline-flex justify-between p-5">
-            <div>
-              <h1 className="text-2xl font-semibold">{t("guest_registration")}</h1>
-            </div>
+            <h1 className="text-2xl font-semibold">
+              {t("guest_registration")}
+            </h1>
             <div className="w-full md:w-1/2">
               <SearchBar />
             </div>
-            <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-              <div className="flex items-center w-full space-x-3 md:w-auto">
+            <div className="flex w-full flex-shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
+              <div className="flex w-full items-center space-x-3 md:w-auto">
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                  className="hover:text-primary-700 flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
                 >
                   <CgMathMinus className="-ml-1 mr-1.5 size-4 text-red-500" />
                   {t("clear_form")}
@@ -217,37 +144,20 @@ const GuestRegistration = () => {
               </div>
             </div>
           </div>
-          <div className="flex-grow px-4 mb-4">
-            <NewGuestForm
-              newGuestData={newGuestData}
-              setNewGuestData={setNewGuestData}
-              toggleReservationForm={toggleNewReservationForm}
-              showNewReservationForm={showNewReservationForm}
-              handleBlur={handleBlur}
-              isFormValid={isFormValid}
-              isFieldInvalid={isFieldInvalid}
-              setTouched={setTouched}
-            />
-            {showNewReservationForm && (
-              <NewReservationForm
-                newReservationData={newReservationData}
-                setNewReservationData={setNewReservationData}
-                handleBlur={handleBlur}
-                isFieldInvalid={isFieldInvalid}
-                setTouched={setTouched}
-              />
-            )}
+          <div className="mb-4 flex-grow px-4">
+            <NewGuestForm />
+            {showReservationForm && <NewReservationForm />}
           </div>
-          <div className="fixed bottom-0 left-0 right-0 flex justify-end p-4 border-t border-gray-200 dark:border-gray-600 space-x-2 bg-[#111827] z-40">
+          <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-end space-x-2 border-t border-gray-200 bg-[#111827] p-4 dark:border-gray-600">
             <button
               onClick={handleCancel}
-              className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
+              className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-700"
             >
               {t("cancel")}
             </button>
             <button
               onClick={handleSubmit}
-              className="text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              className="rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
               {t("submit")}
             </button>

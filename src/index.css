@@ -17,3 +17,64 @@ body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
 }
+
+input[type="date"] {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+input[type="date"] {
+  position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-size: 14px;
+}
+
+/* Remove spin buttons for Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: 14px;
+  color: #9ca3af;
+  padding-top: 16px;
+}
+
+.react-datepicker,
+.react-datepicker__header,
+.react-datepicker__month,
+.react-datepicker__day-names {
+  background: #374151;
+}
+
+.react-datepicker__day,
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: white;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__day--selected {
+  background-color: #4ade80;
+}

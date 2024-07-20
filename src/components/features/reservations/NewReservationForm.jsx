@@ -1,32 +1,57 @@
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
-import { useGuestContext, useReservationsContext } from "../../../context";
-import { MultiSelectDropdown, AddGuestToParty, Pill } from "../../../components";
-import { CgMathPlus } from "react-icons/cg";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { CgMathPlus } from "react-icons/cg";
+import { IoIosArrowDown } from "react-icons/io";
+import { FaDollarSign } from "react-icons/fa6";
+import { LuLogIn, LuLogOut } from "react-icons/lu";
+import { useGuestRegistrationContext } from "../../../context";
+import {
+  AdditionalGuest,
+  MultiSelectDropdown,
+  Pill,
+} from "../../../components";
+import { SlCalender } from "react-icons/sl";
 
-const NewReservationForm = ({ newReservationData, setNewReservationData, handleBlur, isFieldInvalid, setTouched }) => {
+const reservationSchema = z.object({
+  check_in: z.date(),
+  check_out: z.date(),
+  payment_method: z.string().min(1, "Must provide payment method"),
+  total_amount: z.string().min(1, "Must provide total amount due"),
+  payment_status: z.string().min(1, "Must provide payment status"),
+});
+
+const NewReservationForm = () => {
   const { t } = useTranslation();
-  const { additionalGuests } = useGuestContext();
-  const { selectedRooms, setSelectedRooms } = useReservationsContext();
+  const { reservationData, setReservationData } = useGuestRegistrationContext();
+
+  const {
+    control,
+    setValue,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(reservationSchema),
+    defaultValues: reservationData,
+    mode: "onBlur",
+  });
 
   useEffect(() => {
-    setNewReservationData((prevData) => ({
-      ...prevData,
-      additional_guests: [
-        ...prevData.additional_guests,
-        ...additionalGuests.filter((g) => !prevData.additional_guests.some((pg) => pg.id === g.id)),
-      ],
-    }));
-  }, [additionalGuests]);
+    Object.keys(reservationData).forEach((key) =>
+      setValue(key, reservationData[key]),
+    );
+  }, [reservationData, setValue]);
 
   const handleInputChange = (e) => {
-    const { dataset, value } = e.target;
+    const { name, value, dataset } = e.target;
     const { group, field } = dataset;
 
-    setNewReservationData((prev) => {
+    setReservationData((prev) => {
       if (group) {
         return {
           ...prev,
@@ -38,131 +63,132 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
       } else {
         return {
           ...prev,
-          [field]: value,
+          [name]: value,
         };
       }
     });
   };
 
-  const addGuestToParty = () => {
-    setNewReservationData((prevState) => {
-      const newGuest = {
-        id: uuidv4(),
-        first_name: "",
-        last_name: "",
-        date_of_birth: "",
-        nationality: "",
-        email: "",
-        identification_number: "",
-      };
-      return {
-        ...prevState,
-        additional_guests: [...prevState.additional_guests, newGuest],
-      };
-    });
-  };
-
-  const removeGuestFromParty = (id) => {
-    setNewReservationData((prevState) => {
-      const updatedGuests = prevState.additional_guests.filter((guest) => guest.id !== id);
-      return {
-        ...prevState,
-        additional_guests: updatedGuests,
-      };
-    });
-  };
-
-  const updateGuest = (updatedGuest) => {
-    setNewReservationData((prevState) => ({
-      ...prevState,
-      additional_guests: prevState.additional_guests.map((guest) =>
-        guest.id === updatedGuest.id ? updatedGuest : guest
-      ),
-    }));
-  };
-
-  const handleRoomsChange = (room) => {
-    const updatedRooms = selectedRooms.includes(room)
-      ? selectedRooms.filter((r) => r !== room)
-      : [...selectedRooms, room];
-
-    setSelectedRooms(updatedRooms);
-    setNewReservationData((prevData) => ({
-      ...prevData,
-      room_numbers: updatedRooms,
-    }));
-
-    setTouched((prev) => ({
-      ...prev,
-      room_numbers: true,
-    }));
-  };
-
   const handleDateChange = (field, date) => {
-    setNewReservationData((prevData) => ({
-      ...prevData,
+    setReservationData((prev) => ({
+      ...prev,
       [field]: date,
     }));
   };
 
+  const handleRoomsChange = (room) => {
+    const updatedRooms = reservationData.room_numbers.includes(room)
+      ? reservationData.room_numbers.filter((r) => r !== room)
+      : [...reservationData.room_numbers, room];
+
+    setReservationData((prev) => ({
+      ...prev,
+      room_numbers: updatedRooms,
+    }));
+  };
+
+  const handleAddGuestToParty = () => {
+    const newAdditionalGuest = { id: uuidv4() };
+    setReservationData((prev) => {
+      return {
+        ...prev,
+        additional_guests: [...prev.additional_guests, newAdditionalGuest],
+      };
+    });
+  };
+
   return (
-    <>
-      <h1 className="pt-4 text-green-400">
+    <form className="pt-6">
+      <h1 className="pb-6 text-green-400">
         <span className="text-green-400"> - </span>
         {t("room_information")}
       </h1>
-      <div className="flex flex-wrap mb-6 -mx-3">
-        <div className="flex flex-col justify-center w-full px-3 py-2 mb-6 md:w-1/4 md:mb-0">
-          <MultiSelectDropdown onRoomSelectionChange={handleRoomsChange} />
+      <div className="-mx-3 mb-6 flex flex-wrap">
+        <div className="w-full px-3 md:mb-0 md:w-1/4">
+          <MultiSelectDropdown handleRoomsChange={handleRoomsChange} />
         </div>
-        <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-1">{t("rooms")}</label>
+        <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          {!reservationData.room_numbers.length > 0 && (
+            <label className="absolute left-6 top-4 text-xs uppercase leading-tight tracking-wide text-gray-400">
+              {t("rooms")}
+            </label>
+          )}
           <div
-            className={`border rounded-lg p-2 min-h-12 items-center flex-wrap bg-gray-200  ${
-              !newReservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-600"
+            className={`mb-3 block min-h-12 w-full appearance-none flex-wrap items-center  rounded-lg border bg-[#111827] px-4 py-2 leading-tight  ${
+              !reservationData.room_numbers.length > 0
+                ? "border-red-500"
+                : "border-gray-400"
             }`}
           >
-            {newReservationData.room_numbers?.map((room, i) => (
+            {reservationData.room_numbers.map((room, i) => (
               <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}
           </div>
-          {!newReservationData.room_numbers.length > 0 && (
-            <p className="pt-1 text-xs italic text-red-500">{t("room_warning")}</p>
+          {!reservationData.room_numbers.length > 0 && (
+            <p className="pt-1 text-xs italic text-red-500">
+              {t("room_warning")}
+            </p>
           )}
         </div>
-        <div className="flex flex-col w-full px-3 mb-6 md:w-1/4 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_in")}</label>
-          <DatePicker
-            className="flex items-center w-full px-4 py-2 -mt-1 text-sm font-medium leading-tight text-black bg-gray-200 border border-gray-200 rounded-lg appearance-none min-h-12 focus:outline-none hover:bg-gray-100 focus:bg-white"
-            id="check_in"
-            selected={newReservationData.check_in}
-            onChange={(date) => handleDateChange("check_in", date)}
+        <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
+          <span className="pointer-events-none absolute left-5 top-4 z-20 text-gray-400">
+            <LuLogIn />
+          </span>
+          <Controller
+            control={control}
+            name="check_in"
+            render={({ field }) => (
+              <DatePicker
+                className="mb-3 block min-h-12 w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-7 leading-tight focus:bg-[#192338] focus:outline-none"
+                selected={field.value}
+                onChange={(date) => {
+                  field.onChange(date);
+                  handleDateChange("check_in", date);
+                }}
+              />
+            )}
           />
+          <span className="pointer-events-none absolute right-5 top-3 text-gray-400">
+            <SlCalender size={20} />
+          </span>
         </div>
-        <div className="flex flex-col w-full px-3 mb-6 md:w-1/4 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("check_out")}</label>
-          <DatePicker
-            className="flex items-center w-full px-4 py-2 -mt-1 text-sm font-medium leading-tight text-black bg-gray-200 border border-gray-200 rounded-lg appearance-none min-h-12 focus:outline-none hover:bg-gray-100 focus:bg-white"
-            id="check_out"
-            startDate={new Date()}
-            selected={newReservationData.check_out}
-            onChange={(date) => handleDateChange("check_out", date)}
+        <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
+          <span className="pointer-events-none absolute left-5 top-4 z-20 text-gray-400">
+            <LuLogOut />
+          </span>
+          <Controller
+            control={control}
+            name="check_out"
+            render={({ field }) => (
+              <DatePicker
+                className="mb-3 block min-h-12 w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-7 leading-tight focus:bg-[#192338] focus:outline-none"
+                selected={field.value}
+                onChange={(date) => {
+                  field.onChange(date);
+                  handleDateChange("check_out", date);
+                }}
+              />
+            )}
           />
+          <span className="pointer-events-none absolute right-5 top-3 text-gray-400">
+            <SlCalender size={20} />
+          </span>
         </div>
       </div>
-      {newReservationData.additional_guests.map((guest, i) => (
+
+      {reservationData.additional_guests.map((guest, i) => (
         <div key={guest.id}>
-          <h2 className="pb-2 mx-8 text-white">
+          <h2 className="mx-8 pb-2 text-white">
             {t("guest")} {i + 1}
           </h2>
-          <AddGuestToParty guest={guest} updateGuest={updateGuest} removeGuestFromParty={removeGuestFromParty} />
+          <AdditionalGuest guest={guest} />
         </div>
       ))}
-      <div className="flex justify-end mt-4">
+      <div className="mt-4 flex justify-end">
         <button
           type="button"
-          onClick={addGuestToParty}
-          className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          onClick={handleAddGuestToParty}
+          className="hover:text-primary-700 flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
         >
           <CgMathPlus className="-ml-1 mr-1.5 size-4 text-green-400" />
           {t("add_guest")}
@@ -172,83 +198,84 @@ const NewReservationForm = ({ newReservationData, setNewReservationData, handleB
         <span className="text-green-400"> - </span>
         {t("payment_information")}
       </h1>
-      <div className="flex flex-wrap mb-6 -mx-3">
-        <div className="relative w-full px-3 mb-6 md:w-1/4 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("payment_method")}</label>
+      <div className="-mx-3 mb-6 flex flex-wrap">
+        <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid("payment_method") ? "border-red-500" : "border-gray-200"
-            } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-            data-field="payment_method"
-            value={newReservationData.payment_method}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            required
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
+              errors.payment_method ? "border-red-500" : ""
+            }`}
+            {...register("payment_method", {
+              onChange: (e) => handleInputChange(e),
+            })}
           >
-            <option
-              value=""
-              disabled
-              className="leading-tight text-gray-700 border-gray-200 rounded focus:outline-none focus:bg-white"
-            >
+            <option value="" disabled>
               {t("payment_selection")}
             </option>
             {["cash", "credit", "transfer"].map((method, i) => (
-              <option key={i}>{method}</option>
+              <option key={i} value={method}>
+                {method}
+              </option>
             ))}
           </select>
-          <div className="absolute inset-y-0 flex items-center px-2 text-gray-700 pointer-events-none right-3">
-            <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-            </svg>
-          </div>
+          <span className="pointer-events-none absolute right-5 top-2.5 text-gray-400">
+            <IoIosArrowDown />
+          </span>
+          {errors.payment_method && (
+            <p className="text-xs italic text-red-500">
+              {errors.payment_method.message}
+            </p>
+          )}
         </div>
-        <div className="w-full px-3 mb-6 md:w-1/4 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("total")}</label>
+        <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <input
-            className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid("total_amount") ? "border-red-500" : "border-gray-200"
-            } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-            data-field="total_amount"
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-6 py-2 
+              leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
+                errors.total_amount ? "border-red-500" : ""
+              }`}
             type="number"
             placeholder={t("total")}
-            value={newReservationData.total_amount}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            required
+            {...register("total_amount", {
+              onChange: (e) => handleInputChange(e),
+            })}
           />
-          {isFieldInvalid("total_amount") && <p className="text-xs italic text-red-500">{t("entry_warning")}</p>}
+          <span className="pointer-events-none absolute left-5 top-2.5 text-gray-400">
+            <FaDollarSign />
+          </span>
+          {errors.total_amount && (
+            <p className="text-xs italic text-red-500">
+              {errors.total_amount.message}
+            </p>
+          )}
         </div>
-        <div className="relative w-full px-3 mb-6 md:w-1/4 md:mb-0">
-          <label className="block uppercase tracking-wide text-[10px] font-light mb-2">{t("payment_status")}</label>
+        <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`appearance-none block w-full bg-gray-200 border text-black ${
-              isFieldInvalid("payment_status") ? "border-red-500" : "border-gray-200"
-            } rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-            data-field="payment_status"
-            value={newReservationData.payment_status}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            required
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
+              errors.payment_status ? "border-red-500" : ""
+            }`}
+            {...register("payment_status", {
+              onChange: (e) => handleInputChange(e),
+            })}
           >
-            <option
-              value=""
-              disabled
-              className="leading-tight text-gray-700 border-gray-200 rounded focus:outline-none focus:bg-white"
-            >
-              {t("payment_status")}
+            <option value="" disabled>
+              {t("payment_status_selection")}
             </option>
             {["pending", "completed", "failed"].map((status, i) => (
-              <option key={i}>{status}</option>
+              <option key={i} value={status}>
+                {status}
+              </option>
             ))}
           </select>
-          <div className="absolute inset-y-0 flex items-center px-2 text-gray-700 pointer-events-none right-3">
-            <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-            </svg>
-          </div>
+          <span className="pointer-events-none absolute right-5 top-2.5 text-gray-400">
+            <IoIosArrowDown />
+          </span>
+          {errors.payment_status && (
+            <p className="text-xs italic text-red-500">
+              {errors.payment_status.message}
+            </p>
+          )}
         </div>
       </div>
-    </>
+    </form>
   );
 };
 
