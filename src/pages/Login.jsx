@@ -32,14 +32,8 @@ const Login = () => {
 
   return (
     <AnimatedPage>
-      <div className="h-screen page-wrapper">
-        <div className="w-full max-w-lg">
-          {registrationStatus === "Inactive" ? (
-            <NewUserRegistrationForm onComplete={handleRegistrationCompletion} />
-          ) : (
-            <LoginForm onSubmit={onSubmit} />
-          )}
-        </div>
+      <div className="page-wrapper h-screen">
+        <div className="w-full max-w-lg">{registrationStatus === "Inactive" ? <NewUserRegistrationForm onComplete={handleRegistrationCompletion} /> : <LoginForm onSubmit={onSubmit} />}</div>
       </div>
     </AnimatedPage>
   );

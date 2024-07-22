@@ -15,9 +15,7 @@ const TeamMemberDetails = () => {
     const fetchTeamMember = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:3015/api/v1/users/${id}`,
-        );
+        const response = await axios.get(`http://localhost:3015/api/v1/users/${id}`);
         setSelectedTeamMember(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -44,10 +42,7 @@ const TeamMemberDetails = () => {
   const handleSave = async () => {
     try {
       setLoading(true);
-      const response = await axios.put(
-        `http://localhost:3015/api/v1/users/${selectedTeamMember.user_id}`,
-        selectedTeamMember,
-      );
+      const response = await axios.put(`http://localhost:3015/api/v1/users/${selectedTeamMember.user_id}`, selectedTeamMember);
       setSelectedTeamMember(response.data.data);
       setLoading(false);
     } catch (error) {
@@ -58,10 +53,7 @@ const TeamMemberDetails = () => {
 
   const handleToggleChange = (e) => {
     const { id } = e.target;
-    const newValue =
-      selectedTeamMember[id] === "Active" ? "Inactive" : "Active";
-
-    console.log(newValue);
+    const newValue = selectedTeamMember[id] === "Active" ? "Inactive" : "Active";
 
     setSelectedTeamMember((prevData) => ({
       ...prevData,
@@ -69,166 +61,119 @@ const TeamMemberDetails = () => {
     }));
   };
 
+  if (loading) return <LoadingComponent />;
+
   return (
     <AnimatedPage>
-      {loading ? (
-        <LoadingComponent />
-      ) : (
-        <>
-          <div className="col flex flex-col pb-10">
-            <h1 className="text-2xl font-semibold">Team Member Details</h1>
-            <p className="text-xs text-gray-500">
-              Business ID: <span>{selectedTeamMember?.tenant_id}</span>
-            </p>
-          </div>
-          <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
-            <div className="md:col-span-1">
-              <h1>{t("general.title")}</h1>
-              <p className="text-xs text-gray-500">
-                {t("general.description")}
-              </p>
+      <div className="col flex flex-col pb-10">
+        <h1 className="text-2xl font-semibold">Team Member Details</h1>
+        <p className="text-xs text-gray-500">
+          Business ID: <span>{selectedTeamMember?.tenant_id}</span>
+        </p>
+      </div>
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
+        <div className="md:col-span-1">
+          <h1>{t("general.title")}</h1>
+          <p className="text-xs text-gray-500">{t("general.description")}</p>
+        </div>
+        <div className="flex flex-col gap-6 md:col-span-2">
+          <div className="flex w-full flex-col gap-3 md:flex-row">
+            <div className="mb-6 w-full md:w-1/2">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("user_id")}</label>
+              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed" id="user_id" type="text" value={selectedTeamMember?.user_id} disabled />
             </div>
-            <div className="flex flex-col gap-6 md:col-span-2">
-              <div className="flex w-full flex-col gap-3 md:flex-row">
-                <div className="mb-6 w-full md:w-1/2">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("user_id")}
-                  </label>
-                  <input
-                    className="mb-3 block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed"
-                    id="user_id"
-                    type="text"
-                    value={selectedTeamMember?.user_id}
-                    disabled
-                  />
-                </div>
-                <div className="mb-6 w-full items-center md:w-1/2">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("user_name")}
-                  </label>
-                  <input
-                    className="mb-3  block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed"
-                    id="user_name"
-                    type="text"
-                    value={selectedTeamMember?.user_name}
-                    disabled
-                  />
-                </div>
-              </div>
-              <div className="flex w-full flex-col gap-3 md:flex-row">
-                <div className="mb-6 w-full items-center md:w-1/2">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("first_name")}
-                  </label>
-                  <input
-                    className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
-                    id="first_name"
-                    type="text"
-                    value={selectedTeamMember?.first_name}
-                    placeholder={selectedTeamMember?.first_name}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="mb-6 w-full md:w-1/2">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("last_name")}
-                  </label>
-                  <input
-                    className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
-                    id="last_name"
-                    type="text"
-                    value={selectedTeamMember?.last_name}
-                    placeholder={selectedTeamMember?.last_name}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className="flex w-full flex-col gap-3 md:flex-row">
-                <div className="mb-6 w-full items-center md:w-1/2">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("email")}
-                  </label>
-                  <input
-                    className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
-                    id="email"
-                    type="text"
-                    value={selectedTeamMember?.email}
-                    placeholder={selectedTeamMember?.email}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="mb-6 w-full md:w-1/2">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("phone_number")}
-                  </label>
-                  <input
-                    className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
-                    id="phone_number"
-                    type="text"
-                    value={selectedTeamMember?.phone_number}
-                    placeholder={selectedTeamMember?.phone_number}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
+            <div className="mb-6 w-full items-center md:w-1/2">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("user_name")}</label>
+              <input className="mb-3  block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed" id="user_name" type="text" value={selectedTeamMember?.user_name} disabled />
+            </div>
+          </div>
+          <div className="flex w-full flex-col gap-3 md:flex-row">
+            <div className="mb-6 w-full items-center md:w-1/2">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("first_name")}</label>
+              <input
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                id="first_name"
+                type="text"
+                value={selectedTeamMember?.first_name}
+                placeholder={selectedTeamMember?.first_name}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-6 w-full md:w-1/2">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("last_name")}</label>
+              <input
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                id="last_name"
+                type="text"
+                value={selectedTeamMember?.last_name}
+                placeholder={selectedTeamMember?.last_name}
+                onChange={handleInputChange}
+              />
             </div>
           </div>
 
-          <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
-            <div className="md:col-span-1">
-              <h1>{t("employment_status.title")}</h1>
-              <p className="text-xs text-gray-500">
-                {t("employment_status.description")}
-              </p>
+          <div className="flex w-full flex-col gap-3 md:flex-row">
+            <div className="mb-6 w-full items-center md:w-1/2">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("email")}</label>
+              <input
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                id="email"
+                type="text"
+                value={selectedTeamMember?.email}
+                placeholder={selectedTeamMember?.email}
+                onChange={handleInputChange}
+              />
             </div>
-            <div className="flex flex-col md:col-span-2">
-              <div className="flex flex-col gap-10 md:flex-row">
-                <div className="mb-6 w-full md:w-1/2">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("role")}
-                  </label>
-                  <input
-                    className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
-                    id="role"
-                    type="text"
-                    value={selectedTeamMember?.role}
-                    placeholder={selectedTeamMember?.role}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="mb-6 items-center">
-                  <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">
-                    {t("status")}
-                  </label>
-                  <label className="inline-flex cursor-pointer items-center">
-                    <input
-                      id="status"
-                      type="checkbox"
-                      className="peer sr-only"
-                      checked={selectedTeamMember?.status === "Active"}
-                      onChange={handleToggleChange}
-                    />
-                    <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
-                    <span className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">
-                      Inactive / Active
-                    </span>
-                  </label>
-                </div>
-              </div>
+            <div className="mb-6 w-full md:w-1/2">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("phone_number")}</label>
+              <input
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                id="phone_number"
+                type="text"
+                value={selectedTeamMember?.phone_number}
+                placeholder={selectedTeamMember?.phone_number}
+                onChange={handleInputChange}
+              />
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="mt-6 flex justify-end">
-            <button
-              onClick={handleSave}
-              className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              {t("save")}
-            </button>
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
+        <div className="md:col-span-1">
+          <h1>{t("employment_status.title")}</h1>
+          <p className="text-xs text-gray-500">{t("employment_status.description")}</p>
+        </div>
+        <div className="flex flex-col md:col-span-2">
+          <div className="flex flex-col gap-10 md:flex-row">
+            <div className="mb-6 w-full md:w-1/2">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("role")}</label>
+              <input
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                id="role"
+                type="text"
+                value={selectedTeamMember?.role}
+                placeholder={selectedTeamMember?.role}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-6 items-center">
+              <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("status")}</label>
+              <label className="inline-flex cursor-pointer items-center">
+                <input id="status" type="checkbox" className="peer sr-only" checked={selectedTeamMember?.status === "Active"} onChange={handleToggleChange} />
+                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                <span className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">Inactive / Active</span>
+              </label>
+            </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-end">
+        <button onClick={handleSave} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 dark:hover:text-white">
+          {t("save")}
+        </button>
+      </div>
     </AnimatedPage>
   );
 };

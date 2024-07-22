@@ -67,9 +67,7 @@ const Tenants = () => {
     setCurrentPage(1);
   };
 
-  const renderRow = (tenant) => (
-    <TableRow key={tenant.tenant_id} item={tenant} columns={columns} editAction={handleEditItem} />
-  );
+  const renderRow = (tenant) => <TableRow key={tenant.tenant_id} item={tenant} columns={columns} editAction={handleEditItem} />;
 
   if (!tenants.length) {
     return <div>No Tenants Found</div>;

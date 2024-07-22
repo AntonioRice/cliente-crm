@@ -77,9 +77,7 @@ const Guests = () => {
     { header: "Status", key: "guest_status" },
   ];
 
-  const renderRow = (guest) => (
-    <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />
-  );
+  const renderRow = (guest) => <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />;
 
   return (
     <AnimatedPage>

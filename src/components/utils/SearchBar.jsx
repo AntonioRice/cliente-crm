@@ -46,29 +46,23 @@ const SearchBar = () => {
     <div className="relative">
       <label className="sr-only">{t("search")}</label>
       <div className="relative w-full">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <IoIosSearch className="text-gray-500 size-5 dark:text-gray-400" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <IoIosSearch className="size-5 text-gray-500 dark:text-gray-400" />
         </div>
         <input
           type="text"
           value={query}
           onChange={handleInputChange}
-          className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
           placeholder={t("search_placeholder_existing")}
         />
       </div>
       {query && (
-        <div className="absolute z-50 w-full mt-4 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
+        <div className="absolute z-50 mt-4 w-full divide-y divide-gray-100 rounded-lg bg-white shadow dark:bg-gray-700">
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
             {loading ? (
               <li className="block p-2 px-4">
-                <svg
-                  aria-hidden="true"
-                  className="text-gray-200 size-4 animate-spin dark:text-gray-600 fill-green-400"
-                  viewBox="0 0 100 101"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg aria-hidden="true" className="size-4 animate-spin fill-green-400 text-gray-200 dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                     fill="currentColor"

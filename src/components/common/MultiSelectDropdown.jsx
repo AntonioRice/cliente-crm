@@ -26,10 +26,7 @@ const MultiSelectDropdown = ({ handleRoomsChange }) => {
     }
   };
 
-  const selectedRoomsText =
-    reservationData.room_numbers.length > 0
-      ? `${reservationData.room_numbers.length} Room(s) Selected`
-      : "Select Room(s)";
+  const selectedRoomsText = reservationData.room_numbers.length > 0 ? `${reservationData.room_numbers.length} Room(s) Selected` : "Select Room(s)";
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -47,17 +44,8 @@ const MultiSelectDropdown = ({ handleRoomsChange }) => {
           <ul className="grid grid-cols-6 gap-2 p-2 text-sm">
             {Array.from({ length: 26 }, (_, i) => i + 1).map((room, i) => (
               <li key={i}>
-                <div
-                  className="flex items-center justify-center rounded-lg dark:hover:bg-gray-600"
-                  onClick={() => handleCheckboxChange(room)}
-                >
-                  <input
-                    id={`checkbox-${room}`}
-                    type="checkbox"
-                    value={room}
-                    checked={reservationData.room_numbers.includes(room)}
-                    readOnly
-                  />
+                <div className="flex items-center justify-center rounded-lg dark:hover:bg-gray-600" onClick={() => handleCheckboxChange(room)}>
+                  <input id={`checkbox-${room}`} type="checkbox" value={room} checked={reservationData.room_numbers.includes(room)} readOnly />
                   <label className="p-1 text-sm">{room}</label>
                 </div>
               </li>

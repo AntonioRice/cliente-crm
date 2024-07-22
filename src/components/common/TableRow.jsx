@@ -8,7 +8,7 @@ const renderCellContent = (item, col) => {
   }
 
   if (col.key === "profile_picture") {
-    return <img className="w-8 h-8 rounded-full" src={item[col.key]} alt="user photo" />;
+    return <img className="h-8 w-8 rounded-full" src={item[col.key]} alt="user photo" />;
   }
 
   if (col.key === "check_in" || col.key === "check_out" || col.key === "created_date") {
@@ -28,11 +28,7 @@ const renderCellContent = (item, col) => {
 };
 
 const TableRow = ({ item, columns, editAction }) => (
-  <tr
-    key={item.id}
-    className="border-b-[1px] border-b-gray-500 hover:bg-gray-500 hover:text-white hover:cursor-pointer"
-    onClick={() => editAction(item)}
-  >
+  <tr key={item.id} className="border-b-[1px] border-b-gray-500 hover:cursor-pointer hover:bg-gray-500 hover:text-white" onClick={() => editAction(item)}>
     {columns.map((col) => (
       <td key={col.key} className="px-6 py-4">
         {renderCellContent(item, col)}

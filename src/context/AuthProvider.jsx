@@ -47,7 +47,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post("http://localhost:3015/api/v1/login", { username, password });
+      const response = await axios.post("http://localhost:3015/api/v1/login", {
+        username,
+        password,
+      });
       const { token } = response.data;
       localStorage.setItem("jwtToken", token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

@@ -70,13 +70,13 @@ const TeamMembers = () => {
     setCurrentPage(1);
   };
 
-  const renderRow = (teamMember) => (
-    <TableRow key={teamMember.user_id} item={teamMember} columns={columns} editAction={handleEditItem} />
-  );
+  const renderRow = (teamMember) => <TableRow key={teamMember.user_id} item={teamMember} columns={columns} editAction={handleEditItem} />;
 
   if (!teamMembers.length) {
     return <div>No Users Found</div>;
   }
+
+  // if (loading) return <LoadingComponent />;
 
   return (
     <AnimatedPage>

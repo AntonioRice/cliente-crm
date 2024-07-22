@@ -15,9 +15,7 @@ const initialState = {
 export const StateProvider = ({ children }) => {
   const [activeSideBar, setActiveSideBar] = useState(initialState.activeSideBar);
   const [currentMode, setCurrentMode] = useState(localStorage.getItem("themeMode") || initialState.currentMode);
-  const [currentLanguage, setCurrentLanguage] = useState(
-    localStorage.getItem("language") || initialState.currentLanguage
-  );
+  const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem("language") || initialState.currentLanguage);
 
   const setMode = (mode) => {
     setCurrentMode(mode);

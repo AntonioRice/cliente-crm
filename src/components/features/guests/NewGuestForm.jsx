@@ -12,12 +12,7 @@ import { SlCalender } from "react-icons/sl";
 const NewGuestForm = () => {
   const { t } = useTranslation();
   const { primaryGuest } = useGuestContext();
-  const {
-    guestData,
-    setGuestData,
-    showReservationForm,
-    setShowReservationForm,
-  } = useGuestRegistrationContext();
+  const { guestData, setGuestData, showReservationForm, setShowReservationForm } = useGuestRegistrationContext();
   const {
     register,
     control,
@@ -48,7 +43,6 @@ const NewGuestForm = () => {
   };
 
   const handleInputChange = (e) => {
-    console.log(e.target.value);
     const { name, value, dataset } = e.target;
     const { group, field } = dataset;
 
@@ -70,8 +64,6 @@ const NewGuestForm = () => {
     });
   };
 
-  console.log(guestData);
-
   return (
     <AnimatedPage>
       <div className="text-base leading-relaxed">
@@ -83,34 +75,22 @@ const NewGuestForm = () => {
           <div className="-mx-3 mb-6 flex flex-wrap">
             <div className="w-full px-3 md:mb-0 md:w-1/4">
               <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                  errors.first_name ? "border-red-500" : ""
-                }`}
+                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.first_name ? "border-red-500" : ""}`}
                 placeholder={t("first_name")}
                 {...register("first_name")}
                 onChange={handleInputChange}
               />
-              {errors.first_name && (
-                <p className="text-xs italic text-red-500">
-                  {errors.first_name.message}
-                </p>
-              )}
+              {errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                  errors.last_name ? "border-red-500" : ""
-                }`}
+                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.last_name ? "border-red-500" : ""}`}
                 placeholder={t("last_name")}
                 {...register("last_name")}
                 onChange={handleInputChange}
               />
-              {errors.last_name && (
-                <p className="text-xs italic text-red-500">
-                  {errors.last_name.message}
-                </p>
-              )}
+              {errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}
             </div>
 
             <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
@@ -119,9 +99,7 @@ const NewGuestForm = () => {
                 <p>DOB</p>
               </span>
               <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                  errors.date_of_birth ? "border-red-500" : ""
-                }`}
+                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.date_of_birth ? "border-red-500" : ""}`}
                 id="date_of_birth"
                 type="date"
                 {...register("date_of_birth")}
@@ -130,27 +108,17 @@ const NewGuestForm = () => {
               <span className="pointer-events-none absolute right-5 top-2 text-gray-400">
                 <SlCalender size={20} />
               </span>
-              {errors.date_of_birth && (
-                <p className="text-xs italic text-red-500">
-                  {errors.date_of_birth.message}
-                </p>
-              )}
+              {errors.date_of_birth && <p className="text-xs italic text-red-500">{errors.date_of_birth.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                  errors.nationality ? "border-red-500" : ""
-                }`}
+                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.nationality ? "border-red-500" : ""}`}
                 placeholder={t("nationality")}
                 {...register("nationality")}
                 onChange={handleInputChange}
               />
-              {errors.nationality && (
-                <p className="text-xs italic text-red-500">
-                  {errors.nationality.message}
-                </p>
-              )}
+              {errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}
             </div>
           </div>
           <div className="-mx-3 mb-6 flex flex-wrap">
@@ -160,20 +128,14 @@ const NewGuestForm = () => {
                 name="address.city"
                 render={({ field }) => (
                   <input
-                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                      errors.address?.city ? "border-red-500" : ""
-                    }`}
+                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.city ? "border-red-500" : ""}`}
                     placeholder={t("city")}
                     {...field}
                     onChange={handleInputChange}
                   />
                 )}
               />
-              {errors.address?.city && (
-                <p className="text-xs italic text-red-500">
-                  {errors.address.city.message}
-                </p>
-              )}
+              {errors.address?.city && <p className="text-xs italic text-red-500">{errors.address.city.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
@@ -182,20 +144,14 @@ const NewGuestForm = () => {
                 name="address.state"
                 render={({ field }) => (
                   <input
-                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                      errors.address?.state ? "border-red-500" : ""
-                    }`}
+                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.state ? "border-red-500" : ""}`}
                     placeholder={t("state")}
                     {...field}
                     onChange={handleInputChange}
                   />
                 )}
               />
-              {errors.address?.state && (
-                <p className="text-xs italic text-red-500">
-                  {errors.address.state.message}
-                </p>
-              )}
+              {errors.address?.state && <p className="text-xs italic text-red-500">{errors.address.state.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
@@ -204,20 +160,14 @@ const NewGuestForm = () => {
                 name="address.postal_code"
                 render={({ field }) => (
                   <input
-                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                      errors.address?.postal_code ? "border-red-500" : ""
-                    }`}
+                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.postal_code ? "border-red-500" : ""}`}
                     placeholder={t("postal_code")}
                     {...field}
                     onChange={handleInputChange}
                   />
                 )}
               />
-              {errors.address?.postal_code && (
-                <p className="text-xs italic text-red-500">
-                  {errors.address.postal_code.message}
-                </p>
-              )}
+              {errors.address?.postal_code && <p className="text-xs italic text-red-500">{errors.address.postal_code.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
@@ -226,71 +176,47 @@ const NewGuestForm = () => {
                 name="address.country"
                 render={({ field }) => (
                   <input
-                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                      errors.address?.country ? "border-red-500" : ""
-                    }`}
+                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.country ? "border-red-500" : ""}`}
                     placeholder={t("country")}
                     {...field}
                     onChange={handleInputChange}
                   />
                 )}
               />
-              {errors.address?.country && (
-                <p className="text-xs italic text-red-500">
-                  {errors.address.country.message}
-                </p>
-              )}
+              {errors.address?.country && <p className="text-xs italic text-red-500">{errors.address.country.message}</p>}
             </div>
           </div>
           <div className="-mx-3 mb-6 flex flex-wrap">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
               <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                  errors.identification_number ? "border-red-500" : ""
-                }`}
+                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.identification_number ? "border-red-500" : ""}`}
                 placeholder={t("identification_number")}
                 {...register("identification_number")}
                 onChange={handleInputChange}
               />
-              {errors.identification_number && (
-                <p className="text-xs italic text-red-500">
-                  {errors.identification_number.message}
-                </p>
-              )}
+              {errors.identification_number && <p className="text-xs italic text-red-500">{errors.identification_number.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                  errors.email ? "border-red-500" : ""
-                }`}
+                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.email ? "border-red-500" : ""}`}
                 type="email"
                 placeholder={t("email")}
                 {...register("email")}
                 onChange={handleInputChange}
               />
-              {errors.email && (
-                <p className="text-xs italic text-red-500">
-                  {errors.email.message}
-                </p>
-              )}
+              {errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                  errors.phone_number ? "border-red-500" : ""
-                }`}
+                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.phone_number ? "border-red-500" : ""}`}
                 type="tel"
                 placeholder={t("phone_number")}
                 {...register("phone_number")}
                 onChange={handleInputChange}
               />
-              {errors.phone_number && (
-                <p className="text-xs italic text-red-500">
-                  {errors.phone_number.message}
-                </p>
-              )}
+              {errors.phone_number && <p className="text-xs italic text-red-500">{errors.phone_number.message}</p>}
             </div>
           </div>
           <h1 className="pb-6 text-green-400">
@@ -305,9 +231,7 @@ const NewGuestForm = () => {
                 render={({ field }) => (
                   <input
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                      errors.emergency_contact?.first_name
-                        ? "border-red-500"
-                        : ""
+                      errors.emergency_contact?.first_name ? "border-red-500" : ""
                     }`}
                     placeholder={t("first_name")}
                     {...field}
@@ -315,11 +239,7 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.emergency_contact?.first_name && (
-                <p className="text-xs italic text-red-500">
-                  {errors.emergency_contact.first_name.message}
-                </p>
-              )}
+              {errors.emergency_contact?.first_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.first_name.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
@@ -329,9 +249,7 @@ const NewGuestForm = () => {
                 render={({ field }) => (
                   <input
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                      errors.emergency_contact?.last_name
-                        ? "border-red-500"
-                        : ""
+                      errors.emergency_contact?.last_name ? "border-red-500" : ""
                     }`}
                     placeholder={t("last_name")}
                     {...field}
@@ -339,11 +257,7 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.emergency_contact?.last_name && (
-                <p className="text-xs italic text-red-500">
-                  {errors.emergency_contact.last_name.message}
-                </p>
-              )}
+              {errors.emergency_contact?.last_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.last_name.message}</p>}
             </div>
 
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
@@ -353,9 +267,7 @@ const NewGuestForm = () => {
                 render={({ field }) => (
                   <input
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                      errors.emergency_contact?.phone_number
-                        ? "border-red-500"
-                        : ""
+                      errors.emergency_contact?.phone_number ? "border-red-500" : ""
                     }`}
                     type="tel"
                     placeholder={t("phone_number")}
@@ -364,11 +276,7 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.emergency_contact?.phone_number && (
-                <p className="text-xs italic text-red-500">
-                  {errors.emergency_contact.phone_number.message}
-                </p>
-              )}
+              {errors.emergency_contact?.phone_number && <p className="text-xs italic text-red-500">{errors.emergency_contact.phone_number.message}</p>}
             </div>
           </div>
           <h1 className="pb-6 text-green-400">
@@ -423,9 +331,7 @@ const NewGuestForm = () => {
           </div>
         </form>
         <div className="mt-5 flex items-center justify-between space-x-3">
-          <h1 className="text-2xl font-semibold">
-            {showReservationForm ? t("new_reservation") : ""}
-          </h1>
+          <h1 className="text-2xl font-semibold">{showReservationForm ? t("new_reservation") : ""}</h1>
           <button
             type="button"
             onClick={toggleNewGuestForm}

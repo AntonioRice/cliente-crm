@@ -23,12 +23,7 @@ const Sidebar = () => {
     { path: "/dashboard", label: t("dashboard"), icon: <RxDashboard size={20} /> },
     { path: "/guests", label: t("guests"), icon: <MdOutlineRoomService size={20} /> },
     { path: "/reservations", label: t("reservations"), icon: <SlCalender size={20} /> },
-    {
-      path: "/team-members",
-      label: t("team_members"),
-      icon: <FaPeopleGroup size={20} />,
-      roles: ["Admin", "SuperAdmin"],
-    },
+    { path: "/team-members", label: t("team_members"), icon: <FaPeopleGroup size={20} />, roles: ["Admin", "SuperAdmin"] },
     { path: "/tenants", label: t("tenants"), icon: <PiBuildingLight size={20} />, roles: ["SuperAdmin"] },
   ];
 
@@ -39,54 +34,35 @@ const Sidebar = () => {
   const filteredSidebarItems = filterSidebarItems(sidebarItems, user.role);
 
   return (
-    <aside
-      className={`fixed top-0 left-0 z-50 w-64 h-screen transition-transform ${
-        activeSideBar ? "translate-x-0" : "-translate-x-full"
-      } sm:-translate-x-full`}
-    >
-      <div className="fixed px-2 mt-2 text-xs font-medium text-gray-800 bg-gray-100 rounded-full ms-3 dark:bg-gray-700 dark:text-gray-300">
-        Pro
-      </div>
-      <div className="h-full px-3 py-4 overflow-y-auto bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <aside className={`fixed left-0 top-0 z-50 h-screen w-64 transition-transform ${activeSideBar ? "translate-x-0" : "-translate-x-full"} sm:-translate-x-full`}>
+      <div className="fixed ms-3 mt-2 rounded-full bg-gray-100 px-2 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">Pro</div>
+      <div className="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-gray-700 dark:bg-gray-900">
         <ul className="space-y-2 font-extralight">
           <li className="p-5">
-            <p className="flex justify-center text-xs text-gray-400 ms-3">
+            <p className="ms-3 flex justify-center text-xs text-gray-400">
               {t("welcome")}, {user.first_name}
             </p>
           </li>
           {filteredSidebarItems.map((item) => (
             <li key={item.path}>
-              <button
-                onClick={() => navigate(item.path)}
-                className={`flex w-full items-center p-2 rounded-lg group hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass(
-                  item.path
-                )}`}
-              >
+              <button onClick={() => navigate(item.path)} className={`group flex w-full items-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass(item.path)}`}>
                 <span className="flex items-center">{item.icon}</span>
-                <span className="text-sm ms-3 whitespace-nowrap">{item.label}</span>
+                <span className="ms-3 whitespace-nowrap text-sm">{item.label}</span>
               </button>
             </li>
           ))}
-          <div className="fixed bottom-0 flex justify-between w-full pb-2">
+          <div className="fixed bottom-0 flex w-full justify-between pb-2">
             <ul className="flex flex-row space-x-2">
               <li className={getActiveClass("/settings")}>
-                <a
-                  href="/settings"
-                  className={`flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group ${
-                    getActiveClass("/settings") || `dark:text-white`
-                  }`}
-                >
+                <a href="/settings" className={`group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass("/settings") || `dark:text-white`}`}>
                   <CiSettings size={15} />
-                  <span className="flex-1 text-xs ms-2 whitespace-nowrap">{t("settings")}</span>
+                  <span className="ms-2 flex-1 whitespace-nowrap text-xs">{t("settings")}</span>
                 </a>
               </li>
               <li>
-                <button
-                  onClick={logout}
-                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                >
+                <button onClick={logout} className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                   <PiSignOutLight size={15} />
-                  <span className="flex-1 text-xs ms-2 whitespace-nowrap">{t("sign_out")}</span>
+                  <span className="ms-2 flex-1 whitespace-nowrap text-xs">{t("sign_out")}</span>
                 </button>
               </li>
             </ul>
