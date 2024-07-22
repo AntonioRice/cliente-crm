@@ -1,71 +1,51 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useReservationsContext } from "../../../context";
 import { useTranslation } from "react-i18next";
 import { months, daysOfWeek } from "../../../utils/standardData";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
-const Calendar = () => {
+const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { setSelectedReservation } = useReservationsContext();
-  const [month, setMonth] = useState(new Date().getMonth());
-  const [year, setYear] = useState(new Date().getFullYear());
   const [dates, setDates] = useState([]);
-  const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
     generateDates(month, year);
   }, [month, year]);
 
-  useEffect(() => {
-    const fetchReservations = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3015/api/v1/reservations/calendar`, {
-          params: { month: month + 1, year },
-        });
-        setReservations(response.data.data);
-      } catch (error) {
-        console.error("Error fetching reservations:", error);
-      }
-    };
-    fetchReservations();
-  }, [month, year]);
-
   const generateDates = (month, year) => {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const tempDates = Array.from({ length: firstDay }, () => null).concat(
-      Array.from({ length: daysInMonth }, (_, i) => i + 1)
-    );
+    const tempDates = Array.from({ length: firstDay }, () => null).concat(Array.from({ length: daysInMonth }, (_, i) => i + 1));
 
     setDates(tempDates);
   };
 
   const handleMonthChange = (e) => {
-    setMonth(parseInt(e.target.value));
+    onMonthChange(parseInt(e.target.value));
   };
 
   const handleYearChange = (e) => {
-    setYear(parseInt(e.target.value));
+    onYearChange(parseInt(e.target.value));
   };
 
   const handlePrevMonth = () => {
     if (month === 0) {
-      setMonth(11);
-      setYear(year - 1);
+      onMonthChange(11);
+      onYearChange(year - 1);
     } else {
-      setMonth(month - 1);
+      onMonthChange(month - 1);
     }
   };
 
   const handleNextMonth = () => {
     if (month === 11) {
-      setMonth(0);
-      setYear(year + 1);
+      onMonthChange(0);
+      onYearChange(year + 1);
     } else {
-      setMonth(month + 1);
+      onMonthChange(month + 1);
     }
   };
 
@@ -81,62 +61,46 @@ const Calendar = () => {
 
   return (
     <>
-      <div className="flex justify-between h-15">
+      <div className="h-15 flex justify-between">
         <h1 className="mb-4 text-2xl font-bold">{t("reservations")}</h1>
-        <div className="flex mb-4 space-x-2">
+        <div className="mb-4 flex space-x-2">
           <div className="inline-flex h-10 text-sm rtl:space-x-reverse">
             <button
               onClick={handlePrevMonth}
-              className="flex items-center justify-center h-full px-3 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
+              className="ms-0 flex h-full items-center justify-center rounded-s-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
             >
               <IoIosArrowBack />
             </button>
 
             <button
               onClick={handleNextMonth}
-              className="flex items-center justify-center h-full px-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-green-400 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-green-500 dark:hover:bg-gray-700"
+              className="flex h-full items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-green-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
             >
               <IoIosArrowForward />
             </button>
           </div>
-          <select value={month} onChange={handleMonthChange} className="h-10 p-2 bg-gray-700 rounded-md">
+          <select value={month} onChange={handleMonthChange} className="h-10 rounded-md bg-gray-700 p-2">
             {months().map((monthName, index) => (
               <option key={index} value={index}>
                 {monthName}
               </option>
             ))}
           </select>
-          <input
-            type="number"
-            value={year}
-            onChange={handleYearChange}
-            className="h-10 px-4 bg-gray-700 rounded-md"
-            min="1900"
-            max="2100"
-          />
+          <input type="number" value={year} onChange={handleYearChange} className="h-10 rounded-md bg-gray-700 px-4" min="1900" max="2100" />
         </div>
       </div>
       <div className="grid grid-cols-7 gap-1">
         {daysOfWeek().map((day) => (
-          <div key={day} className="p-2 font-bold text-center bg-gray-700 rounded-md">
+          <div key={day} className="rounded-md bg-gray-700 p-2 text-center font-bold">
             {day}
           </div>
         ))}
         {dates.map((date, index) => (
-          <div
-            key={index}
-            className={`h-[7.45rem] flex flex-col border rounded-md border-gray-700 ${
-              !date ? "bg-gray-700 opacity-25" : ""
-            }`}
-          >
+          <div key={index} className={`flex h-[7.45rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : ""}`}>
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (
-                <div
-                  key={reservation.reservation_id}
-                  className="bg-green-600 p-0.5 m-1 text-white text-xs cursor-pointer rounded-sm"
-                  onClick={() => handleReservationOnClick(reservation)}
-                >
+                <div key={reservation.reservation_id} className="m-1 cursor-pointer rounded-sm bg-green-600 p-0.5 text-xs text-white" onClick={() => handleReservationOnClick(reservation)}>
                   <p className="px-1">{`${reservation.primary_guest.first_name} ${reservation.primary_guest.last_name}`}</p>
                 </div>
               ))}
