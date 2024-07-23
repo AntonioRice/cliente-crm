@@ -32,6 +32,7 @@
   },
   "entry_warning": "Por favor rellene este campo.",
   "first_name": "Nombre",
+  "forgot_password": "¿Has olvidado tu contraseña?",
   "general": {
     "description": "Controla la configuración general básica",
     "title": "General"

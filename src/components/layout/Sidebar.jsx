@@ -31,7 +31,7 @@ const Sidebar = () => {
     return items.filter((item) => !item.roles || item.roles.includes(userRole));
   };
 
-  const filteredSidebarItems = filterSidebarItems(sidebarItems, user.role);
+  const filteredSidebarItems = filterSidebarItems(sidebarItems, user?.role);
 
   return (
     <aside className={`fixed left-0 top-0 z-50 h-screen w-64 transition-transform ${activeSideBar ? "translate-x-0" : "-translate-x-full"} sm:-translate-x-full`}>
@@ -40,7 +40,7 @@ const Sidebar = () => {
         <ul className="space-y-2 font-extralight">
           <li className="p-5">
             <p className="ms-3 flex justify-center text-xs text-gray-400">
-              {t("welcome")}, {user.first_name}
+              {t("welcome")}, {user?.first_name}
             </p>
           </li>
           {filteredSidebarItems.map((item) => (
