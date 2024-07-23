@@ -35,7 +35,6 @@ const Login = () => {
       <div className="grid h-screen w-full dark:bg-gray-900">
         <div className="grid w-full md:grid-cols-2">
           <div className="flex w-full grid-cols-1 items-center justify-center">{registrationStatus === "Inactive" ? <NewUserRegistrationForm onComplete={handleRegistrationCompletion} /> : <LoginForm onSubmit={onSubmit} />}</div>
-
           <div className="flex w-full items-center justify-end border-l border-gray-700 bg-gray-800 pr-10 md:flex-1">
             <div className="w-full max-w-2xl text-right">
               <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl">

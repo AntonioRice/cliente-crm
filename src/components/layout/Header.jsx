@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext, useStateContext } from "../../context";
 
 const Header = () => {
   const { setActiveSideBar } = useStateContext();
   const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed top-0 z-20 w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
@@ -21,7 +22,13 @@ const Header = () => {
           </div>
           <div className="fixed right-4 flex items-center">
             <div className="ms-3 flex items-center">
-              <button type="button" className="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+              <button
+                type="button"
+                onClick={() => {
+                  navigate("/settings");
+                }}
+                className="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+              >
                 <img className="h-8 w-8 rounded-full" src={user?.profile_picture} alt="user photo" />
               </button>
             </div>
