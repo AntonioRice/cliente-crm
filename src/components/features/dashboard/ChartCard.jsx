@@ -1,5 +1,6 @@
 import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from "react-icons/md";
-import { IoTrendingUpOutline, IoTrendingDownOutline, IoArrowForwardOutline } from "react-icons/io5";
+import { IoTrendingUpOutline, IoTrendingDownOutline } from "react-icons/io5";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const ChartCard = ({ title, week, value, description, handlePrevWeek, handleNextWeek, delta }) => {
   let bgColor = "bg-gray-800";
@@ -12,7 +13,7 @@ const ChartCard = ({ title, week, value, description, handlePrevWeek, handleNext
     TrendingIcon = IoTrendingDownOutline;
     bgColor = "bg-red-400";
   } else {
-    TrendingIcon = IoArrowForwardOutline;
+    TrendingIcon = FaArrowRightLong;
   }
 
   return (

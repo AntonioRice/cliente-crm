@@ -10,6 +10,7 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
   const navigate = useNavigate();
   const { setSelectedReservation } = useReservationsContext();
   const [dates, setDates] = useState([]);
+  const [today, setToday] = useState(new Date().getDate());
 
   useEffect(() => {
     generateDates(month, year);
@@ -96,7 +97,11 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
           </div>
         ))}
         {dates.map((date, index) => (
-          <div key={index} className={`flex h-[7.45rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : ""}`}>
+          <div
+            key={index}
+            className={`flex h-[7.45rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date && date == today ? "bg-slate-700" : ""}
+          `}
+          >
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (

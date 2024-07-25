@@ -94,8 +94,7 @@ const NewGuestForm = () => {
             </div>
 
             <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
-              <span className="pointer-events-none absolute left-6 top-2 z-10 text-sm text-gray-400">
-                {/* <p>{t("dob")}</p> */}
+              <span className="pointer-events-none absolute left-6 top-2.5 z-10 text-sm text-gray-400">
                 <p>DOB</p>
               </span>
               <input
@@ -131,7 +130,12 @@ const NewGuestForm = () => {
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.city ? "border-red-500" : ""}`}
                     placeholder={t("city")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="address"
+                    data-field="city"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -147,7 +151,12 @@ const NewGuestForm = () => {
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.state ? "border-red-500" : ""}`}
                     placeholder={t("state")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="address"
+                    data-field="state"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -163,7 +172,12 @@ const NewGuestForm = () => {
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.postal_code ? "border-red-500" : ""}`}
                     placeholder={t("postal_code")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="address"
+                    data-field="postal_code"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -179,7 +193,12 @@ const NewGuestForm = () => {
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.address?.country ? "border-red-500" : ""}`}
                     placeholder={t("country")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="address"
+                    data-field="country"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -235,7 +254,12 @@ const NewGuestForm = () => {
                     }`}
                     placeholder={t("first_name")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="emergency_contact"
+                    data-field="first_name"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -253,7 +277,12 @@ const NewGuestForm = () => {
                     }`}
                     placeholder={t("last_name")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="emergency_contact"
+                    data-field="last_name"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -272,7 +301,12 @@ const NewGuestForm = () => {
                     type="tel"
                     placeholder={t("phone_number")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="emergency_contact"
+                    data-field="phone_number"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -293,7 +327,12 @@ const NewGuestForm = () => {
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none`}
                     placeholder={t("make")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="vehicle"
+                    data-field="make"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -308,7 +347,12 @@ const NewGuestForm = () => {
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none `}
                     placeholder={t("model")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="vehicle"
+                    data-field="model"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
@@ -323,7 +367,12 @@ const NewGuestForm = () => {
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none`}
                     placeholder={t("plate_number")}
                     {...field}
-                    onChange={handleInputChange}
+                    data-group="vehicle"
+                    data-field="plate_number"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleInputChange(e);
+                    }}
                   />
                 )}
               />
