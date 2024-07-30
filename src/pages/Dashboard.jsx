@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AnimatedPage, ChartCard, DataTable, TableRow, AddClientButton, BarChart } from "../components";
+import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, BarChart } from "../components";
 import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -122,9 +122,9 @@ const Dashboard = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center justify-between pb-4">
+      <div className="flex items-center justify-between py-4">
         <h1 className="text-2xl font-semibold">{t("dashboard")}</h1>
-        <AddClientButton />
+        <AddButton path="/guests/register" />
       </div>
       <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />

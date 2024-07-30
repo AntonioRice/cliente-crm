@@ -75,7 +75,7 @@ const Tenants = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center pb-10">
+      <div className="flex items-center py-4">
         <h1 className="text-2xl font-semibold">Tenants</h1>
       </div>
       <DataTable

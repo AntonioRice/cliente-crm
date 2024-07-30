@@ -1,4 +1,4 @@
-export { default as AddClientButton } from "./common/AddClientButton";
+export { default as AddButton } from "./common/AddButton";
 export { default as DataTable } from "./common/DataTable";
 export { default as TableRow } from "./common/TableRow";
 export { default as MultiSelectDropdown } from "./common/MultiSelectDropdown";

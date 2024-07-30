@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { useTeamContext } from "../context";
-import { AnimatedPage, DataTable, TableRow } from "../components";
+import { AddButton, AnimatedPage, DataTable, TableRow } from "../components";
 
 const TeamMembers = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { setSelectedTeamMember } = useTeamContext();
   const [teamMembers, setTeamMembers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,8 +82,9 @@ const TeamMembers = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center pb-10">
-        <h1 className="text-2xl font-semibold">Team Members</h1>
+      <div className="flex items-center justify-between py-4">
+        <h1 className="text-2xl font-semibold">{t("team_members")}</h1>
+        <AddButton path="/team-members/register" />
       </div>
       <DataTable
         data={teamMembers}

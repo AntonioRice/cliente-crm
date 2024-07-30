@@ -11,11 +11,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaDollarSign } from "react-icons/fa6";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { useGuestRegistrationContext } from "../../../context";
-import {
-  AdditionalGuest,
-  MultiSelectDropdown,
-  Pill,
-} from "../../../components";
+import { AdditionalGuest, MultiSelectDropdown, Pill } from "../../../components";
 import { SlCalender } from "react-icons/sl";
 
 const reservationSchema = z.object({
@@ -42,9 +38,7 @@ const NewReservationForm = () => {
   });
 
   useEffect(() => {
-    Object.keys(reservationData).forEach((key) =>
-      setValue(key, reservationData[key]),
-    );
+    Object.keys(reservationData).forEach((key) => setValue(key, reservationData[key]));
   }, [reservationData, setValue]);
 
   const handleInputChange = (e) => {
@@ -77,9 +71,7 @@ const NewReservationForm = () => {
   };
 
   const handleRoomsChange = (room) => {
-    const updatedRooms = reservationData.room_numbers.includes(room)
-      ? reservationData.room_numbers.filter((r) => r !== room)
-      : [...reservationData.room_numbers, room];
+    const updatedRooms = reservationData.room_numbers.includes(room) ? reservationData.room_numbers.filter((r) => r !== room) : [...reservationData.room_numbers, room];
 
     setReservationData((prev) => ({
       ...prev,
@@ -108,27 +100,13 @@ const NewReservationForm = () => {
           <MultiSelectDropdown handleRoomsChange={handleRoomsChange} />
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
-          {!reservationData.room_numbers.length > 0 && (
-            <label className="absolute left-6 top-4 text-xs uppercase leading-tight tracking-wide text-gray-400">
-              {t("rooms")}
-            </label>
-          )}
-          <div
-            className={`mb-3 block min-h-12 w-full appearance-none flex-wrap items-center  rounded-lg border bg-[#111827] px-4 py-2 leading-tight  ${
-              !reservationData.room_numbers.length > 0
-                ? "border-red-500"
-                : "border-gray-400"
-            }`}
-          >
+          {!reservationData.room_numbers.length > 0 && <label className="absolute left-6 top-4 text-xs uppercase leading-tight tracking-wide text-gray-400">{t("rooms")}</label>}
+          <div className={`mb-3 block min-h-12 w-full appearance-none flex-wrap items-center  rounded-lg border bg-[#111827] px-4 py-2 leading-tight  ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
             {reservationData.room_numbers.map((room, i) => (
               <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}
           </div>
-          {!reservationData.room_numbers.length > 0 && (
-            <p className="pt-1 text-xs italic text-red-500">
-              {t("room_warning")}
-            </p>
-          )}
+          {!reservationData.room_numbers.length > 0 && <p className="pt-1 text-xs italic text-red-500">{t("room_warning")}</p>}
         </div>
         <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
           <span className="pointer-events-none absolute left-5 top-4 z-20 text-gray-400">
@@ -201,9 +179,7 @@ const NewReservationForm = () => {
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-              errors.payment_method ? "border-red-500" : ""
-            }`}
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_method ? "border-red-500" : ""}`}
             {...register("payment_method", {
               onChange: (e) => handleInputChange(e),
             })}
@@ -220,18 +196,12 @@ const NewReservationForm = () => {
           <span className="pointer-events-none absolute right-5 top-2.5 text-gray-400">
             <IoIosArrowDown />
           </span>
-          {errors.payment_method && (
-            <p className="text-xs italic text-red-500">
-              {errors.payment_method.message}
-            </p>
-          )}
+          {errors.payment_method && <p className="text-xs italic text-red-500">{errors.payment_method.message}</p>}
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <input
             className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-6 py-2 
-              leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-                errors.total_amount ? "border-red-500" : ""
-              }`}
+              leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.total_amount ? "border-red-500" : ""}`}
             type="number"
             placeholder={t("total")}
             {...register("total_amount", {
@@ -241,17 +211,12 @@ const NewReservationForm = () => {
           <span className="pointer-events-none absolute left-5 top-2.5 text-gray-400">
             <FaDollarSign />
           </span>
-          {errors.total_amount && (
-            <p className="text-xs italic text-red-500">
-              {errors.total_amount.message}
-            </p>
-          )}
+          {errors.total_amount && <p className="text-xs italic text-red-500">{errors.total_amount.message}</p>}
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${
-              errors.payment_status ? "border-red-500" : ""
-            }`}
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] 
+              px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_status ? "border-red-500" : ""}`}
             {...register("payment_status", {
               onChange: (e) => handleInputChange(e),
             })}
@@ -268,11 +233,7 @@ const NewReservationForm = () => {
           <span className="pointer-events-none absolute right-5 top-2.5 text-gray-400">
             <IoIosArrowDown />
           </span>
-          {errors.payment_status && (
-            <p className="text-xs italic text-red-500">
-              {errors.payment_status.message}
-            </p>
-          )}
+          {errors.payment_status && <p className="text-xs italic text-red-500">{errors.payment_status.message}</p>}
         </div>
       </div>
     </form>

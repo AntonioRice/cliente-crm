@@ -90,7 +90,7 @@ const Settings = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center pb-10">
+      <div className="flex items-center py-4">
         <h1 className="text-2xl font-semibold">Settings</h1>
       </div>
       <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">

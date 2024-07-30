@@ -73,8 +73,8 @@ const GuestRegistration = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex flex-col pb-24">
-        <div className="inline-flex justify-between p-5">
+      <div className="flex flex-col pt-4">
+        <div className="mb-4 inline-flex justify-between">
           <h1 className="text-2xl font-semibold">{t("guest_registration")}</h1>
           <div className="w-full md:w-1/2">
             <SearchBar />

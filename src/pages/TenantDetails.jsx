@@ -1,5 +1,5 @@
 const TenantDetails = () => {
-  return <div>TenantDetails</div>;
+  return <div className="py-4">TenantDetails</div>;
 };
 
 export default TenantDetails;
