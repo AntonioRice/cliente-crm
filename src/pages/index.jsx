@@ -11,3 +11,4 @@ export { default as Tenants } from "./Tenants";
 export { default as TenantDetails } from "./TenantDetails";
 export { default as TeamMembers } from "./TeamMembers";
 export { default as TeamMemberDetails } from "./TeamMemberDetails";
+export { default as TeamMemberRegistration } from "./TeamMemberRegistration";
