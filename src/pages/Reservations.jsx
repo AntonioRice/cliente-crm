@@ -26,7 +26,9 @@ const Reservations = () => {
 
   return (
     <AnimatedPage>
-      <Calendar reservations={reservations} month={month} year={year} onMonthChange={handleMonthChange} onYearChange={handleYearChange} />
+      <div className="py-4">
+        <Calendar reservations={reservations} month={month} year={year} onMonthChange={handleMonthChange} onYearChange={handleYearChange} />
+      </div>
     </AnimatedPage>
   );
 };

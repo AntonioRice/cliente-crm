@@ -55,7 +55,7 @@ const ReservationDetails = () => {
 
   return (
     <AnimatedPage>
-      <div className="pb-8">
+      <div className="py-4">
         <div className="flex items-center pb-4">
           <h1 className="text-2xl font-semibold">{t("reservation_details")}</h1>
           <span className="ml-2 inline-flex items-center">

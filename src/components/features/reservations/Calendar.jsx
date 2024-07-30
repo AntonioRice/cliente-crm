@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useReservationsContext } from "../../../context";
 import { useTranslation } from "react-i18next";
 import { months, daysOfWeek } from "../../../utils/standardData";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward, IoIosArrowBack, IoIosArrowDown } from "react-icons/io";
 
 const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) => {
   const { t } = useTranslation();
@@ -61,10 +61,10 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
   };
 
   return (
-    <>
-      <div className="h-15 flex justify-between">
-        <h1 className="mb-4 text-2xl font-bold">{t("reservations")}</h1>
-        <div className="mb-4 flex space-x-2">
+    <div className="flex h-full flex-col">
+      <div className="mb-4 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">{t("reservations")}</h1>
+        <div className="flex items-center space-x-2">
           <div className="inline-flex h-10 text-sm rtl:space-x-reverse">
             <button
               onClick={handlePrevMonth}
@@ -80,28 +80,29 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
               <IoIosArrowForward />
             </button>
           </div>
-          <select value={month} onChange={handleMonthChange} className="h-10 rounded-md bg-gray-700 p-2">
-            {months().map((monthName, index) => (
-              <option key={index} value={index}>
-                {monthName}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select value={month} onChange={handleMonthChange} className="rounded-md bg-gray-700 p-2 pl-5 pr-8">
+              {months().map((monthName, index) => (
+                <option key={index} value={index}>
+                  {monthName}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-1 top-3">
+              <IoIosArrowDown />
+            </span>
+          </div>
           <input type="number" value={year} onChange={handleYearChange} className="h-10 rounded-md bg-gray-700 px-4" min="1900" max="2100" />
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid flex-grow grid-cols-7 gap-1">
         {daysOfWeek().map((day) => (
           <div key={day} className="rounded-md bg-gray-700 p-2 text-center font-bold">
             {day}
           </div>
         ))}
         {dates.map((date, index) => (
-          <div
-            key={index}
-            className={`flex h-[7.45rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date && date == today ? "bg-slate-700" : ""}
-          `}
-          >
+          <div key={index} className={`flex h-[7rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date === today ? "bg-slate-700" : ""}`}>
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (
@@ -113,7 +114,7 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
