@@ -65,7 +65,7 @@ const TeamMemberDetails = () => {
 
   return (
     <AnimatedPage>
-      <div className="col flex flex-col py-4">
+      <div className="col flex flex-col pb-10">
         <h1 className="text-2xl font-semibold">Team Member Details</h1>
         <p className="text-xs text-gray-500">
           Business ID: <span>{selectedTeamMember?.tenant_id}</span>

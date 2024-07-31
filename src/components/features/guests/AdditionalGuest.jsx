@@ -47,7 +47,7 @@ const AdditionalGuest = ({ guest }) => {
   };
 
   return (
-    <div className="mx-5 mb-6 flex flex-row">
+    <form className="mx-5 mb-6 flex flex-row">
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
           className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.first_name ? "border-red-500" : ""}`}
@@ -121,7 +121,7 @@ const AdditionalGuest = ({ guest }) => {
           </svg>
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
