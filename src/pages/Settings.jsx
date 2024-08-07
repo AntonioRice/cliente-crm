@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useAuthContext, useStateContext } from "../context";
 import { AnimatedPage, LoadingComponent } from "../components";
 import { compressImage } from "../utils/standardMethods";
+import FileUpload from "../components/utils/FileUpload";
 
 const Settings = () => {
   const { t } = useTranslation();
@@ -42,6 +43,14 @@ const Settings = () => {
     }
   };
 
+  const handleSelectedImage = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const compressedFile = await compressImage(file);
+      setProfilePicture(compressedFile);
+    }
+  };
+
   const handleSave = async () => {
     try {
       setLoading(true);
@@ -57,14 +66,6 @@ const Settings = () => {
     } catch (error) {
       setLoading(false);
       console.error(error);
-    }
-  };
-
-  const handleSelectedImage = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const compressedFile = await compressImage(file);
-      setProfilePicture(compressedFile);
     }
   };
 
@@ -182,7 +183,7 @@ const Settings = () => {
           <div className="flex w-full flex-col gap-3 md:flex-row">
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("profile_picture")}</label>
-              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none" id="profile_picture" type="file" accept="image/png, image/jpeg" onChange={handleSelectedImage} />
+              <FileUpload handleSelectedImage={handleSelectedImage} />
             </div>
           </div>
         </div>

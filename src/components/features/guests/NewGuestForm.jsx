@@ -337,7 +337,6 @@ const NewGuestForm = () => {
                 )}
               />
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -357,7 +356,6 @@ const NewGuestForm = () => {
                 )}
               />
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -379,7 +377,7 @@ const NewGuestForm = () => {
             </div>
           </div>
         </form>
-        <div className="mt-5 flex items-center justify-between space-x-3">
+        <div className="my-4 flex items-center justify-between space-x-3">
           <h1 className="text-2xl font-semibold">{showReservationForm ? t("new_reservation") : ""}</h1>
           <button
             type="button"

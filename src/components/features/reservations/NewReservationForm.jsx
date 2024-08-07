@@ -90,7 +90,7 @@ const NewReservationForm = () => {
   };
 
   return (
-    <form className="pt-6">
+    <form className="pb-20">
       <h1 className="pb-6 text-green-400">
         <span className="text-green-400"> - </span>
         {t("room_information")}
@@ -153,7 +153,6 @@ const NewReservationForm = () => {
           </span>
         </div>
       </div>
-
       {reservationData.additional_guests.map((guest, i) => (
         <div key={guest.id}>
           <h2 className="mx-8 pb-2 text-white">
