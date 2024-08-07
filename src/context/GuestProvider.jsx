@@ -10,7 +10,6 @@ export const GuestProvider = ({ children }) => {
   const [currentGuests, setCurrentGuests] = useState([]);
   const [selectedGuest, setSelectedGuest] = useState(null);
   const [primaryGuest, setPrimaryGuest] = useState(null);
-  const [additionalGuests, setAdditionalGuests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCurrentGuests, setTotalCurrentGuests] = useState(0);
@@ -33,19 +32,7 @@ export const GuestProvider = ({ children }) => {
     }
   };
 
-  const selectGuest = (guest) => {
-    const guestWithId = { ...guest, id: uuidv4() };
-    if (!primaryGuest) {
-      setPrimaryGuest(guestWithId);
-      setSelectedGuest(guestWithId);
-    } else {
-      setAdditionalGuests((prevGuests) => [...prevGuests, guestWithId]);
-    }
-  };
-
   const clearGuests = () => {
-    setPrimaryGuest(null);
-    setAdditionalGuests([]);
     setSelectedGuest(null);
   };
 
@@ -58,9 +45,6 @@ export const GuestProvider = ({ children }) => {
         setSelectedGuest,
         setPrimaryGuest,
         primaryGuest,
-        additionalGuests,
-        setAdditionalGuests,
-        selectGuest,
         clearGuests,
         currentPage,
         setCurrentPage,

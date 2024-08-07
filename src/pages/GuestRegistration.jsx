@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useGuestRegistrationContext } from "../context";
+import { useGuestRegistrationContext, useGuestContext } from "../context";
 import { AnimatedPage, NewGuestForm, NewReservationForm, SearchBar, LoadingComponent } from "../components";
 import { CgMathMinus } from "react-icons/cg";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { useState } from "react";
 const GuestRegistration = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { clearGuests } = useGuestContext();
   const { guestData, setGuestData, reservationData, setReservationData, initialGuestData, initialReservationData, showReservationForm, setShowReservationForm } = useGuestRegistrationContext();
   const [loading, setLoading] = useState(false);
 
@@ -51,6 +52,7 @@ const GuestRegistration = () => {
         }
 
         setLoading(false);
+        resetForm();
         navigate("/guests");
       } catch (error) {
         console.error(error);
@@ -60,6 +62,7 @@ const GuestRegistration = () => {
   };
 
   const resetForm = () => {
+    clearGuests();
     setGuestData(initialGuestData);
     setReservationData(initialReservationData);
   };

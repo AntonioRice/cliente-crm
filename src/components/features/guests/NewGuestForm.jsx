@@ -11,7 +11,7 @@ import { SlCalender } from "react-icons/sl";
 
 const NewGuestForm = () => {
   const { t } = useTranslation();
-  const { primaryGuest } = useGuestContext();
+  const { selectedGuest } = useGuestContext();
   const { guestData, setGuestData, showReservationForm, setShowReservationForm } = useGuestRegistrationContext();
   const {
     register,
@@ -25,7 +25,7 @@ const NewGuestForm = () => {
   });
 
   useEffect(() => {
-    const data = primaryGuest || guestData;
+    const data = selectedGuest || guestData;
     Object.keys(guestData).forEach((key) => {
       if (key === "date_of_birth") {
         data[key] = formatDateTime(data[key], true);
@@ -33,10 +33,10 @@ const NewGuestForm = () => {
       setValue(key, data[key]);
     });
 
-    if (primaryGuest) {
-      setGuestData(primaryGuest);
+    if (selectedGuest) {
+      setGuestData(selectedGuest);
     }
-  }, [primaryGuest, setValue]);
+  }, [selectedGuest, guestData, setValue]);
 
   const toggleNewGuestForm = () => {
     setShowReservationForm(!showReservationForm);
