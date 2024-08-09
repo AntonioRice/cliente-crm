@@ -52,11 +52,12 @@ const GuestRegistration = () => {
           await axios.post(`http://localhost:3015/api/v1/reservations`, reservationDetails);
         }
 
+        showAlert("Guest reservation successfully completed");
         setLoading(false);
         resetForm();
         navigate("/guests");
       } catch (error) {
-        console.error(error);
+        showAlert("Error saving guest reservation");
         setLoading(false);
       }
     } else {

@@ -87,7 +87,7 @@ const GuestDetails = () => {
         <h1 className="inline-flex items-center text-2xl font-semibold">
           {t("guest_details")}
           <span className="ml-2 inline-flex items-center">
-            <StatusIndicator status={selectedGuest.guest_status || selectedReservation.guest_status} />
+            <StatusIndicator status={selectedGuest?.guest_status || selectedReservation?.guest_status} />
           </span>
         </h1>
       </div>

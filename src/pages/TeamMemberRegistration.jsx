@@ -50,17 +50,13 @@ const TeamMemberRegistration = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3015/api/v1/team-members", data);
+      await axios.post("http://localhost:3015/api/v1/team-members", data);
       setLoading(false);
       navigate("/team-members");
     } catch (error) {
       setLoading(false);
       console.error("Error creating team member:", error);
     }
-  };
-
-  const handleCancel = () => {
-    navigate(-1);
   };
 
   if (loading) return <LoadingComponent />;
