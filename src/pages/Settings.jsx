@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useAuthContext, useStateContext } from "../context";
+import { useAuthContext, useStateContext, useAlertContext } from "../context";
 import { AnimatedPage, LoadingComponent } from "../components";
 import { compressImage } from "../utils/standardMethods";
 import FileUpload from "../components/utils/FileUpload";
@@ -10,9 +10,16 @@ const Settings = () => {
   const { t } = useTranslation();
   const { user, setUser } = useAuthContext();
   const { setMode, setLanguage } = useStateContext();
+  const { showAlert } = useAlertContext();
   const [newUserData, setNewUserData] = useState(user);
   const [loading, setLoading] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    const isDataChanged = JSON.stringify(newUserData) !== JSON.stringify(user);
+    setDisabled(!isDataChanged);
+  }, [newUserData, user]);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -48,6 +55,7 @@ const Settings = () => {
     if (file) {
       const compressedFile = await compressImage(file);
       setProfilePicture(compressedFile);
+      setDisabled(false);
     }
   };
 
@@ -56,15 +64,20 @@ const Settings = () => {
       setLoading(true);
       const response = await axios.put(`http://localhost:3015/api/v1/users/${newUserData.user_id}`, newUserData);
       setUser(response.data.data);
+      showAlert("Successfully saved updated user information", "success");
 
       if (profilePicture) {
         const resp = await uploadProfilePicture();
         setUser(resp.data.data);
+        showAlert("Successfully saved updated profile picture", "success");
       }
 
       setLoading(false);
+      setDisabled(true);
     } catch (error) {
+      showAlert("Error saving updated user information", "error");
       setLoading(false);
+      setDisabled(true);
       console.error(error);
     }
   };
@@ -189,7 +202,7 @@ const Settings = () => {
         </div>
       </div>
       <div className="mt-6 flex justify-end">
-        <button onClick={handleSave} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 dark:hover:text-white">
+        <button onClick={handleSave} disabled={disabled} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white disabled:pointer-events-none disabled:opacity-20 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 dark:hover:text-white">
           {t("save")}
         </button>
       </div>
