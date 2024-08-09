@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthProvider, GuestProvider, GuestRegistrationProvider, StateProvider, ReservationsProvider, TeamProvider } from "./context";
+import { AuthProvider, GuestProvider, GuestRegistrationProvider, StateProvider, ReservationsProvider, TeamProvider, AlertProvider } from "./context";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./App.css";
@@ -84,7 +84,9 @@ function App() {
             <GuestRegistrationProvider>
               <GuestProvider>
                 <TeamProvider>
-                  <RouterProvider router={router} />
+                  <AlertProvider>
+                    <RouterProvider router={router} />
+                  </AlertProvider>
                 </TeamProvider>
               </GuestProvider>
             </GuestRegistrationProvider>

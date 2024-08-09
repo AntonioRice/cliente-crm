@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 
 const Alert = ({ message, type, icon }) => {
-  console.log(message);
   const alertStyles = {
     success: "bg-green-500",
     error: "bg-red-500",

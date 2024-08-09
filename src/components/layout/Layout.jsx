@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import GlobalAlert from "../utils/GlobalAlert";
 import { useStateContext } from "../../context";
 
 const Layout = () => {
@@ -27,7 +28,7 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full w-full">
       <Sidebar activeSideBar />
       <div className={`flex flex-grow flex-col transition-all duration-300 ${activeSideBar && window.innerWidth >= 768 ? "ml-64" : ""}`}>
         <Header toggleSidebar={() => setActiveSideBar((prev) => !prev)} />
@@ -35,6 +36,7 @@ const Layout = () => {
           <Outlet />
         </main>
       </div>
+      <GlobalAlert />
     </div>
   );
 };
