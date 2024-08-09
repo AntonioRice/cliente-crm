@@ -59,8 +59,8 @@ export const AuthProvider = ({ children }) => {
       setMode(userData.preferences.display_mode);
       setLanguage(userData.preferences.language);
     } catch (error) {
-      alert("Incorrect Username or Password, please try again or gain access from Admin");
       console.error("Login error:", error);
+      throw error;
     }
   };
 

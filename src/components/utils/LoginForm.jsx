@@ -5,13 +5,14 @@ import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Error from "../alerts/Error";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, error, setError }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
 
@@ -22,6 +23,12 @@ const LoginForm = ({ onSubmit }) => {
   } = useForm({
     resolver: zodResolver(schema),
   });
+
+  const handleInputChange = () => {
+    if (error) {
+      setError("");
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -36,6 +43,7 @@ const LoginForm = ({ onSubmit }) => {
       <div className="flex flex-col items-center pb-10 text-2xl">
         <h1>{t("login")}</h1>
       </div>
+      {error && <Error message={error} />}
       <label className="mb-2 block text-sm font-medium  dark:text-[#cccccc]">{t("username")}</label>
       <div className="relative mb-5">
         <div className="pointer-events-none absolute start-0 top-3 flex items-center ps-3.5">
@@ -47,6 +55,7 @@ const LoginForm = ({ onSubmit }) => {
           className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
           placeholder="*********"
           {...register("username")}
+          onChange={handleInputChange}
         />
         {errors.username && <p className="mt-1 text-xs text-red-500">{errors.username.message}</p>}
       </div>
@@ -61,6 +70,7 @@ const LoginForm = ({ onSubmit }) => {
           className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
           placeholder="*********"
           {...register("password")}
+          onChange={handleInputChange}
         />
         <button type="button" onClick={togglePasswordVisibility} className="absolute -top-1 right-0 p-4">
           {showPassword ? <IoMdEye className="size-4 text-gray-500 dark:text-gray-400" /> : <IoMdEyeOff className="size-4 text-gray-500 dark:text-gray-400" />}

@@ -7,6 +7,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { login, user } = useAuthContext();
   const [registrationStatus, setRegistrationStatus] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -22,7 +23,7 @@ const Login = () => {
     try {
       await login(username, password);
     } catch (error) {
-      console.error(error);
+      setError(error.response.data.error);
     }
   };
 
@@ -34,7 +35,7 @@ const Login = () => {
     <AnimatedPage>
       <div className="grid h-screen w-full dark:bg-gray-900">
         <div className="grid w-full md:grid-cols-2">
-          <div className="flex w-full grid-cols-1 items-center justify-center">{registrationStatus === "Inactive" ? <NewUserRegistrationForm onComplete={handleRegistrationCompletion} /> : <LoginForm onSubmit={onSubmit} />}</div>
+          <div className="flex w-full grid-cols-1 items-center justify-center">{registrationStatus === "Inactive" ? <NewUserRegistrationForm onComplete={handleRegistrationCompletion} /> : <LoginForm onSubmit={onSubmit} error={error} setError={setError} />}</div>
           <div className="flex w-full items-center justify-end border-l border-gray-700 bg-gray-800 pr-10 md:flex-1">
             <div className="w-full max-w-2xl text-right">
               <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl">
