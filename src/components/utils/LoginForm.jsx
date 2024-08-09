@@ -5,7 +5,7 @@ import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Error from "../alerts/Error";
+import Alert from "../utils/Alert";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -43,7 +43,7 @@ const LoginForm = ({ onSubmit, error, setError }) => {
       <div className="flex flex-col items-center pb-10 text-2xl">
         <h1>{t("login")}</h1>
       </div>
-      {error && <Error message={error} />}
+      {error && <Alert message={error} type="error" />}
       <label className="mb-2 block text-sm font-medium  dark:text-[#cccccc]">{t("username")}</label>
       <div className="relative mb-5">
         <div className="pointer-events-none absolute start-0 top-3 flex items-center ps-3.5">
