@@ -63,6 +63,7 @@ const Dashboard = () => {
   const countReservationsInWeek = (reservations, weekStart) => {
     return reservations.length;
   };
+
   const calculateDelta = (currentData, previousData) => {
     const currentCount = countReservationsInWeek(currentData.reservations || [], currentWeek);
     const previousCount = countReservationsInWeek(previousData.reservations || [], moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD"));
@@ -82,11 +83,14 @@ const Dashboard = () => {
     reservations: [],
     totalGuestsForWeek: 0,
   };
+
   const previousWeekData = reservationsAnalytics[moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD")] || {
     reservations: [],
     totalGuestsForWeek: 0,
   };
+
   const delta = calculateDelta(currentWeekData, previousWeekData);
+
   const getWeekData = (weekStart) => {
     const start = moment(weekStart);
     const weekData = Array(7).fill(0);

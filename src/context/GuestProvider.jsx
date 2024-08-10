@@ -15,11 +15,11 @@ export const GuestProvider = ({ children }) => {
   const [totalCurrentGuests, setTotalCurrentGuests] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const fetchCurrentGuests = async (page = 1, sortKey = null, sortDirection = "asc") => {
+  const fetchCurrentGuests = async (page = 1, sortKey = null, sortDirection = "asc", searchQuery) => {
     setLoading(true);
     try {
       const response = await axios.get(`http://localhost:3015/api/v1/guests/current`, {
-        params: { page, limit: 5, sortKey, sortDirection },
+        params: { page, limit: 5, sortKey, sortDirection, searchQuery },
       });
       setCurrentGuests(response.data.data);
       setTotalPages(response.data.meta.totalPages);

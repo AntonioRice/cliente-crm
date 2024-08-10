@@ -26,9 +26,11 @@ const TeamMembers = () => {
     { header: "Status", key: "status" },
   ];
 
-  const fetchTeamMembers = async () => {
+  const fetchTeamMembers = async (page = 1, sortKey = null, sortDirection = "asc", searchQuery = "") => {
     try {
-      const response = await axios.get(`http://localhost:3015/api/v1/users`);
+      const response = await axios.get(`http://localhost:3015/api/v1/users`, {
+        params: { page, limit: 10, sortKey, sortDirection, searchQuery },
+      });
       setTeamMembers(response.data.data);
       setTotalPages(response.data.meta.totalPages);
       setCurrentPage(response.data.meta.currentPage);
@@ -73,10 +75,6 @@ const TeamMembers = () => {
   };
 
   const renderRow = (teamMember) => <TableRow key={teamMember.user_id} item={teamMember} columns={columns} editAction={handleEditItem} />;
-
-  if (!teamMembers.length) {
-    return <div>No Users Found</div>;
-  }
 
   // if (loading) return <LoadingComponent />;
 

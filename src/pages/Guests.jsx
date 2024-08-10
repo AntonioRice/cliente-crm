@@ -15,12 +15,12 @@ const Guests = () => {
   const { setSelectedGuest } = useGuestContext();
   const navigate = useNavigate();
 
-  const fetchAllGuests = async (page = 1, sortKey = null, sortDirection = "asc", search = "") => {
+  const fetchAllGuests = async (page = 1, sortKey = null, sortDirection = "asc", searchQuery = "") => {
     if (isLoading) return;
     setIsLoading(true);
     try {
       const response = await axios.get("http://localhost:3015/api/v1/guests", {
-        params: { page, limit: 10, sortKey, sortDirection, search },
+        params: { page, limit: 10, sortKey, sortDirection, searchQuery },
       });
 
       setAllGuests(response.data.data);
