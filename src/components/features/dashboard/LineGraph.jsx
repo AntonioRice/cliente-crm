@@ -1,10 +1,10 @@
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from "chart.js";
 import { daysOfWeek } from "../../../utils/standardData";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const BarChart = ({ data, title, week }) => {
+const LineGraph = ({ data, title, week }) => {
   let delayed;
   let max = 0;
 
@@ -19,8 +19,10 @@ const BarChart = ({ data, title, week }) => {
         label: "Reservations",
         data: data,
         backgroundColor: "rgb(75, 85, 99)",
+        borderColor: "rgb(34, 197, 94)",
         borderWidth: 1,
         borderRadius: 10,
+        fill: true,
       },
     ],
   };
@@ -29,12 +31,15 @@ const BarChart = ({ data, title, week }) => {
     <div className="rounded-xl border border-gray-200 bg-gray-800 p-6 shadow-lg dark:border-gray-700">
       <h3 className="text-lg font-bold text-white">{title}</h3>
       <p className="text-xs">Week: {week}</p>
-      <Bar
+      <Line
         data={chartData}
         options={{
           responsive: true,
           plugins: {
-            legend: { position: "bottom" },
+            filler: { propagate: true },
+            legend: {
+              position: "bottom",
+            },
           },
           scales: {
             y: {
@@ -63,4 +68,4 @@ const BarChart = ({ data, title, week }) => {
   );
 };
 
-export default BarChart;
+export default LineGraph;

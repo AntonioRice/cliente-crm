@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, BarChart } from "../components";
+import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, BarChart, LineGraph } from "../components";
 import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -120,7 +120,7 @@ const Dashboard = () => {
     return weekData;
   };
 
-  const barChartData = getWeekData(currentWeek);
+  const chartData = getWeekData(currentWeek);
 
   const renderRow = (guest) => <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />;
 
@@ -133,7 +133,7 @@ const Dashboard = () => {
       <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
         <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
-        <BarChart data={barChartData} title={"7-Day View"} week={currentWeek} />
+        <LineGraph data={chartData} title={"7-Day View"} week={currentWeek} />
       </div>
       <DataTable
         title={t("current_guests")}
