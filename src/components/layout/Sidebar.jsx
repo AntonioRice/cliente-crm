@@ -45,7 +45,7 @@ const Sidebar = () => {
           </li>
           {filteredSidebarItems.map((item) => (
             <li key={item.path}>
-              <button onClick={() => navigate(item.path)} className={`group flex w-full items-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass(item.path)}`}>
+              <button onClick={() => navigate(item.path)} className={`group flex w-full items-center rounded-lg p-2 hover:bg-gray-100 hover:text-white dark:hover:bg-gray-700 ${getActiveClass(item.path)}`}>
                 <span className="flex items-center">{item.icon}</span>
                 <span className="ms-3 whitespace-nowrap text-sm">{item.label}</span>
               </button>

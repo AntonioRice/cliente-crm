@@ -28,7 +28,7 @@ const renderCellContent = (item, col) => {
 };
 
 const TableRow = ({ item, columns, editAction }) => (
-  <tr key={item.id} className="border-b-[1px] border-b-gray-500 hover:cursor-pointer hover:bg-gray-500 hover:text-white" onClick={() => editAction(item)}>
+  <tr key={item.id} className="border-b-[1px] border-b-gray-500 hover:cursor-pointer hover:bg-gray-600 hover:text-white" onClick={() => editAction(item)}>
     {columns.map((col) => (
       <td key={col.key} className="px-6 py-4">
         {renderCellContent(item, col)}

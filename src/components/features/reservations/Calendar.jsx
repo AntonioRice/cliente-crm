@@ -102,11 +102,11 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
           </div>
         ))}
         {dates.map((date, index) => (
-          <div key={index} className={`flex h-[7rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date === today ? "bg-slate-700" : ""}`}>
+          <div key={index} className={`flex h-[7rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date === today ? "bg-gray-700" : ""}`}>
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (
-                <div key={reservation.reservation_id} className="m-1 cursor-pointer rounded-sm bg-green-600 p-0.5 text-xs text-white" onClick={() => handleReservationOnClick(reservation)}>
+                <div key={reservation.reservation_id} className="m-1 cursor-pointer rounded-sm bg-gray-500 p-0.5 text-xs text-white" onClick={() => handleReservationOnClick(reservation)}>
                   <p className="px-1">{`${reservation.primary_guest.first_name} ${reservation.primary_guest.last_name}`}</p>
                 </div>
               ))}
