@@ -4,8 +4,8 @@
 
 :root {
   --primary-color: #111827;
-  --secondary-color: #cccccc;
-  --tertiary-color: white;
+  --secondary-color: #9ca3af;
+  --tertiary-color: #4ade80;
 }
 
 html,
@@ -20,7 +20,7 @@ body {
 
 input[type="date"] {
   font-size: 14px;
-  color: #9ca3af;
+  color: var(--secondary-color);
 }
 
 input[type="date"] {
@@ -57,7 +57,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   font-size: 14px;
-  color: #9ca3af;
+  color: var(--secondary-color);
   padding-top: 16px;
 }
 
@@ -71,10 +71,10 @@ select {
 .react-datepicker__day,
 .react-datepicker__current-month,
 .react-datepicker__day-name {
-  color: white;
+  color: var(--secondary-color);
 }
 
 .react-datepicker__day:hover,
 .react-datepicker__day--selected {
-  background-color: #4ade80;
+  background-color: var(--tertiary-color);
 }

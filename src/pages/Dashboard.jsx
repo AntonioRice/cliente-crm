@@ -10,24 +10,32 @@ const Dashboard = () => {
   const { fetchReservationsAnalytics, reservationsAnalytics } = useReservationsContext();
   const { t } = useTranslation();
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [currentWeek, setCurrentWeek] = useState(moment().startOf("isoWeek").format("YYYY-MM-DD"));
+  const [currentWeek, setCurrentWeek] = useState(moment().startOf("week").day(0).format("YYYY-MM-DD"));
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const columns = [
+    { header: "First Name", key: "first_name" },
+    { header: "Last Name", key: "last_name" },
+    { header: "Room Number(s)", key: "room_numbers" },
+    { header: "Check-in", key: "check_in" },
+    { header: "Check-Out", key: "check_out" },
+    { header: "Status", key: "guest_status" },
+  ];
 
   useEffect(() => {
     fetchCurrentGuests(currentPage, sortConfig.key, sortConfig.direction, searchTerm);
   }, [currentPage, sortConfig, searchTerm]);
 
   useEffect(() => {
-    fetchReservationsAnalytics();
+    fetchReservationsAnalytics(currentWeek);
   }, []);
 
   const handlePrevWeek = () => {
-    setCurrentWeek((prevWeek) => moment(prevWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD"));
+    setCurrentWeek((prevWeek) => moment(prevWeek).subtract(1, "weeks").startOf("week").day(0).format("YYYY-MM-DD"));
   };
 
   const handleNextWeek = () => {
-    setCurrentWeek((prevWeek) => moment(prevWeek).add(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD"));
+    setCurrentWeek((prevWeek) => moment(prevWeek).add(1, "weeks").startOf("week").day(0).format("YYYY-MM-DD"));
   };
 
   const handlePrevPage = () => {
@@ -60,13 +68,14 @@ const Dashboard = () => {
     navigate(`/guests/details/${guest.guest_id}`);
   };
 
-  const countReservationsInWeek = (reservations, weekStart) => {
+  const countReservationsInWeek = (reservations) => {
     return reservations.length;
   };
 
-  const calculateDelta = (currentData, previousData) => {
+  const calculateDelta = (currentData, previousData, currentWeek) => {
     const currentCount = countReservationsInWeek(currentData.reservations || [], currentWeek);
-    const previousCount = countReservationsInWeek(previousData.reservations || [], moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD"));
+    const previousWeek = moment(currentWeek).subtract(1, "weeks").startOf("week").format("YYYY-MM-DD");
+    const previousCount = countReservationsInWeek(previousData.reservations || [], previousWeek);
 
     if (previousCount === 0) {
       if (currentCount === 0) {
@@ -79,12 +88,13 @@ const Dashboard = () => {
     const delta = ((currentCount - previousCount) / previousCount) * 100;
     return `${delta > 0 ? "+" : ""}${delta.toFixed(2)}%`;
   };
+
   const currentWeekData = reservationsAnalytics[currentWeek] || {
     reservations: [],
     totalGuestsForWeek: 0,
   };
 
-  const previousWeekData = reservationsAnalytics[moment(currentWeek).subtract(1, "weeks").startOf("isoWeek").format("YYYY-MM-DD")] || {
+  const previousWeekData = reservationsAnalytics[moment(currentWeek).subtract(1, "weeks").startOf("week").format("YYYY-MM-DD")] || {
     reservations: [],
     totalGuestsForWeek: 0,
   };
@@ -95,32 +105,22 @@ const Dashboard = () => {
     const start = moment(weekStart);
     const weekData = Array(7).fill(0);
 
-    Object.values(reservationsAnalytics).forEach((week) => {
-      week.reservations.forEach((reservation) => {
-        const checkIn = moment(reservation.check_in);
-        const checkOut = moment(reservation.check_out);
-        for (let i = 0; i < 7; i++) {
-          const day = start.clone().add(i, "days");
-          if (checkIn.isBefore(day.endOf("day")) && checkOut.isAfter(day.startOf("day"))) {
-            weekData[i]++;
-          }
+    reservationsAnalytics[weekStart]?.reservations.forEach((reservation) => {
+      const checkIn = moment(reservation.check_in).startOf("day");
+      const checkOut = moment(reservation.check_out).startOf("day");
+
+      for (let i = 0; i < weekData.length; i++) {
+        const day = start.clone().add(i, "days").startOf("day");
+        if (checkIn.isSameOrBefore(day) && checkOut.isSameOrAfter(day)) {
+          weekData[i]++;
         }
-      });
+      }
     });
 
     return weekData;
   };
 
   const barChartData = getWeekData(currentWeek);
-
-  const columns = [
-    { header: "First Name", key: "first_name" },
-    { header: "Last Name", key: "last_name" },
-    { header: "Room Number(s)", key: "room_numbers" },
-    { header: "Check-in", key: "check_in" },
-    { header: "Check-Out", key: "check_out" },
-    { header: "Status", key: "guest_status" },
-  ];
 
   const renderRow = (guest) => <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />;
 
@@ -133,7 +133,7 @@ const Dashboard = () => {
       <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
         <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
-        <BarChart data={barChartData} title={"Breakdown"} week={currentWeek} />
+        <BarChart data={barChartData} title={"7-Day View"} week={currentWeek} />
       </div>
       <DataTable
         title={t("current_guests")}

@@ -4,6 +4,12 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const BarChart = ({ data, title, week }) => {
+  let max = 0;
+
+  for (let i = 0; i < data.length; i++) {
+    max = Math.max(max, data[i]);
+  }
+
   const chartData = {
     labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     datasets: [
@@ -31,7 +37,7 @@ const BarChart = ({ data, title, week }) => {
           scales: {
             y: {
               beginAtZero: true,
-              max: 26,
+              max: max * 2 || 10,
               ticks: {
                 stepSize: 1,
               },

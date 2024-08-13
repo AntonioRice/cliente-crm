@@ -11,10 +11,12 @@ export const ReservationsProvider = ({ children }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchReservationsAnalytics = async () => {
+  const fetchReservationsAnalytics = async (currentWeek) => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3015/api/v1/reservations/analytics");
+      const response = await axios.get("http://localhost:3015/api/v1/reservations/analytics", {
+        params: { currentWeek },
+      });
       setReservationsAnalytics(response.data.data.reservationsByWeek);
       setLoading(false);
     } catch (error) {
