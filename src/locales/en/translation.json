@@ -32,7 +32,6 @@
   },
   "entry_warning": "Please fill out this field.",
   "first_name": "First Name",
-  "forgot_password": "Forgot Password?",
   "general": {
     "description": "Control basic general settings",
     "title": "General"
@@ -67,7 +66,23 @@
   "new_guest": "New Guest",
   "new_reservation": "New Reservation",
   "page": "Page",
-  "password": { "password": "Password", "new_password": "New Password" },
+  "password": {
+    "password": "Password",
+    "change_password": "Change Password",
+    "new_password": "New Password",
+    "re_enter_password": "Re-enter Password",
+    "forgot_password": "Forgot Password?",
+    "reset_password": "Reset Password",
+    "email_sent_header": "Check Your Email",
+    "email_sent_text": " We've sent you a password reset link to the email address above. Please check your inbox. If you don't see it, be sure to check your spam or junk folder.",
+    "password_reset_text": "Enter your email address to receive a password reset link.",
+    "confirmation_header": "Check your email",
+    "confirmation_text": "We sent a password reset link to",
+    "open_email": "Open Email",
+    "back_to_login": "Back to Login",
+    "reset_success_header": "Passport Reset Successful",
+    "reset_success_text": "Please proceed to the login page to access your account."
+  },
   "payment_information": "Payment Information",
   "payment_method": "Payment Method",
   "payment_selection": "Select Payment Method...",

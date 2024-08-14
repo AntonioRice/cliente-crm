@@ -32,7 +32,6 @@
   },
   "entry_warning": "Por favor rellene este campo.",
   "first_name": "Nombre",
-  "forgot_password": "¿Has olvidado tu contraseña?",
   "general": {
     "description": "Controla la configuración general básica",
     "title": "General"
@@ -67,7 +66,23 @@
   "new_guest": "Nuevo invitado",
   "new_reservation": "Nueva Reserva",
   "page": "Página",
-  "password": { "password": "Contraseña", "new_password": "Nueva contraseña" },
+  "password": {
+    "password": "Contraseña",
+    "change_password": "Cambiar Contraseña",
+    "new_password": "Nueva Contraseña",
+    "re_enter_password": "Reingrese Contraseña",
+    "forgot_password": "¿Olvidó su Contraseña?",
+    "reset_password": "Restablecer Contraseña",
+    "email_sent_header": "Revisa Tu Correo Electrónico",
+    "email_sent_text": "Te hemos enviado un enlace para restablecer la contraseña al correo electrónico que proporcionaste. Por favor, revisa tu bandeja de entrada. Si no lo ves, asegúrate de revisar la carpeta de spam o correo no deseado.",
+    "password_reset_text": "Introduce tu dirección de correo electrónico para recibir un enlace de restablecimiento de contraseña.",
+    "confirmation_header": "Revisa tu correo electrónico",
+    "confirmation_text": "Hemos enviado un enlace de restablecimiento de contraseña a",
+    "open_email": "Abrir Correo Electrónico",
+    "back_to_login": "Volver al Inicio de Sesión",
+    "reset_success_header": "Restablecimiento de Contraseña Exitoso",
+    "reset_success_text": "Por favor, procede a la página de inicio de sesión para acceder a tu cuenta."
+  },
   "payment_information": "Información del pago",
   "payment_method": "Método de pago",
   "payment_selection": "Seleccione método de pago...",
