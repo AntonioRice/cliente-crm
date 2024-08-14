@@ -76,96 +76,76 @@ const NewUserRegistrationForm = ({ onComplete }) => {
   };
 
   return (
-    <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
+    <form className="mx-auto max-w-lg flex-grow rounded-xl border border-gray-700 bg-gray-800 p-10 shadow-lg dark:border-gray-700" onSubmit={handleSubmit}>
       <div className="flex flex-col items-center py-10 text-xl">
         <h1>{t("new_user_registration")}</h1>
       </div>
-
-      <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("first_name")}</label>
+      <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("first_name")}</label>
       <div className="relative mb-5">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-          <FaUser className="text-gray-500 size-4 dark:text-gray-400" />
+        <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
+          <FaUser className="size-4 text-gray-500 dark:text-gray-400" />
         </div>
         <input
           type="text"
           id="first_name"
-          className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="First Name"
           value={formData.first_name}
           onChange={handleInputChange}
         />
       </div>
-
-      <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("last_name")}</label>
+      <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("last_name")}</label>
       <div className="relative mb-5">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-          <FaUser className="text-gray-500 size-4 dark:text-gray-400" />
+        <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
+          <FaUser className="size-4 text-gray-500 dark:text-gray-400" />
         </div>
         <input
           type="text"
           id="last_name"
-          className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="Last Name"
           value={formData.last_name}
           onChange={handleInputChange}
         />
       </div>
-
-      <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("email")}</label>
+      <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("email")}</label>
       <div className="relative mb-5">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-          <FaUser className="text-gray-500 size-4 dark:text-gray-400" />
+        <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
+          <FaUser className="size-4 text-gray-500 dark:text-gray-400" />
         </div>
         <input
           type="email"
           id="email"
-          className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="Email Address"
           value={formData.email}
           onChange={handleInputChange}
         />
       </div>
-
       <div className="flex gap-3">
         <div className="w-1/2">
-          <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("country_code")}</label>
+          <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("country_code")}</label>
           <div className="relative">
             <button
               type="button"
-              className="flex items-center justify-between border border-gray-300 text-gray-900 bg-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="flex w-full items-center justify-between rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               <p className="inline-flex gap-2">
                 {selectedCountry.flag} {selectedCountry.name} ({selectedCountry.code})
               </p>
-              <svg
-                className="size-2 ms-2.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 1 4 4 4-4"
-                />
+              <svg className="ms-2.5 size-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
               </svg>
             </button>
             {dropdownOpen && (
-              <div className="absolute z-10 w-full py-2 mt-2 overflow-hidden bg-white rounded-lg shadow-lg max-h-56 dark:bg-gray-700">
+              <div className="absolute z-10 mt-2 max-h-56 w-full overflow-hidden rounded-lg bg-white py-2 shadow-lg dark:bg-gray-700">
                 <div className="overflow-auto rounded-lg ">
-                  <div className="rounded-lg max-h-52">
+                  <div className="max-h-52 rounded-lg">
                     <ul className="py-1">
                       {countries().map((country) => (
                         <li key={country.code}>
-                          <button
-                            type="button"
-                            className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                            onClick={() => handleCountryChange(country)}
-                          >
+                          <button type="button" className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => handleCountryChange(country)}>
                             <div className="inline-flex items-center">
                               {country.flag}
                               <span className="ml-1">
@@ -183,88 +163,67 @@ const NewUserRegistrationForm = ({ onComplete }) => {
           </div>
         </div>
         <div className="w-1/2">
-          <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("phone_number")}</label>
+          <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("phone_number")}</label>
           <div className="relative mb-5">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-              <FaUser className="text-gray-500 size-4 dark:text-gray-400" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+              <FaUser className="size-4 text-gray-500 dark:text-gray-400" />
             </div>
             <input
               id="phone_number"
               type="tel"
               placeholder="(---) --- ----"
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               value={formData.phone_number}
               onChange={handleInputChange}
             />
           </div>
         </div>
       </div>
-
       <div className="flex gap-3">
         <div className="w-1/2">
-          <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("language")}</label>
-          <div className="items-center mb-6">
-            <label className="inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                id="language"
-                className="sr-only peer"
-                checked={formData.language?.toLowerCase() === "es"}
-                onChange={handleInputChange}
-              />
-              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span className="text-xs font-medium text-gray-400 ms-3">EN / ES</span>
+          <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("language")}</label>
+          <div className="mb-6 items-center">
+            <label className="inline-flex cursor-pointer items-center">
+              <input type="checkbox" id="language" className="peer sr-only" checked={formData.language?.toLowerCase() === "es"} onChange={handleInputChange} />
+              <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-blue-600 peer-checked:after:translate-x-full dark:border-gray-600 dark:bg-gray-700 rtl:peer-checked:after:-translate-x-full"></div>
+              <span className="ms-3 text-xs font-medium text-gray-400">EN / ES</span>
             </label>
           </div>
         </div>
         <div className="w-1/2">
-          <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">{t("display_mode")}</label>
-          <div className="items-center mb-6">
-            <label className="inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                id="display_mode"
-                className="sr-only peer"
-                checked={formData.display_mode?.toLowerCase() === "dark"}
-                onChange={handleInputChange}
-              />
-              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full  after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span className="text-xs font-medium text-gray-400 ms-3">
+          <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("display_mode")}</label>
+          <div className="mb-6 items-center">
+            <label className="inline-flex cursor-pointer items-center">
+              <input type="checkbox" id="display_mode" className="peer sr-only" checked={formData.display_mode?.toLowerCase() === "dark"} onChange={handleInputChange} />
+              <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px]  after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-blue-600 peer-checked:after:translate-x-full dark:border-gray-600 dark:bg-gray-700 rtl:peer-checked:after:-translate-x-full"></div>
+              <span className="ms-3 text-xs font-medium text-gray-400">
                 {t("light")} / {t("dark")}
               </span>
             </label>
           </div>
         </div>
       </div>
-
-      <label className="block mb-2 text-sm font-medium text-gray-400 dark:text-white">
-        {t("password.new_password")}
-      </label>
+      <label className="mb-2 block text-sm font-medium text-gray-400 dark:text-white">{t("password.new_password")}</label>
       <div className="relative mb-5">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+        <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
           <IoMdLock className="size-4.5 text-gray-500 dark:text-gray-400" />
         </div>
         <input
           type={showPassword ? "text" : "password"}
           id="password"
-          className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder="*********"
           value={formData.password}
           onChange={handleInputChange}
         />
         <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 p-4">
-          {showPassword ? (
-            <IoMdEye className="text-gray-500 size-4 dark:text-gray-400" />
-          ) : (
-            <IoMdEyeOff className="text-gray-500 size-4 dark:text-gray-400" />
-          )}
+          {showPassword ? <IoMdEye className="size-4 text-gray-500 dark:text-gray-400" /> : <IoMdEyeOff className="size-4 text-gray-500 dark:text-gray-400" />}
         </button>
       </div>
-
       <button
         type="submit"
         disabled={!formData.password.length}
-        className="disabled:cursor-not-allowed text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:cursor-not-allowed dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
       >
         {t("register")}
       </button>
