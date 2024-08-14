@@ -12,6 +12,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/password/reset/:token",
+    element: <Login />,
+  },
+  {
     path: "/unauthorized",
     element: <Unauthorized />,
   },

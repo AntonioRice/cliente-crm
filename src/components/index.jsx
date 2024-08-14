@@ -25,6 +25,10 @@ export { default as Sidebar } from "./layout/Sidebar";
 
 export { default as AnimatedPage } from "./utils/AnimatedPage";
 export { default as LoadingComponent } from "./utils/LoadingComponent";
+export { default as ResetPasswordForm } from "./utils/ResetPasswordForm";
+export { default as ResetConfirmation } from "./utils/ResetConfirmation";
+export { default as ForgotPasswordForm } from "./utils/ForgotPasswordForm";
+export { default as EmailConfirmationForm } from "./utils/EmailConfirmationForm";
 export { default as LoginForm } from "./utils/LoginForm";
 export { default as ProtectedRoute } from "./utils/ProtectedRoute";
 export { default as SearchBar } from "./utils/SearchBar";

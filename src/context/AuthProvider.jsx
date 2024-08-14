@@ -86,8 +86,24 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const resetPassword = async (email, token, newPassword) => {
+    try {
+      if (token && newPassword) {
+        await axios.put(`http://localhost:3015/api/v1/password/reset/${token}`, {
+          password: newPassword,
+        });
+      } else {
+        await axios.post("http://localhost:3015/api/v1/password/forgot", {
+          email,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, completeRegistration, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, completeRegistration, resetPassword, loading }}>
       <AnimatePresence>{loading ? <LoadingComponent key="loading" /> : children}</AnimatePresence>
     </AuthContext.Provider>
   );
