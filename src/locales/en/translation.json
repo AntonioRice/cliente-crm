@@ -80,7 +80,7 @@
     "confirmation_text": "We sent a password reset link to",
     "open_email": "Open Email",
     "back_to_login": "Back to Login",
-    "reset_success_header": "Passport Reset Successful",
+    "reset_success_header": "Password Reset Successful",
     "reset_success_text": "Please proceed to the login page to access your account."
   },
   "payment_information": "Payment Information",

@@ -7,15 +7,14 @@ const ResetConfirmation = ({ userEmail }) => {
 
   return (
     <div className="mx-auto max-w-md flex-grow rounded-xl border border-gray-700 bg-gray-800 p-10 shadow-lg dark:border-gray-700">
-      <div className="flex flex-col items-center ">
+      <div className="flex flex-col items-center">
         <h1 className="text-2xl">{t("password.reset_success_header")}</h1>
+        <div className="pb-4 pt-5 text-xs">
+          <p className="mb-2">
+            {t("password.reset_success_text")} {userEmail}
+          </p>
+        </div>
       </div>
-      <div className="pb-4 pt-5 text-xs">
-        <p className="mb-2">
-          {t("password.reset_success_text")} {userEmail}
-        </p>
-      </div>
-
       <div className="pt-4">
         <button
           type="button"
