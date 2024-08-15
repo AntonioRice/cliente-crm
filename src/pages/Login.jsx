@@ -1,20 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useAuthContext } from "../context";
-import { AnimatedPage, LoginForm, ForgotPasswordForm, ResetPasswordForm, EmailConfirmationForm, ResetConfirmation } from "../components";
+import { AnimatedPage, LoginForm, ForgotPasswordForm, ResetPasswordForm, EmailConfirmationForm, ResetConfirmation, NewUserRegistrationForm } from "../components";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useParams();
-  const { login, resetPassword } = useAuthContext();
+  const { login, resetPassword, completeRegistration } = useAuthContext();
   const [formState, setFormState] = useState("sendConfirmation");
-  const [error, setError] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (location.pathname.includes("reset")) {
       setFormState("resetPassword");
+    } else if (location.pathname.includes("register")) {
+      setFormState("completeRegistration");
     } else if (location.state?.form === "forgotPassword") {
       setFormState("forgotPassword");
     } else {
@@ -50,12 +52,22 @@ const Login = () => {
     }
   };
 
+  const handleRegistration = async (formattedForm) => {
+    try {
+      await completeRegistration(formattedForm, token);
+      setFormState("login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <AnimatedPage>
       <div className="grid h-screen w-full dark:bg-gray-900">
         <div className={`grid w-full ${formState === "login" && "md:grid-cols-2"}`}>
           <div className="flex w-full grid-cols-1 items-center justify-center">
             {formState === "login" && <LoginForm onSubmit={handleLogin} error={error} setFormState={setFormState} />}
+            {formState === "completeRegistration" && <NewUserRegistrationForm setFormState={setFormState} handleRegistration={handleRegistration} />}
             {formState === "forgotPassword" && <ForgotPasswordForm onSubmit={handleForgotPassword} error={error} />}
             {formState === "sendConfirmation" && <EmailConfirmationForm userEmail={userEmail} handleForgotPassword={handleForgotPassword} />}
             {formState === "resetPassword" && <ResetPasswordForm onSubmit={handleResetPassword} error={error} />}

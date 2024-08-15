@@ -70,10 +70,9 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const completeRegistration = async (updatedData) => {
+  const completeRegistration = async (updatedData, token) => {
     try {
-      const response = await axios.put("http://localhost:3015/api/v1/complete-registration", {
-        user_id: user.user_id,
+      const response = await axios.put(`http://localhost:3015/api/v1/complete-registration/${token}`, {
         ...updatedData,
       });
       const userData = response.data.data;
