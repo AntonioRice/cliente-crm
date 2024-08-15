@@ -4,6 +4,7 @@ export { default as TableRow } from "./common/TableRow";
 export { default as MultiSelectDropdown } from "./common/MultiSelectDropdown";
 export { default as Pill } from "./common/Pill";
 export { default as StatusIndicator } from "./common/StatusIndicator";
+export { default as PasswordInput } from "./common/PasswordInput";
 
 export { default as ChartCard } from "./features/dashboard/ChartCard";
 export { default as BarChart } from "./features/dashboard/BarChart";
@@ -17,7 +18,6 @@ export { default as Calendar } from "./features/reservations/Calendar";
 export { default as NewReservationForm } from "./features/reservations/NewReservationForm";
 
 export { default as NewUserRegistrationForm } from "./features/users/NewUserRegistrationForm";
-export { default as ProfileModal } from "./features/users/ProfileModal";
 
 export { default as Header } from "./layout/Header";
 export { default as Layout } from "./layout/Layout";

@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CgMathPlus } from "react-icons/cg";
@@ -13,14 +12,7 @@ import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { useGuestRegistrationContext } from "../../../context";
 import { AdditionalGuest, MultiSelectDropdown, Pill } from "../../../components";
 import { SlCalender } from "react-icons/sl";
-
-const reservationSchema = z.object({
-  check_in: z.date(),
-  check_out: z.date(),
-  payment_method: z.string().min(1, "Must provide payment method"),
-  total_amount: z.string().min(1, "Must provide total amount due"),
-  payment_status: z.string().min(1, "Must provide payment status"),
-});
+import { reservationSchema } from "../../utils/Schemas";
 
 const NewReservationForm = () => {
   const { t } = useTranslation();

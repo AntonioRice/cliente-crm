@@ -6,7 +6,7 @@ import { useGuestContext, useGuestRegistrationContext } from "../../../context";
 import { AnimatedPage } from "../../../components";
 import { formatDateTime } from "../../../utils/standardMethods";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
-import { guestSchema } from "./schemas";
+import { guestSchema } from "../../utils/Schemas";
 import { SlCalender } from "react-icons/sl";
 
 const NewGuestForm = () => {

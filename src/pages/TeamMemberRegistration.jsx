@@ -4,18 +4,9 @@ import { useTranslation } from "react-i18next";
 import { AnimatedPage, LoadingComponent } from "../components";
 import { useAuthContext } from "../context";
 import { useState, useEffect } from "react";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-const teamMemberSchema = z.object({
-  user_name: z.string().min(1).max(255),
-  first_name: z.string().min(1, "First name is required"),
-  last_name: z.string().min(1, "Last name is required"),
-  role: z.enum(["Admin", "Employee"]),
-  phone_number: z.string().max(50).optional(),
-  email: z.string().email("Invalid email address").min(1, "Email is required"),
-});
+import { teamMemberSchema } from "../components/utils/Schemas";
 
 const generateUsername = (firstName, lastName) => {
   const lastNamePart = lastName.slice(0, 4).toLowerCase();
@@ -50,7 +41,8 @@ const TeamMemberRegistration = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:3015/api/v1/team-members", data);
+      data.tenant_id = user?.tenant_id;
+      await axios.post("http://localhost:3015/api/v1/users", data);
       setLoading(false);
       navigate("/team-members");
     } catch (error) {

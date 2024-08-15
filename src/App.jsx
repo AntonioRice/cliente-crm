@@ -16,6 +16,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/register/:token",
+    element: <Login />,
+  },
+  {
     path: "/unauthorized",
     element: <Unauthorized />,
   },

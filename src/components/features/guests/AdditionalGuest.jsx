@@ -2,17 +2,8 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useGuestRegistrationContext } from "../../../context";
-
-const guestSchema = z.object({
-  first_name: z.string().min(1, "First name is required"),
-  last_name: z.string().min(1, "Last name is required"),
-  date_of_birth: z.string().min(1, "Date of birth is required"),
-  nationality: z.string().min(1, "Nationality is required"),
-  email: z.string().email("Invalid email address").min(1, "Email is required"),
-  identification_number: z.string().min(1, "Identification number is required"),
-});
+import { additionalGuestSchema } from "../../utils/Schemas";
 
 const AdditionalGuest = ({ guest }) => {
   const { t } = useTranslation();
@@ -23,7 +14,7 @@ const AdditionalGuest = ({ guest }) => {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(guestSchema),
+    resolver: zodResolver(additionalGuestSchema),
     defaultValues: guest,
     mode: "onBlur",
   });

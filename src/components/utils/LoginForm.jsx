@@ -1,16 +1,11 @@
+import Alert from "../utils/Alert";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaUser } from "react-icons/fa";
 import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Alert from "../utils/Alert";
-
-const schema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+import { loginSchema } from "./Schemas";
 
 const LoginForm = ({ onSubmit, error, setFormState }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +16,7 @@ const LoginForm = ({ onSubmit, error, setFormState }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginSchema),
   });
 
   const togglePasswordVisibility = () => {
@@ -34,7 +29,7 @@ const LoginForm = ({ onSubmit, error, setFormState }) => {
 
   return (
     <form className="mx-auto max-w-md flex-grow rounded-xl border border-gray-700 bg-gray-800 p-10 shadow-lg dark:border-gray-700" onSubmit={handleSubmit(handleLoginSubmit)}>
-      <div className="flex flex-col items-center pb-10 text-2xl">
+      <div className="flex flex-col items-center py-5 text-xl">
         <h1>{t("login")}</h1>
       </div>
       {error && <Alert message={error} type="error" />}

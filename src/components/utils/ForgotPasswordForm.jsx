@@ -1,15 +1,11 @@
+import Alert from "./Alert";
+import AnimatedPage from "./AnimatedPage";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import AnimatedPage from "./AnimatedPage";
 import { MdEmail } from "react-icons/md";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Alert from "./Alert";
-
-const schema = z.object({
-  email: z.string().email("Invalid email address").min(1, "Email is required"),
-});
+import { emailSchema } from "./Schemas";
 
 const ForgotPasswordForm = ({ onSubmit, error }) => {
   const navigate = useNavigate();
@@ -20,7 +16,7 @@ const ForgotPasswordForm = ({ onSubmit, error }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(emailSchema),
   });
 
   const handleForgotPasswordSubmit = (data) => {

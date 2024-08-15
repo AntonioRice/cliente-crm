@@ -1,26 +1,13 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Alert from "./Alert";
 import AnimatedPage from "./AnimatedPage";
-
-const schema = z
-  .object({
-    newPassword: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: "Passwords must match",
-    path: ["confirmPassword"],
-  });
+import { PasswordInput } from "../../components";
+import { passwordSchema } from "./Schemas";
 
 const ResetPasswordForm = ({ onSubmit, error }) => {
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -29,7 +16,7 @@ const ResetPasswordForm = ({ onSubmit, error }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(passwordSchema),
   });
 
   const onSubmitForm = (data) => {
@@ -46,46 +33,13 @@ const ResetPasswordForm = ({ onSubmit, error }) => {
           <div className="pb-10 pt-5 text-xs">
             <p className="mb-2">In order to protect your account, make sure your password:</p>
             <ul>
-              <li>is longer than 6 characters</li>
+              <li>is longer than 8 characters</li>
               <li>Does not match or significantly contain your username</li>
             </ul>
           </div>
           {error && <Alert message={error} type="error" />}
-
-          <label className="mb-2 block text-sm font-medium dark:text-[#cccccc]">{t("password.new_password")}</label>
-          <div className="relative mb-5">
-            <div className="pointer-events-none absolute start-0 top-3 flex items-center ps-3.5">
-              <IoMdLock className="size-4.5 text-gray-500 dark:text-gray-400" />
-            </div>
-            <input
-              type={showNewPassword ? "text" : "password"}
-              id="newPassword"
-              className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-              placeholder="*********"
-              {...register("newPassword")}
-            />
-            <button type="button" onClick={() => setShowNewPassword(!showNewPassword)} className="absolute -top-1 right-0 p-4">
-              {showNewPassword ? <IoMdEye className="size-4 text-gray-500 dark:text-gray-400" /> : <IoMdEyeOff className="size-4 text-gray-500 dark:text-gray-400" />}
-            </button>
-            {errors.newPassword && <p className="mt-1 text-xs text-red-500">{errors.newPassword.message}</p>}
-          </div>
-          <label className="mb-2 block text-sm font-medium dark:text-[#cccccc]">{t("password.re_enter_password")}</label>
-          <div className="relative mb-5">
-            <div className="pointer-events-none absolute start-0 top-3 flex items-center ps-3.5">
-              <IoMdLock className="size-4.5 text-gray-500 dark:text-gray-400" />
-            </div>
-            <input
-              type={showConfirmedPassword ? "text" : "password"}
-              id="confirmPassword"
-              className="block w-full rounded-lg border border-gray-300 p-2.5 ps-10 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-              placeholder="*********"
-              {...register("confirmPassword")}
-            />
-            <button type="button" onClick={() => setShowConfirmedPassword(!showConfirmedPassword)} className="absolute -top-1 right-0 p-4">
-              {showConfirmedPassword ? <IoMdEye className="size-4 text-gray-500 dark:text-gray-400" /> : <IoMdEyeOff className="size-4 text-gray-500 dark:text-gray-400" />}
-            </button>
-            {errors.confirmPassword && <p className="mt-1 text-xs text-red-500">{errors.confirmPassword.message}</p>}
-          </div>
+          <PasswordInput label={t("password.new_password")} id="newPassword" register={register} error={errors.newPassword} placeholder="*********" />
+          <PasswordInput label={t("password.re_enter_password")} id="confirmPassword" register={register} error={errors.confirmPassword} placeholder="*********" />
           <div className="pt-4">
             <button
               type="submit"
