@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useTeamContext } from "../context";
@@ -8,6 +8,7 @@ import { AnimatedPage, LoadingComponent } from "../components";
 const TeamMemberDetails = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { selectedTeamMember, setSelectedTeamMember } = useTeamContext();
   const [loading, setLoading] = useState(false);
 
@@ -44,6 +45,18 @@ const TeamMemberDetails = () => {
       setLoading(true);
       const response = await axios.put(`http://localhost:3015/api/v1/users/${selectedTeamMember.user_id}`, selectedTeamMember);
       setSelectedTeamMember(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(`http://localhost:3015/api/v1/users/${selectedTeamMember.user_id}`);
+      navigate(-1);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -168,10 +181,12 @@ const TeamMemberDetails = () => {
           </div>
         </div>
       </div>
-
-      <div className="mt-6 flex justify-end">
-        <button onClick={handleSave} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 dark:hover:text-white">
-          {t("save")}
+      <div className="mt-6 flex justify-end gap-3">
+        <button onClick={handleDelete} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-red-500 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
+          {t("delete")}
+        </button>
+        <button onClick={handleSave} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
+          {t("update")}
         </button>
       </div>
     </AnimatedPage>

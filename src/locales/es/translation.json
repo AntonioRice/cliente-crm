@@ -22,6 +22,7 @@
     "sáb": "Sáb.",
     "vier": "Vier."
   },
+  "delete": "Borrar",
   "display": "Modo de visualización",
   "dob": "Fecha de Nacimiento",
   "email": "Correo Electrónico",
@@ -117,6 +118,7 @@
   "team_member_registration": "Registro de Empleados",
   "tenants": "Inquilinos",
   "total": "total",
+  "update": "Actualizar",
   "username": "Nombre de usuario",
   "vehicle_information": "Información del Vehículo",
   "welcome": "Bienvenido"

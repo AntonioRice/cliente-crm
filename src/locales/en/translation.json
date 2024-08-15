@@ -22,6 +22,7 @@
     "tue": "Tue",
     "wed": "Wed"
   },
+  "delete": "Delete",
   "display_mode": "Display Mode",
   "dob": "Date Of Birth",
   "email": "Email",
@@ -117,6 +118,7 @@
   "team_member_registration": "Team Member Registration",
   "tenants": "Tenants",
   "total": "Total",
+  "update": "Update",
   "username": "Username",
   "vehicle_information": "Vehicle Information",
   "welcome": "Welcome"
