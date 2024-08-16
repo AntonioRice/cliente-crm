@@ -36,7 +36,7 @@ const NewGuestForm = () => {
     if (selectedGuest) {
       setGuestData(selectedGuest);
     }
-  }, [selectedGuest, guestData, setValue]);
+  }, [selectedGuest, setValue]);
 
   const toggleNewGuestForm = () => {
     setShowReservationForm(!showReservationForm);
