@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext, useStateContext } from "../../context";
+import { ProfileImage } from "../../components";
 
 const Header = () => {
   const { setActiveSideBar } = useStateContext();
@@ -29,7 +30,7 @@ const Header = () => {
                 }}
                 className="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
               >
-                <img className="h-8 w-8 rounded-full" src={user?.profile_picture} alt="user photo" />
+                <ProfileImage img={user.profile_picture} firstName={user.first_name} lastName={user.last_name} />
               </button>
             </div>
           </div>

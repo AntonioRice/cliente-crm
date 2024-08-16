@@ -18,6 +18,7 @@ export { default as Calendar } from "./features/reservations/Calendar";
 export { default as NewReservationForm } from "./features/reservations/NewReservationForm";
 
 export { default as NewUserRegistrationForm } from "./features/users/NewUserRegistrationForm";
+export { default as ProfileImage } from "./features/users/ProfileImage";
 
 export { default as Header } from "./layout/Header";
 export { default as Layout } from "./layout/Layout";
