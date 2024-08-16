@@ -5,7 +5,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
   const { t } = useTranslation();
 
   return (
-    <div className="mb-4 flex flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex h-[450px] flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
       <div className="inline-flex justify-between p-5">
         <div>
           <h1 className="text-sm">{title}</h1>
@@ -35,23 +35,31 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
           </div>
         )}
       </div>
-      <div className="overflow-x-hidden rounded-b-xl">
-        <table className="min-w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
-          <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              {columns.map((col) => (
-                <th key={col.key} className="cursor-pointer px-6 py-2" onClick={() => handleSort(col.key)}>
-                  {col.header}
-                  {sortConfig.key === col.key && (sortConfig.direction === "asc" ? <IoIosArrowUp className="mb-1 ml-1 inline text-green-400" /> : <IoIosArrowDown className="mb-1 ml-1 inline text-green-400" />)}
+      <div className="h-full rounded-b-xl">
+        {data.length === 0 ? (
+          <div className="flex h-full items-center justify-center">
+            <p className="text-gray-500 dark:text-gray-400">{t("No Current Reservations")}</p>
+          </div>
+        ) : (
+          <table className="min-w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
+            <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                {columns.map((col) => (
+                  <th key={col.key} className="cursor-pointer px-6 py-2" onClick={() => handleSort(col.key)}>
+                    {col.header}
+                    {sortConfig.key === col.key && (sortConfig.direction === "asc" ? <IoIosArrowUp className="mb-1 ml-1 inline text-green-400" /> : <IoIosArrowDown className="mb-1 ml-1 inline text-green-400" />)}
+                  </th>
+                ))}
+                <th className="px-6 py-3">
+                  <span className="sr-only">edit</span>
                 </th>
-              ))}
-              <th className="px-6 py-3">
-                <span className="sr-only">edit</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>{data.map((item, index) => renderRow(item, index, editAction))}</tbody>
-        </table>
+              </tr>
+            </thead>
+            <tbody>{data.map((item, index) => renderRow(item, index, editAction))}</tbody>
+          </table>
+        )}
+      </div>
+      {data.length > 0 && (
         <nav className="flex flex-col flex-wrap items-center justify-between p-4 pt-4 md:flex-row">
           <span className="mb-4 block w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
             {t("page")}
@@ -78,7 +86,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
             </li>
           </ul>
         </nav>
-      </div>
+      )}
     </div>
   );
 };

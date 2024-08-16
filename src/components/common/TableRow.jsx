@@ -8,7 +8,7 @@ const renderCellContent = (item, col) => {
   }
 
   if (col.key === "profile_picture") {
-    return <img className="h-8 w-8 rounded-full" src={item[col.key]} alt="user photo" />;
+    return <img className="size-8 rounded-full" src={item[col.key]} alt="user photo" />;
   }
 
   if (col.key === "check_in" || col.key === "check_out" || col.key === "created_date") {

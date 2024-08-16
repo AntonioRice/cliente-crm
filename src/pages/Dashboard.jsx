@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, BarChart, LineGraph } from "../components";
 import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
+import { rooms } from "../utils/standardData";
 
 const Dashboard = () => {
   const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage, setSelectedGuest } = useGuestContext();
@@ -130,26 +132,66 @@ const Dashboard = () => {
         <h1 className="text-2xl font-semibold">{t("dashboard")}</h1>
         <AddButton path="/guests/register" />
       </div>
-      <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
-        <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
-        <LineGraph data={chartData} title={"7-Day View"} week={currentWeek} />
+      <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="col-span-3">
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
+            <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
+            <LineGraph title="7-Day View" week={currentWeek} data={chartData} />
+          </div>
+          <DataTable
+            title={t("current_guests")}
+            columns={columns}
+            data={currentGuests}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={totalCurrentGuests}
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+            handleSort={handleSort}
+            sortConfig={sortConfig}
+            showSearch={true}
+            onSearch={handleSearch}
+            renderRow={renderRow}
+          />
+        </div>
+        <div className="col-span-1">
+          <div className="mb-4 flex h-full flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+            <div className="inline-flex justify-between p-5">
+              <div>
+                <h1 className="text-sm">Rooms</h1>
+                <p className="text-xs text-gray-500">Total: 26</p>
+              </div>
+            </div>
+            <table className="min-w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
+              <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th className="cursor-pointer px-6 py-2">Room</th>
+                  <th className="cursor-pointer px-6 py-2">Name</th>
+                  <th className="cursor-pointer px-6 py-2">Status</th>
+                  <th className="px-6 py-3">
+                    <span className="sr-only">edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {rooms.map((room) => (
+                  <tr key={room.number} className="border-b-[1px] border-b-gray-500 hover:cursor-pointer hover:bg-gray-600 hover:text-white">
+                    <td className="px-6 py-4">{room.number}</td>
+                    <td className="px-6 py-4">{room.name}</td>
+                    <td className="px-6 py-4">{room.occupied ? "Occupied" : "Available"}</td>
+                    <td className="px-6 py-2 text-right">
+                      <button className="font-medium">
+                        <IoIosArrowForward />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <DataTable
-        title={t("current_guests")}
-        columns={columns}
-        data={currentGuests}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={totalCurrentGuests}
-        handlePrevPage={handlePrevPage}
-        handleNextPage={handleNextPage}
-        handleSort={handleSort}
-        sortConfig={sortConfig}
-        showSearch={true}
-        onSearch={handleSearch}
-        renderRow={renderRow}
-      />
     </AnimatedPage>
   );
 };

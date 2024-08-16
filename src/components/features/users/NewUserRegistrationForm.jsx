@@ -12,7 +12,7 @@ const NewUserRegistrationForm = ({ setFormState, handleRegistration }) => {
   const { t } = useTranslation();
   const queryParams = new URLSearchParams(location.search);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(countries()[5]);
+  const [selectedCountry, setSelectedCountry] = useState(countries[5]);
 
   const {
     register,
@@ -124,7 +124,7 @@ const NewUserRegistrationForm = ({ setFormState, handleRegistration }) => {
                 <div className="overflow-auto rounded-lg ">
                   <div className="max-h-52 rounded-lg">
                     <ul className="py-1">
-                      {countries().map((country) => (
+                      {countries.map((country) => (
                         <li key={country.code}>
                           <button type="button" className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => handleCountryChange(country)}>
                             <div className="inline-flex items-center">
