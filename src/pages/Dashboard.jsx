@@ -5,11 +5,10 @@ import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { IoIosArrowForward } from "react-icons/io";
-import { rooms } from "../utils/standardData";
 
 const Dashboard = () => {
   const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage, setSelectedGuest } = useGuestContext();
-  const { fetchReservationsAnalytics, reservationsAnalytics } = useReservationsContext();
+  const { fetchReservationsAnalytics, reservationsAnalytics, fetchRooms, rooms } = useReservationsContext();
   const { t } = useTranslation();
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [currentWeek, setCurrentWeek] = useState(moment().startOf("week").day(0).format("YYYY-MM-DD"));
@@ -26,7 +25,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchCurrentGuests(currentPage, sortConfig.key, sortConfig.direction, searchTerm);
-  }, [currentPage, sortConfig, searchTerm]);
+    fetchRooms();
+  }, [currentPage, sortConfig, searchTerm, rooms]);
 
   useEffect(() => {
     fetchReservationsAnalytics(currentWeek);
@@ -156,39 +156,41 @@ const Dashboard = () => {
           />
         </div>
         <div className="col-span-1">
-          <div className="mb-4 flex h-full flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+          <div className="mb-4 flex max-h-[750px] w-full flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
             <div className="inline-flex justify-between p-5">
               <div>
                 <h1 className="text-sm">Rooms</h1>
-                <p className="text-xs text-gray-500">Total: 26</p>
+                <p className="text-xs text-gray-500">Total: {rooms.length}</p>
               </div>
             </div>
-            <table className="min-w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
-              <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="cursor-pointer px-6 py-2">Room</th>
-                  <th className="cursor-pointer px-6 py-2">Name</th>
-                  <th className="cursor-pointer px-6 py-2">Status</th>
-                  <th className="px-6 py-3">
-                    <span className="sr-only">edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {rooms.map((room) => (
-                  <tr key={room.number} className="border-b-[1px] border-b-gray-500 hover:cursor-pointer hover:bg-gray-600 hover:text-white">
-                    <td className="px-6 py-4">{room.number}</td>
-                    <td className="px-6 py-4">{room.name}</td>
-                    <td className="px-6 py-4">{room.occupied ? "Occupied" : "Available"}</td>
-                    <td className="px-6 py-2 text-right">
-                      <button className="font-medium">
-                        <IoIosArrowForward />
-                      </button>
-                    </td>
+            <div className="no-scrollbar overflow-auto pb-5">
+              <table className="min-w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
+                <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="cursor-pointer px-2 py-2 sm:px-4 md:px-6">Room</th>
+                    <th className="cursor-pointer px-2 py-2 sm:px-4 md:px-6">Name</th>
+                    <th className="cursor-pointer px-2 py-2 sm:px-4 md:px-6">Status</th>
+                    <th className="px-2 py-3 sm:px-4 md:px-6">
+                      <span className="sr-only">Edit</span>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {rooms.map((room) => (
+                    <tr key={room.number} className="border-b-[1px] border-b-gray-500 hover:cursor-pointer hover:bg-gray-600 hover:text-white">
+                      <td className="px-2 py-4 sm:px-4 md:px-6">{room.number}</td>
+                      <td className="px-2 py-4 sm:px-4 md:px-6">{room.name}</td>
+                      <td className={`px-2 py-4 sm:px-4 md:px-6 ${room.occupied ? "text-red-500" : ""}`}>{room.occupied ? "Occupied" : "Available"}</td>
+                      <td className="px-2 py-2 text-right sm:px-4 md:px-6">
+                        <button className="font-medium">
+                          <IoIosArrowForward />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

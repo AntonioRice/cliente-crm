@@ -26,18 +26,3 @@ export const countries = [
   { name: "Uruguay", code: "+598", flag: <UruguayFlag /> },
   { name: "Venezuela", code: "+58", flag: <VenezuelaFlag /> },
 ];
-
-export const rooms = [
-  { name: "Matrimonial", number: 1, occupied: true },
-  { name: "Single", number: 2, occupied: false },
-  { name: "Single", number: 3, occupied: false },
-  { name: "Single", number: 4, occupied: false },
-  { name: "Triple", number: 5, occupied: true },
-  { name: "Triple", number: 6, occupied: false },
-  { name: "Quad", number: 7, occupied: false },
-  { name: "Double", number: 8, occupied: false },
-  { name: "Double", number: 9, occupied: false },
-  { name: "Double", number: 10, occupied: false },
-  { name: "Double", number: 11, occupied: false },
-  { name: "Double", number: 12, occupied: false },
-];

@@ -5,7 +5,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
   const { t } = useTranslation();
 
   return (
-    <div className="flex h-[450px] flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+    <div className="relative flex min-h-[450px] flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
       <div className="inline-flex justify-between p-5">
         <div>
           <h1 className="text-sm">{title}</h1>
@@ -35,7 +35,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
           </div>
         )}
       </div>
-      <div className="h-full rounded-b-xl">
+      <div className="flex-grow overflow-auto rounded-b-xl">
         {data.length === 0 ? (
           <div className="flex h-full items-center justify-center">
             <p className="text-gray-500 dark:text-gray-400">{t("No Current Reservations")}</p>
@@ -60,7 +60,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
         )}
       </div>
       {data.length > 0 && (
-        <nav className="flex flex-col flex-wrap items-center justify-between p-4 pt-4 md:flex-row">
+        <nav className="absolute bottom-0 left-0 right-0 flex h-auto flex-col items-center justify-between p-4 pt-4 md:flex-row">
           <span className="mb-4 block w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
             {t("page")}
             <span className="mx-1 font-semibold text-gray-900 dark:text-white">{currentPage}</span>
