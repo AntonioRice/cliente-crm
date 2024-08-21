@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, BarChart, LineGraph } from "../components";
+import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, BarChart, LineGraph, Notes } from "../components";
 import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -155,41 +155,41 @@ const Dashboard = () => {
             renderRow={renderRow}
           />
         </div>
-        <div className="col-span-1">
-          <div className="mb-4 flex max-h-[650px] w-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
-            <div className="inline-flex justify-between p-5">
-              <div>
-                <h1 className="text-sm">Rooms</h1>
-                <p className="text-xs text-gray-500">Total: {rooms.length}</p>
-              </div>
+        <div className="= col-span-1 max-h-[80vh]">
+          <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+            <div className="p-5">
+              <h1 className="text-sm">Rooms</h1>
+              <p className="text-xs text-gray-500">Total: {rooms.length}</p>
             </div>
-            <div className="no-scrollbar overflow-auto pb-5">
-              <table className="min-w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
-                <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th className="cursor-pointer px-2 py-2 sm:px-4 md:px-6">Room</th>
-                    <th className="cursor-pointer px-2 py-2 sm:px-4 md:px-6">Name</th>
-                    <th className="cursor-pointer px-2 py-2 sm:px-4 md:px-6">Status</th>
-                    <th className="px-2 py-3 sm:px-4 md:px-6">
-                      <span className="sr-only">Edit</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rooms.map((room) => (
-                    <tr key={room.number} className="border-b-[1px] border-b-gray-500 hover:cursor-pointer hover:bg-gray-600 hover:text-white">
-                      <td className="px-2 py-4 sm:px-4 md:px-6">{room.number}</td>
-                      <td className="px-2 py-4 sm:px-4 md:px-6">{room.name}</td>
-                      <td className={`px-2 py-4 sm:px-4 md:px-6 ${room.occupied ? "text-red-500" : ""}`}>{room.occupied ? "Occupied" : "Available"}</td>
-                      <td className="px-2 py-2 text-right sm:px-4 md:px-6">
-                        <button className="font-medium">
-                          <IoIosArrowForward />
-                        </button>
-                      </td>
+            <div className="flex-1 overflow-hidden">
+              <div className="no-scrollbar h-full overflow-auto">
+                <table className="w-full text-left text-xs text-gray-500 dark:text-gray-400">
+                  <thead className="sticky top-0 bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th className="px-2 py-2 sm:px-4 md:px-6">Room</th>
+                      <th className="px-2 py-2 sm:px-4 md:px-6">Name</th>
+                      <th className="px-2 py-2 sm:px-4 md:px-6">Status</th>
+                      <th className="px-2 py-2 sm:px-4 md:px-6">
+                        <span className="sr-only">Edit</span>
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {rooms.map((room) => (
+                      <tr key={room.number} className="border-b border-gray-500 hover:bg-gray-600 hover:text-white">
+                        <td className="px-2 py-4 sm:px-4 md:px-6">{room.number}</td>
+                        <td className="px-2 py-4 sm:px-4 md:px-6">{room.name}</td>
+                        <td className={`px-2 py-4 sm:px-4 md:px-6 ${room.occupied ? "text-red-500" : ""}`}>{room.occupied ? "Occupied" : "Available"}</td>
+                        <td className="px-2 py-4 text-right sm:px-4 md:px-6">
+                          <button className="font-medium">
+                            <IoIosArrowForward />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
