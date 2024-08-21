@@ -155,7 +155,7 @@ const Dashboard = () => {
             renderRow={renderRow}
           />
         </div>
-        <div className="= col-span-1 max-h-[80vh]">
+        <div className="= col-span-1 max-h-[75vh]">
           <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
             <div className="p-5">
               <h1 className="text-sm">Rooms</h1>

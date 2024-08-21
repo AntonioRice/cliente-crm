@@ -61,7 +61,7 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-[80vh] flex-col">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">{t("reservations")}</h1>
         <div className="flex items-center space-x-2">
@@ -102,7 +102,7 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
           </div>
         ))}
         {dates.map((date, index) => (
-          <div key={index} className={`flex h-[7rem] flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date === today ? "bg-gray-700" : ""}`}>
+          <div key={index} className={`flex flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date === today ? "bg-gray-700" : ""}`}>
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (
