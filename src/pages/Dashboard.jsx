@@ -26,7 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchCurrentGuests(currentPage, sortConfig.key, sortConfig.direction, searchTerm);
     fetchRooms();
-  }, [currentPage, sortConfig, searchTerm, rooms]);
+  }, [currentPage, sortConfig, searchTerm]);
 
   useEffect(() => {
     fetchReservationsAnalytics(currentWeek);
