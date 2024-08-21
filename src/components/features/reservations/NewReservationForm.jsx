@@ -62,9 +62,8 @@ const NewReservationForm = () => {
     }));
   };
 
-  const handleRoomsChange = (room) => {
-    const updatedRooms = reservationData.room_numbers.includes(room) ? reservationData.room_numbers.filter((r) => r !== room) : [...reservationData.room_numbers, room];
-
+  const handleRoomsChange = (number) => {
+    const updatedRooms = reservationData.room_numbers.includes(number) ? reservationData.room_numbers.filter((r) => r !== number) : [...reservationData.room_numbers, number];
     setReservationData((prev) => ({
       ...prev,
       room_numbers: updatedRooms,
@@ -93,7 +92,7 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           {!reservationData.room_numbers.length > 0 && <label className="absolute left-6 top-4 text-xs uppercase leading-tight tracking-wide text-gray-400">{t("rooms")}</label>}
-          <div className={`mb-3 block min-h-12 w-full appearance-none flex-wrap items-center  rounded-lg border bg-[#111827] px-4 py-2 leading-tight  ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
+          <div className={`block min-h-12 w-full appearance-none flex-wrap rounded-lg border p-1 leading-tight ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
             {reservationData.room_numbers.map((room, i) => (
               <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}

@@ -156,7 +156,7 @@ const Dashboard = () => {
           />
         </div>
         <div className="col-span-1">
-          <div className="mb-4 flex max-h-[750px] w-full flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+          <div className="mb-4 flex max-h-[650px] w-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
             <div className="inline-flex justify-between p-5">
               <div>
                 <h1 className="text-sm">Rooms</h1>

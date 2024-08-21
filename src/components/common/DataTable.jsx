@@ -5,7 +5,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
   const { t } = useTranslation();
 
   return (
-    <div className="relative flex min-h-[450px] flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+    <div className="relative flex min-h-[350px] flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
       <div className="inline-flex justify-between p-5">
         <div>
           <h1 className="text-sm">{title}</h1>
