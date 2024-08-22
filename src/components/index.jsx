@@ -9,6 +9,7 @@ export { default as PasswordInput } from "./common/PasswordInput";
 export { default as ChartCard } from "./features/dashboard/ChartCard";
 export { default as BarChart } from "./features/dashboard/BarChart";
 export { default as LineGraph } from "./features/dashboard/LineGraph";
+export { default as Notes } from "./features/dashboard/Notes";
 
 export { default as AdditionalGuest } from "./features/guests/AdditionalGuest";
 export { default as GuestList } from "./features/guests/GuestList";
