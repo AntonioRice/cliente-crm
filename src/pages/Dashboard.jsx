@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, BarChart, LineGraph, Notes } from "../components";
+import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, LineGraph, RoomsTable } from "../components";
 import { useGuestContext, useReservationsContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
-import { IoIosArrowForward } from "react-icons/io";
 
 const Dashboard = () => {
   const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage, setSelectedGuest } = useGuestContext();
@@ -136,9 +135,9 @@ const Dashboard = () => {
         <h1 className="text-2xl font-semibold">{t("dashboard")}</h1>
         <AddButton path="/guests/register" />
       </div>
-      <div className="grid h-[80vh] grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="col-span-3 flex h-full flex-col">
-          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:h-[80vh] xl:grid-cols-4">
+        <div className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-3">
+          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
             <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
             <LineGraph title="7-Day View" week={currentWeek} data={chartData} />
@@ -161,42 +160,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="col-span-1 overflow-hidden">
-          <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
-            <div className="p-5">
-              <h1 className="text-sm">Rooms</h1>
-              <p className="text-xs text-gray-500">Total: {rooms.length}</p>
-            </div>
-            <div className="no-scrollbar flex-1 overflow-auto">
-              <table className="w-full text-left text-xs text-gray-500 dark:text-gray-400">
-                <thead className="sticky top-0 bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th className="px-2 py-2 sm:px-4 md:px-6">Room</th>
-                    <th className="px-2 py-2 sm:px-4 md:px-6">Name</th>
-                    <th className="px-2 py-2 sm:px-4 md:px-6">Status</th>
-                    <th className="px-2 py-2 sm:px-4 md:px-6">
-                      <span className="sr-only">Edit</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rooms.map((room) => (
-                    <tr key={room.number} className="border-t border-gray-500 first:border-t-0 last:border-b-0 hover:bg-gray-600 hover:text-white" onClick={() => handleRoomSelection(room.room_id)}>
-                      <td className="px-2 py-4 sm:px-4 md:px-6">{room.number}</td>
-                      <td className="px-2 py-4 sm:px-4 md:px-6">{room.name}</td>
-                      <td className={`px-2 py-4 sm:px-4 md:px-6 ${room.occupied ? "text-red-500" : ""}`}>{room.occupied ? "Occupied" : "Available"}</td>
-                      <td className="px-2 py-4 text-right sm:px-4 md:px-6">
-                        <button className="font-medium">
-                          <IoIosArrowForward />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+        <RoomsTable rooms={rooms} handleRoomSelection={handleRoomSelection} />
       </div>
     </AnimatedPage>
   );
