@@ -5,7 +5,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
   const { t } = useTranslation();
 
   return (
-    <div className="mb-4 flex flex-col rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
       <div className="inline-flex justify-between p-5">
         <div>
           <h1 className="text-sm">{title}</h1>
@@ -35,13 +35,13 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
           </div>
         )}
       </div>
-      <div className="overflow-x-hidden rounded-b-xl">
+      <div className="flex-1 overflow-auto">
         {data.length === 0 ? (
-          <div className="flex min-h-[200px] items-center justify-center">
+          <div className="flex h-full items-center justify-center">
             <p className="text-gray-500 dark:text-gray-400">{t("No Current Reservations")}</p>
           </div>
         ) : (
-          <table className="min-w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
+          <table className="w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
             <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 {columns.map((col) => (
@@ -58,11 +58,13 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
             <tbody>{data.map((item, index) => renderRow(item, index, editAction))}</tbody>
           </table>
         )}
-        <nav className="flex flex-col flex-wrap items-center justify-between p-4 pt-4 md:flex-row">
+      </div>
+      <nav className="border-t border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800">
+        <div className="flex flex-col flex-wrap items-center justify-between p-4 md:flex-row">
           <span className="mb-4 block w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
             {t("page")}
             <span className="mx-1 font-semibold text-gray-900 dark:text-white">{currentPage}</span>
-            of
+            {t("of")}
             <span className="mx-1 font-semibold text-gray-900 dark:text-white">{totalPages}</span>
           </span>
           <ul className="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
@@ -83,8 +85,8 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
               </button>
             </li>
           </ul>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </div>
   );
 };
