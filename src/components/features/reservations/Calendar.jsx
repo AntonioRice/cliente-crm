@@ -95,12 +95,14 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
           <input type="number" value={year} onChange={handleYearChange} className="h-10 rounded-md bg-gray-700 px-4" min="1900" max="2100" />
         </div>
       </div>
-      <div className="grid flex-grow grid-cols-7 gap-1">
+      <div className="mb-1 grid h-10 grid-cols-7 gap-1">
         {daysOfWeek().map((day) => (
-          <div key={day} className="rounded-md bg-gray-700 p-2 text-center font-bold">
+          <div key={day} className="h-10 rounded-md bg-gray-700 p-2 text-center font-bold">
             {day}
           </div>
         ))}
+      </div>
+      <div className="grid flex-grow grid-cols-7 gap-1">
         {dates.map((date, index) => (
           <div key={index} className={`flex flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date === today ? "bg-gray-700" : ""}`}>
             <p className="p-2 text-gray-300">{date}</p>
