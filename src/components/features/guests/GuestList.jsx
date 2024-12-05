@@ -10,7 +10,7 @@ const GuestsList = ({ guests, columns }) => {
 
   const handleRowClick = (guest) => {
     setSelectedGuest(guest);
-    navigate(`/guests/details/${guest.guest_id}`);
+    navigate(`/guests/${guest.guest_id}`);
   };
 
   const renderCellContent = (guest, col) => {

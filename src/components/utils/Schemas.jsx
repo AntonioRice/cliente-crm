@@ -27,7 +27,7 @@ export const userRegistrationSchema = z
     path: ["confirmPassword"],
   });
 
-export const teamMemberSchema = z.object({
+export const employeeSchema = z.object({
   user_name: z.string().min(1).max(255),
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),

@@ -28,7 +28,7 @@
   "email": "Email",
   "emergency_contact": "Emergency Contact",
   "employment_status": {
-    "description": "Control status of team member",
+    "description": "Control status of employee",
     "title": "Employment Status"
   },
   "entry_warning": "Please fill out this field.",
@@ -114,8 +114,8 @@
   "sign_out": "Sign Out",
   "state": "State",
   "submit": "Submit",
-  "team_members": "Team Members",
-  "team_member_registration": "Team Member Registration",
+  "team": "Team",
+  "employee_registration": "Employee Registration",
   "tenants": "Tenants",
   "total": "Total",
   "update": "Update",

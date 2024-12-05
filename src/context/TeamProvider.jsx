@@ -1,25 +1,25 @@
 import { useState, useContext, createContext } from "react";
 
-const TeamContext = createContext();
+const teamContext = createContext();
 
-export const useTeamContext = () => useContext(TeamContext);
+export const useTeamContext = () => useContext(teamContext);
 
 export const TeamProvider = ({ children }) => {
-  const [selectedTeamMember, setSelectedTeamMember] = useState(null);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  const clearTeamMember = () => {
-    setSelectedTeamMember(null);
+  const clearEmployee = () => {
+    setSelectedEmployee(null);
   };
 
   return (
-    <TeamContext.Provider
+    <teamContext.Provider
       value={{
-        selectedTeamMember,
-        setSelectedTeamMember,
-        clearTeamMember,
+        selectedEmployee,
+        setSelectedEmployee,
+        clearEmployee,
       }}
     >
       {children}
-    </TeamContext.Provider>
+    </teamContext.Provider>
   );
 };

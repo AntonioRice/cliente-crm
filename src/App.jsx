@@ -4,7 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./App.css";
 import { Layout, ProtectedRoute } from "./components";
-import { Dashboard, Guests, GuestDetails, GuestRegistration, Reservations, ReservationDetails, Room, Settings, Login, Tenants, TenantDetails, TeamMembers, Unauthorized, TeamMemberDetails, TeamMemberRegistration } from "./pages";
+import { Dashboard, Guests, GuestDetails, GuestRegistration, Reservations, ReservationDetails, Room, Settings, Login, Tenants, TenantDetails, Team, Unauthorized, EmployeeDetails, EmployeeRegistration } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -35,32 +35,32 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <Dashboard /> },
       { path: "guests", element: <Guests /> },
       { path: "guests/register", element: <GuestRegistration /> },
-      { path: "guests/details/:id", element: <GuestDetails /> },
+      { path: "guests/:id", element: <GuestDetails /> },
       { path: "reservations", element: <Reservations /> },
       { path: "room/:id", element: <Room /> },
-      { path: "reservations/details/:id", element: <ReservationDetails /> },
+      { path: "reservations/:id", element: <ReservationDetails /> },
       { path: "settings", element: <Settings /> },
       {
-        path: "team-members",
+        path: "team",
         element: (
           <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
-            <TeamMembers />
+            <Team />
           </ProtectedRoute>
         ),
       },
       {
-        path: "team-members/register",
+        path: "team/employee/register",
         element: (
           <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
-            <TeamMemberRegistration />
+            <EmployeeRegistration />
           </ProtectedRoute>
         ),
       },
       {
-        path: "team-members/details/:id",
+        path: "team/employee/:id",
         element: (
           <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
-            <TeamMemberDetails />
+            <EmployeeDetails />
           </ProtectedRoute>
         ),
       },
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "tenants/details/:id",
+        path: "tenants/:id",
         element: (
           <ProtectedRoute allowedRoles={["SuperAdmin"]}>
             <TenantDetails />

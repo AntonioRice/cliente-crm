@@ -52,7 +52,7 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
 
   const handleReservationOnClick = (reservation) => {
     setSelectedReservation(reservation);
-    navigate(`/reservations/details/${reservation.reservation_id}`);
+    navigate(`/reservations/${reservation.reservation_id}`);
   };
 
   const getReservationsForDate = (date) => {

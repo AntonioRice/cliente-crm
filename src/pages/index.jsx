@@ -1,4 +1,6 @@
 export { default as Dashboard } from "./Dashboard";
+export { default as EmployeeDetails } from "./EmployeeDetails";
+export { default as EmployeeRegistration } from "./EmployeeRegistration";
 export { default as Guests } from "./Guests";
 export { default as GuestDetails } from "./GuestDetails";
 export { default as Login } from "./Login";
@@ -8,8 +10,6 @@ export { default as Reservations } from "./Reservations";
 export { default as ReservationDetails } from "./ReservationDetails";
 export { default as Room } from "./Room";
 export { default as Settings } from "./Settings";
+export { default as Team } from "./Team";
 export { default as Tenants } from "./Tenants";
 export { default as TenantDetails } from "./TenantDetails";
-export { default as TeamMembers } from "./TeamMembers";
-export { default as TeamMemberDetails } from "./TeamMemberDetails";
-export { default as TeamMemberRegistration } from "./TeamMemberRegistration";

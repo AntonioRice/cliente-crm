@@ -72,7 +72,7 @@ const GuestDetails = () => {
   // };
 
   const handleNavigation = (id) => {
-    navigate(`/reservations/details/${id}`);
+    navigate(`/reservations/${id}`);
   };
 
   if (loading) return <LoadingComponent />;

@@ -67,7 +67,7 @@ const Dashboard = () => {
 
   const handleEditGuest = (guest) => {
     setSelectedGuest(guest);
-    navigate(`/guests/details/${guest.guest_id}`);
+    navigate(`/guests/${guest.guest_id}`);
   };
 
   const countReservationsInWeek = (reservations) => {
