@@ -126,6 +126,10 @@ const Dashboard = () => {
 
   const renderRow = (guest) => <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />;
 
+  const handleRoomSelection = (id) => {
+    navigate(`/room/${id}`);
+  };
+
   return (
     <AnimatedPage>
       <div className="flex items-center justify-between py-4">
@@ -133,7 +137,7 @@ const Dashboard = () => {
         <AddButton path="/guests/register" />
       </div>
       <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="col-span-3">
+        <div className="col-span-3 ">
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
             <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
@@ -155,7 +159,7 @@ const Dashboard = () => {
             renderRow={renderRow}
           />
         </div>
-        <div className="= col-span-1 max-h-[75vh]">
+        <div className="col-span-1 max-h-[75vh] overflow-hidden">
           <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
             <div className="p-5">
               <h1 className="text-sm">Rooms</h1>
@@ -176,7 +180,7 @@ const Dashboard = () => {
                   </thead>
                   <tbody>
                     {rooms.map((room) => (
-                      <tr key={room.number} className="border-b border-gray-500 hover:bg-gray-600 hover:text-white">
+                      <tr key={room.number} className="border-b border-gray-500 hover:bg-gray-600 hover:text-white" onClick={() => handleRoomSelection(room.room_id)}>
                         <td className="px-2 py-4 sm:px-4 md:px-6">{room.number}</td>
                         <td className="px-2 py-4 sm:px-4 md:px-6">{room.name}</td>
                         <td className={`px-2 py-4 sm:px-4 md:px-6 ${room.occupied ? "text-red-500" : ""}`}>{room.occupied ? "Occupied" : "Available"}</td>

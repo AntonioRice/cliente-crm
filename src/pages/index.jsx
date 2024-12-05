@@ -6,6 +6,7 @@ export { default as Unauthorized } from "./Unauthorized";
 export { default as GuestRegistration } from "./GuestRegistration";
 export { default as Reservations } from "./Reservations";
 export { default as ReservationDetails } from "./ReservationDetails";
+export { default as Room } from "./Room";
 export { default as Settings } from "./Settings";
 export { default as Tenants } from "./Tenants";
 export { default as TenantDetails } from "./TenantDetails";

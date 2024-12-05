@@ -4,7 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./App.css";
 import { Layout, ProtectedRoute } from "./components";
-import { Dashboard, Guests, GuestDetails, GuestRegistration, Reservations, ReservationDetails, Settings, Login, Tenants, TenantDetails, TeamMembers, Unauthorized, TeamMemberDetails, TeamMemberRegistration } from "./pages";
+import { Dashboard, Guests, GuestDetails, GuestRegistration, Reservations, ReservationDetails, Room, Settings, Login, Tenants, TenantDetails, TeamMembers, Unauthorized, TeamMemberDetails, TeamMemberRegistration } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +37,7 @@ const router = createBrowserRouter([
       { path: "guests/register", element: <GuestRegistration /> },
       { path: "guests/details/:id", element: <GuestDetails /> },
       { path: "reservations", element: <Reservations /> },
+      { path: "room/:id", element: <Room /> },
       { path: "reservations/details/:id", element: <ReservationDetails /> },
       { path: "settings", element: <Settings /> },
       {
