@@ -34,7 +34,7 @@
   "entry_warning": "Please fill out this field.",
   "first_name": "First Name",
   "general": {
-    "description": "Control basic general settings",
+    "description": "Control general settings",
     "title": "General"
   },
   "guest": "Guest",
@@ -48,6 +48,7 @@
   "light": "Light",
   "login": "Login",
   "make": "Make",
+  "membership": "Membership",
   "model": "Model",
   "months": {
     "april": "April",
@@ -115,8 +116,18 @@
   "state": "State",
   "submit": "Submit",
   "team": "Team",
+  "tenant": {
+    "tenant": "Tenant",
+    "tenants": "Tenants",
+    "tenant_id": "Tenant ID",
+    "tenant_name": "Tenant Name",
+    "status": "Status",
+    "tenant_status": {
+      "description": "Control status of tenant",
+      "title": "Tenant Status"
+    }
+  },
   "employee_registration": "Employee Registration",
-  "tenants": "Tenants",
   "total": "Total",
   "update": "Update",
   "username": "Username",

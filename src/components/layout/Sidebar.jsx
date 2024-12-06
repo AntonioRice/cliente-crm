@@ -24,7 +24,7 @@ const Sidebar = () => {
     { path: "/guests", label: t("guests"), icon: <MdOutlineRoomService size={20} /> },
     { path: "/reservations", label: t("reservations"), icon: <SlCalender size={20} /> },
     { path: "/team", label: t("team"), icon: <FaPeopleGroup size={20} />, roles: ["Admin", "SuperAdmin"] },
-    { path: "/tenants", label: t("tenants"), icon: <PiBuildingLight size={20} />, roles: ["SuperAdmin"] },
+    { path: "/tenants", label: t("tenant.tenants"), icon: <PiBuildingLight size={20} />, roles: ["SuperAdmin"] },
   ];
 
   const filterSidebarItems = (items, userRole) => {

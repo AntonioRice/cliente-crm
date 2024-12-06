@@ -48,6 +48,7 @@
   "light": "Luz",
   "login": "Acceso",
   "make": "Marca",
+  "membership": "Afiliación",
   "model": "Modelo",
   "months": {
     "abril": "Abril",
@@ -116,7 +117,16 @@
   "submit": "Entregar",
   "team": "Empleados",
   "employee_registration": "Registro de Empleados",
-  "tenants": "Inquilinos",
+  "tenant": {
+    "tenant": "Inquilino",
+    "tenants": "Inquilinos",
+    "tenant_name": "Nombre del Inquilino",
+    "status": "Estado",
+    "tenant_status": {
+      "description": "Estado de control del inquilino",
+      "title": "Estado de Inquilino"
+    }
+  },
   "total": "total",
   "update": "Actualizar",
   "username": "Nombre de usuario",
