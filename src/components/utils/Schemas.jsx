@@ -39,7 +39,24 @@ export const employeeSchema = z.object({
 export const guestSchema = z.object({
   first_name: z.string().min(1, "First Name is required"),
   last_name: z.string().min(1, "Last Name is required"),
-  date_of_birth: z.date(),
+  date_of_birth: z.preprocess(
+    (value) => {
+      if (!value || (typeof value === "string" && value.trim() === "")) {
+        return null;
+      }
+
+      const date = new Date(value);
+      return isNaN(date.getTime()) ? null : date;
+    },
+    z
+      .date({
+        required_error: "Date of Birth is required",
+        invalid_type_error: "Please specify a valid date",
+      })
+      .refine((date) => date <= new Date(), {
+        message: "Date cannot be in the future",
+      }),
+  ),
   nationality: z.string().min(1, "Nationality is required"),
   email: z.string().email("Invalid email address").min(1, "Email is required"),
   phone_number: z.string().min(1, "Phone Number is required"),
@@ -65,7 +82,24 @@ export const guestSchema = z.object({
 export const additionalGuestSchema = z.object({
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
-  date_of_birth: z.string().min(1, "Date of birth is required"),
+  date_of_birth: z.preprocess(
+    (value) => {
+      if (!value || (typeof value === "string" && value.trim() === "")) {
+        return null;
+      }
+
+      const date = new Date(value);
+      return isNaN(date.getTime()) ? null : date;
+    },
+    z
+      .date({
+        required_error: "Date of Birth is required",
+        invalid_type_error: "Please specify a valid date",
+      })
+      .refine((date) => date <= new Date(), {
+        message: "Date cannot be in the future",
+      }),
+  ),
   nationality: z.string().min(1, "Nationality is required"),
   email: z.string().email("Invalid email address").min(1, "Email is required"),
   identification_number: z.string().min(1, "Identification number is required"),
