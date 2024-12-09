@@ -1,7 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
+import { useRoomContext } from "../../../context";
 
-const RoomsChart = ({ rooms, handleRoomSelection }) => {
+const RoomsChart = ({ rooms }) => {
+  const { setSelectedRoom } = useRoomContext();
+  const navigate = useNavigate();
+
+  const handleRoomSelection = (room) => {
+    setSelectedRoom(room);
+    navigate(`/room/${room.room_id}`);
+  };
+
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 md:col-span-2 xl:col-span-1">
       <div className="p-5">
@@ -22,7 +32,7 @@ const RoomsChart = ({ rooms, handleRoomSelection }) => {
           </thead>
           <tbody>
             {rooms.map((room) => (
-              <tr key={room.number} className="border-t border-gray-500 first:border-t-0 last:border-b-0 hover:bg-gray-600 hover:text-white" onClick={() => handleRoomSelection(room.room_id)}>
+              <tr key={room.number} className="border-t border-gray-500 first:border-t-0 last:border-b-0 hover:bg-gray-600 hover:text-white" onClick={() => handleRoomSelection(room)}>
                 <td className="px-2 py-4 sm:px-4 md:px-6">{room.number}</td>
                 <td className="px-2 py-4 sm:px-4 md:px-6">{room.name}</td>
                 <td className={`px-2 py-4 sm:px-4 md:px-6 ${room.occupied ? "text-red-500" : ""}`}>{room.occupied ? "Occupied" : "Available"}</td>

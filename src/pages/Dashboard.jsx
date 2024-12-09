@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, LineGraph, RoomsTable } from "../components";
-import { useGuestContext, useReservationsContext } from "../context";
+import { useGuestContext, useReservationsContext, useRoomContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 
 const Dashboard = () => {
   const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage, setSelectedGuest } = useGuestContext();
-  const { fetchReservationsAnalytics, reservationsAnalytics, fetchRooms, rooms } = useReservationsContext();
+  const { fetchReservationsAnalytics, reservationsAnalytics } = useReservationsContext();
+  const { fetchRooms, rooms } = useRoomContext();
   const { t } = useTranslation();
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [currentWeek, setCurrentWeek] = useState(moment().startOf("week").day(0).format("YYYY-MM-DD"));
@@ -125,10 +126,6 @@ const Dashboard = () => {
 
   const renderRow = (guest) => <TableRow key={guest.guest_id} item={guest} columns={columns} editAction={handleEditGuest} />;
 
-  const handleRoomSelection = (id) => {
-    navigate(`/room/${id}`);
-  };
-
   return (
     <AnimatedPage>
       <div className="flex items-center justify-between py-4">
@@ -160,7 +157,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <RoomsTable rooms={rooms} handleRoomSelection={handleRoomSelection} />
+        <RoomsTable rooms={rooms} />
       </div>
     </AnimatedPage>
   );

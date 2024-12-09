@@ -1,7 +1,10 @@
 import React from "react";
+import { useRoomContext } from "../context";
 
-const Room = ({ id }) => {
-  return <div>Room {id}</div>;
+const Room = () => {
+  const { selectedRoom } = useRoomContext();
+
+  return <div>Room</div>;
 };
 
 export default Room;
