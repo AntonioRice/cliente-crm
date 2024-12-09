@@ -8,7 +8,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
     <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
       <div className="inline-flex justify-between p-5">
         <div>
-          <h1 className="text-sm">{title}</h1>
+          <h1 className="text-sm text-white">{title}</h1>
           <p className="text-xs text-gray-500">Total: {totalItems}</p>
         </div>
         {showSearch && (

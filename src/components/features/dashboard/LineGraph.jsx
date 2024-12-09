@@ -28,9 +28,9 @@ const LineGraph = ({ data, title, week }) => {
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-gray-800 p-5 shadow-lg dark:border-gray-700">
+    <div className={`flex flex-col justify-between rounded-xl border border-gray-200 bg-gray-800 p-5 opacity-80 dark:border-gray-700`}>
       <h3 className="text-lg font-bold text-white">{title}</h3>
-      <p className="text-xs">Week: {week}</p>
+      <p className="text-xs ">Week: {week}</p>
       <div className="flex h-full items-center justify-center">
         <Line
           data={chartData}
@@ -48,6 +48,12 @@ const LineGraph = ({ data, title, week }) => {
                 max: max * 2 || 10,
                 ticks: {
                   stepSize: 1,
+                  color: "white",
+                },
+              },
+              x: {
+                ticks: {
+                  color: "white",
                 },
               },
             },

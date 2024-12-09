@@ -68,10 +68,7 @@ const NewGuestForm = () => {
     <AnimatedPage>
       <div className="text-base leading-relaxed">
         <form className="w-full border-b dark:border-gray-600">
-          <h1 className="pb-6 text-green-400">
-            <span className="text-green-400"> - </span>
-            {t("primary_guest")}
-          </h1>
+          <h1 className="pb-6 text-green-400">{t("primary_guest")}</h1>
           <div className="-mx-3 mb-6 flex flex-wrap">
             <div className="w-full px-3 md:mb-0 md:w-1/4">
               <input
@@ -238,10 +235,7 @@ const NewGuestForm = () => {
               {errors.phone_number && <p className="text-xs italic text-red-500">{errors.phone_number.message}</p>}
             </div>
           </div>
-          <h1 className="pb-6 text-green-400">
-            <span className="text-green-400"> - </span>
-            {t("emergency_contact")}
-          </h1>
+          <h1 className="pb-6 text-green-400">{t("emergency_contact")}</h1>
           <div className="-mx-3 mb-6 flex flex-wrap">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
@@ -313,10 +307,7 @@ const NewGuestForm = () => {
               {errors.emergency_contact?.phone_number && <p className="text-xs italic text-red-500">{errors.emergency_contact.phone_number.message}</p>}
             </div>
           </div>
-          <h1 className="pb-6 text-green-400">
-            <span className="text-green-400"> - </span>
-            {t("vehicle_information")}
-          </h1>
+          <h1 className="pb-6 text-green-400">{t("vehicle_information")}</h1>
           <div className="-mx-3 mb-6 flex flex-wrap">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller

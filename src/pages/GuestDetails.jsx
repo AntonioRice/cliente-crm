@@ -91,7 +91,10 @@ const GuestDetails = () => {
           </span>
         </h1>
       </div>
-      <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+      <div className="rounded-xl border border-gray-200 bg-gray-50 px-6 py-8 dark:border-gray-700 dark:bg-gray-800">
+        <div className="py-5">
+          <h1 className="text-green-400">{t("contact_information")}</h1>
+        </div>
         <div className="grid md:grid-cols-4 md:gap-6">
           <div className="group relative z-0 mb-5 w-full">
             <label className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 peer-focus:-translate-y-6 peer-focus:font-medium dark:text-gray-400">{t("first_name")}</label>
@@ -143,10 +146,7 @@ const GuestDetails = () => {
           </div>
         </div>
         <div className="py-5">
-          <h1>
-            <span className="text-green-400"> - </span>
-            {t("emergency_contact")}
-          </h1>
+          <h1 className="text-green-400">{t("emergency_contact")}</h1>
         </div>
         <div className="grid md:grid-cols-3 md:gap-6">
           <div className="group relative z-0 mb-5 w-full">
@@ -163,10 +163,7 @@ const GuestDetails = () => {
           </div>
         </div>
         <div className="py-5">
-          <h1>
-            <span className="text-green-400"> - </span>
-            {t("vehicle_information")}
-          </h1>
+          <h1 className="text-green-400">{t("vehicle_information")}</h1>
         </div>
         <div className="grid md:grid-cols-3 md:gap-6">
           <div className="group relative z-0 mb-5 w-full">
@@ -186,10 +183,7 @@ const GuestDetails = () => {
         {selectedReservation && (
           <>
             <div className="py-5">
-              <h1>
-                <span className="text-green-400"> - </span>
-                {t("latest_reservation")}
-              </h1>
+              <h1 className="text-green-400">{t("latest_reservation")}</h1>
             </div>
             <div className="rounded-xl bg-gray-700 bg-opacity-50 p-4 pt-8 hover:cursor-pointer hover:bg-opacity-100" onClick={() => handleNavigation(selectedReservation.reservation_id)}>
               <div className="grid items-center md:grid-cols-7 md:gap-6">

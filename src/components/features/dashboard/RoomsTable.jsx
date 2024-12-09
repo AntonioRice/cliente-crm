@@ -2,8 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { useRoomContext } from "../../../context";
+import { useTranslation } from "react-i18next";
 
 const RoomsChart = ({ rooms }) => {
+  const { t } = useTranslation();
   const { setSelectedRoom } = useRoomContext();
   const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ const RoomsChart = ({ rooms }) => {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 md:col-span-2 xl:col-span-1">
       <div className="p-5">
-        <h1 className="text-sm">Rooms</h1>
+        <h1 className="text-sm text-white">{t("rooms")}</h1>
         <p className="text-xs text-gray-500">Total: {rooms.length}</p>
       </div>
       <div className="scrollbar-hidden flex-1 overflow-auto">

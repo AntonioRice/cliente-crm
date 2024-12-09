@@ -103,7 +103,7 @@ const ReservationDetails = () => {
         <span className="text-green-400"> - {t("additional_guests")}</span>
       </h1>
       {additionalGuests && additionalGuests.length > 0 ? (
-        <div className="p-4">
+        <div className="rounded-lg bg-gray-700 p-4 pt-8">
           {additionalGuests.map((guest, index) => (
             <div key={index}>
               <div className="grid md:grid-cols-6 md:gap-6">

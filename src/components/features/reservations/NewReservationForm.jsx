@@ -82,10 +82,7 @@ const NewReservationForm = () => {
 
   return (
     <form className="pb-20">
-      <h1 className="pb-6 text-green-400">
-        <span className="text-green-400"> - </span>
-        {t("room_information")}
-      </h1>
+      <h1 className="pb-6 text-green-400">{t("room_information")}</h1>
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="w-full px-3 md:mb-0 md:w-1/4">
           <MultiSelectDropdown handleRoomsChange={handleRoomsChange} />
@@ -162,10 +159,7 @@ const NewReservationForm = () => {
           {t("add_guest")}
         </button>
       </div>
-      <h1 className="pb-2 text-green-400">
-        <span className="text-green-400"> - </span>
-        {t("payment_information")}
-      </h1>
+      <h1 className="pb-2 text-green-400">{t("payment_information")}</h1>
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
