@@ -39,7 +39,7 @@ export const employeeSchema = z.object({
 export const guestSchema = z.object({
   first_name: z.string().min(1, "First Name is required"),
   last_name: z.string().min(1, "Last Name is required"),
-  date_of_birth: z.string().min(1, "Date of Birth is required"),
+  date_of_birth: z.date(),
   nationality: z.string().min(1, "Nationality is required"),
   email: z.string().email("Invalid email address").min(1, "Email is required"),
   phone_number: z.string().min(1, "Phone Number is required"),

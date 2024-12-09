@@ -8,6 +8,7 @@ import { formatDateTime } from "../../../utils/standardMethods";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
 import { guestSchema } from "../../utils/Schemas";
 import { SlCalender } from "react-icons/sl";
+import DatePicker from "react-datepicker";
 
 const NewGuestForm = () => {
   const { t } = useTranslation();
@@ -64,6 +65,13 @@ const NewGuestForm = () => {
     });
   };
 
+  const handleDateChange = (field, date) => {
+    setGuestData((prev) => ({
+      ...prev,
+      [field]: date,
+    }));
+  };
+
   return (
     <AnimatedPage>
       <div className="text-base leading-relaxed">
@@ -90,16 +98,24 @@ const NewGuestForm = () => {
               {errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}
             </div>
 
-            <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
+            <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
               <span className="pointer-events-none absolute left-6 top-2.5 z-10 text-sm text-gray-400">
                 <p>DOB</p>
               </span>
-              <input
-                className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.date_of_birth ? "border-red-500" : ""}`}
-                id="date_of_birth"
-                type="date"
-                {...register("date_of_birth")}
-                onChange={handleInputChange}
+              <Controller
+                control={control}
+                name="date_of_birth"
+                render={({ field }) => (
+                  <DatePicker
+                    className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none ${errors.date_of_birth ? "border-red-500" : ""}`}
+                    selected={field.value}
+                    placeholderText="mm/dd/yyyy"
+                    onChange={(date) => {
+                      field.onChange(date);
+                      handleDateChange("date_of_birth", date);
+                    }}
+                  />
+                )}
               />
               <span className="pointer-events-none absolute right-5 top-2 text-gray-400">
                 <SlCalender size={20} />
