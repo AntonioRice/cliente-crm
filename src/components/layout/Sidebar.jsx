@@ -16,7 +16,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   const getActiveClass = (path) => {
-    return location.pathname.startsWith(path) ? "bg-gray-700 text-green-500 rounded-lg" : "";
+    return location.pathname.startsWith(path) ? "text-green-500" : "";
   };
 
   const sidebarItems = [
@@ -51,23 +51,24 @@ const Sidebar = () => {
               </button>
             </li>
           ))}
-          <div className="fixed bottom-0 flex w-full justify-between pb-2">
-            <ul className="flex flex-row space-x-2">
-              <li className={getActiveClass("/settings")}>
-                <a href="/settings" className={`group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass("/settings") || `dark:text-white`}`}>
-                  <CiSettings size={15} />
-                  <span className="ms-2 flex-1 whitespace-nowrap text-xs">{t("settings")}</span>
-                </a>
-              </li>
-              <li>
-                <button onClick={logout} className="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                  <PiSignOutLight size={15} />
-                  <span className="ms-2 flex-1 whitespace-nowrap text-xs">{t("sign_out")}</span>
-                </button>
-              </li>
-            </ul>
-          </div>
         </ul>
+      </div>
+
+      <div className="fixed bottom-0 w-full p-2">
+        <div className="grid w-full grid-cols-2 items-center">
+          <div className="flex items-center justify-center">
+            <a href="/settings" className={`group flex w-full items-center justify-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass("/settings") || `dark:text-white`}`}>
+              <CiSettings size={15} />
+              <span className="ms-2 whitespace-nowrap text-xs">{t("settings")}</span>
+            </a>
+          </div>
+          <div className="flex items-center justify-center">
+            <button onClick={logout} className="group flex w-full items-center justify-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+              <PiSignOutLight size={15} />
+              <span className="ms-2 whitespace-nowrap text-xs">{t("sign_out")}</span>
+            </button>
+          </div>
+        </div>
       </div>
     </aside>
   );
