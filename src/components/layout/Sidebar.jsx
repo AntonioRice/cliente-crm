@@ -57,13 +57,13 @@ const Sidebar = () => {
       <div className="fixed bottom-0 w-full p-2">
         <div className="grid w-full grid-cols-2 items-center">
           <div className="flex items-center justify-center">
-            <a href="/settings" className={`group flex w-full items-center justify-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 ${getActiveClass("/settings") || `dark:text-white`}`}>
+            <button onClick={() => navigate("/settings")} className={`group flex w-full items-center justify-center rounded-lg p-2 hover:bg-gray-100 hover:text-white dark:hover:bg-gray-700 ${getActiveClass("/settings") || ""}`}>
               <CiSettings size={15} />
               <span className="ms-2 whitespace-nowrap text-xs">{t("settings")}</span>
-            </a>
+            </button>
           </div>
           <div className="flex items-center justify-center">
-            <button onClick={logout} className="group flex w-full items-center justify-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+            <button onClick={logout} className="group flex w-full items-center justify-center rounded-lg p-2 hover:text-white dark:hover:bg-gray-700">
               <PiSignOutLight size={15} />
               <span className="ms-2 whitespace-nowrap text-xs">{t("sign_out")}</span>
             </button>
