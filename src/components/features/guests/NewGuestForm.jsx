@@ -77,7 +77,7 @@ const NewGuestForm = () => {
       <div className="text-base leading-relaxed">
         <form className="w-full border-b dark:border-gray-600">
           <h1 className="pb-6 text-green-400">{t("primary_guest")}</h1>
-          <div className="-mx-3 mb-6 flex flex-wrap">
+          <div className="-mx-3 mb-6 flex flex-wrap text-white">
             <div className="w-full px-3 md:mb-0 md:w-1/4">
               <input
                 className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.first_name ? "border-red-500" : ""}`}
@@ -87,7 +87,6 @@ const NewGuestForm = () => {
               />
               {errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
                 className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.last_name ? "border-red-500" : ""}`}
@@ -97,10 +96,9 @@ const NewGuestForm = () => {
               />
               {errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}
             </div>
-
             <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
               <span className="pointer-events-none absolute left-6 top-2.5 z-10 text-sm text-gray-400">
-                <p>DOB</p>
+                <p>{t("dob")}</p>
               </span>
               <Controller
                 control={control}
@@ -133,7 +131,7 @@ const NewGuestForm = () => {
               {errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}
             </div>
           </div>
-          <div className="-mx-3 mb-6 flex flex-wrap">
+          <div className="-mx-3 mb-6 flex flex-wrap text-white">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -218,7 +216,7 @@ const NewGuestForm = () => {
               {errors.address?.country && <p className="text-xs italic text-red-500">{errors.address.country.message}</p>}
             </div>
           </div>
-          <div className="-mx-3 mb-6 flex flex-wrap">
+          <div className="-mx-3 mb-6 flex flex-wrap text-white">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
               <input
                 className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.identification_number ? "border-red-500" : ""}`}
@@ -252,7 +250,7 @@ const NewGuestForm = () => {
             </div>
           </div>
           <h1 className="pb-6 text-green-400">{t("emergency_contact")}</h1>
-          <div className="-mx-3 mb-6 flex flex-wrap">
+          <div className="-mx-3 mb-6 flex flex-wrap text-white">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -324,7 +322,7 @@ const NewGuestForm = () => {
             </div>
           </div>
           <h1 className="pb-6 text-green-400">{t("vehicle_information")}</h1>
-          <div className="-mx-3 mb-6 flex flex-wrap">
+          <div className="-mx-3 mb-6 flex flex-wrap text-white">
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}

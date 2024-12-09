@@ -17,6 +17,8 @@ import { reservationSchema } from "../../utils/Schemas";
 const NewReservationForm = () => {
   const { t } = useTranslation();
   const { reservationData, setReservationData } = useGuestRegistrationContext();
+  const paymentMethods = ["Cash", "Credit", "Transfer"];
+  const paymentStatus = ["Pending", "Completed", "Failed"];
 
   const {
     control,
@@ -79,17 +81,18 @@ const NewReservationForm = () => {
       };
     });
   };
+  // className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight}
 
   return (
-    <form className="pb-20">
+    <form className="pb-20 text-white">
       <h1 className="pb-6 text-green-400">{t("room_information")}</h1>
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="w-full px-3 md:mb-0 md:w-1/4">
           <MultiSelectDropdown handleRoomsChange={handleRoomsChange} />
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
-          {!reservationData.room_numbers.length > 0 && <label className="absolute left-6 top-4 text-xs uppercase leading-tight tracking-wide text-gray-400">{t("rooms")}</label>}
-          <div className={`block min-h-12 w-full appearance-none flex-wrap rounded-lg border p-1 leading-tight ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
+          {!reservationData.room_numbers.length > 0 && <label className="absolute left-6 top-3 text-xs uppercase leading-tight tracking-wide text-gray-400">{t("rooms")}</label>}
+          <div className={`mb-3 flex h-[38px] w-full flex-wrap items-center rounded border bg-[#111827] ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
             {reservationData.room_numbers.map((room, i) => (
               <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}
@@ -97,7 +100,7 @@ const NewReservationForm = () => {
           {!reservationData.room_numbers.length > 0 && <p className="pt-1 text-xs italic text-red-500">{t("room_warning")}</p>}
         </div>
         <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
-          <span className="pointer-events-none absolute left-5 top-4 z-20 text-gray-400">
+          <span className="pointer-events-none absolute left-6 top-3 z-10 text-sm text-gray-400">
             <LuLogIn />
           </span>
           <Controller
@@ -105,7 +108,7 @@ const NewReservationForm = () => {
             name="check_in"
             render={({ field }) => (
               <DatePicker
-                className="mb-3 block min-h-12 w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-7 leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none"
                 selected={field.value}
                 onChange={(date) => {
                   field.onChange(date);
@@ -114,12 +117,12 @@ const NewReservationForm = () => {
               />
             )}
           />
-          <span className="pointer-events-none absolute right-5 top-3 text-gray-400">
+          <span className="pointer-events-none absolute right-5 top-2 text-gray-400">
             <SlCalender size={20} />
           </span>
         </div>
         <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
-          <span className="pointer-events-none absolute left-5 top-4 z-20 text-gray-400">
+          <span className="pointer-events-none absolute left-6 top-3 z-10 text-sm text-gray-400">
             <LuLogOut />
           </span>
           <Controller
@@ -127,7 +130,7 @@ const NewReservationForm = () => {
             name="check_out"
             render={({ field }) => (
               <DatePicker
-                className="mb-3 block min-h-12 w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-7 leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none"
                 selected={field.value}
                 onChange={(date) => {
                   field.onChange(date);
@@ -136,7 +139,7 @@ const NewReservationForm = () => {
               />
             )}
           />
-          <span className="pointer-events-none absolute right-5 top-3 text-gray-400">
+          <span className="pointer-events-none absolute right-5 top-2 text-gray-400">
             <SlCalender size={20} />
           </span>
         </div>
@@ -163,7 +166,7 @@ const NewReservationForm = () => {
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_method ? "border-red-500" : ""}`}
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_method ? "border-red-500" : ""}`}
             {...register("payment_method", {
               onChange: (e) => handleInputChange(e),
             })}
@@ -171,7 +174,7 @@ const NewReservationForm = () => {
             <option value="" disabled>
               {t("payment_selection")}
             </option>
-            {["cash", "credit", "transfer"].map((method, i) => (
+            {paymentMethods.map((method, i) => (
               <option key={i} value={method}>
                 {method}
               </option>
@@ -182,7 +185,7 @@ const NewReservationForm = () => {
           </span>
           {errors.payment_method && <p className="text-xs italic text-red-500">{errors.payment_method.message}</p>}
         </div>
-        <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
+        <div className="relative mb-6 w-full px-3 text-white md:mb-0 md:w-1/4">
           <input
             className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-6 py-2 
               leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.total_amount ? "border-red-500" : ""}`}
@@ -199,8 +202,8 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] 
-              px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_status ? "border-red-500" : ""}`}
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4
+              py-2 leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_status ? "border-red-500" : ""}`}
             {...register("payment_status", {
               onChange: (e) => handleInputChange(e),
             })}
@@ -208,7 +211,7 @@ const NewReservationForm = () => {
             <option value="" disabled>
               {t("payment_status_selection")}
             </option>
-            {["pending", "completed", "failed"].map((status, i) => (
+            {paymentStatus.map((status, i) => (
               <option key={i} value={status}>
                 {status}
               </option>
