@@ -11,7 +11,7 @@ const GuestRegistration = () => {
   const { t } = useTranslation();
   const { clearGuests } = useGuestContext();
   const { showAlert } = useAlertContext();
-  const { guestData, setGuestData, reservationData, setReservationData, initialGuestData, initialReservationData, showReservationForm, setShowReservationForm } = useGuestRegistrationContext();
+  const { guestData, resetGuestData, reservationData, resetReservationData, showReservationForm, setShowReservationForm } = useGuestRegistrationContext();
   const [loading, setLoading] = useState(false);
 
   const isFormValid = () => {
@@ -67,8 +67,9 @@ const GuestRegistration = () => {
 
   const resetForm = () => {
     clearGuests();
-    setGuestData(initialGuestData);
-    setReservationData(initialReservationData);
+    resetGuestData();
+    resetReservationData();
+    setShowReservationForm(false);
   };
 
   const handleCancel = () => {
@@ -90,7 +91,7 @@ const GuestRegistration = () => {
             <div className="flex w-full items-center space-x-3 md:w-auto">
               <button
                 type="button"
-                onClick={resetForm}
+                onClick={() => resetForm()}
                 className="hover:text-primary-700 flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
               >
                 <CgMathMinus className="-ml-1 mr-1.5 size-4 text-red-500" />

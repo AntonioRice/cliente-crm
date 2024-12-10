@@ -47,13 +47,23 @@ export const GuestRegistrationProvider = ({ children }) => {
   const [reservationData, setReservationData] = useState(initialReservationData);
   const [showReservationForm, setShowReservationForm] = useState(false);
 
+  const resetGuestData = () => {
+    setGuestData(initialGuestData);
+  };
+
+  const resetReservationData = () => {
+    setReservationData(initialReservationData);
+  };
+
   return (
     <GuestRegistrationContext.Provider
       value={{
         guestData,
         setGuestData,
+        resetGuestData,
         reservationData,
         setReservationData,
+        resetReservationData,
         initialGuestData,
         initialReservationData,
         showReservationForm,

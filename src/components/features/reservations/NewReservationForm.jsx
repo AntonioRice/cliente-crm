@@ -81,13 +81,12 @@ const NewReservationForm = () => {
       };
     });
   };
-  // className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight}
 
   return (
     <form className="pb-20 text-white">
       <h1 className="pb-6 text-green-400">{t("room_information")}</h1>
       <div className="-mx-3 mb-6 flex flex-wrap">
-        <div className="w-full px-3 md:mb-0 md:w-1/4">
+        <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4 ">
           <MultiSelectDropdown handleRoomsChange={handleRoomsChange} />
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
@@ -97,7 +96,7 @@ const NewReservationForm = () => {
               <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}
           </div>
-          {!reservationData.room_numbers.length > 0 && <p className="pt-1 text-xs italic text-red-500">{t("room_warning")}</p>}
+          <div className="h-5">{!reservationData.room_numbers.length > 0 && <p className="absolute text-xs italic text-red-500">{t("room_warning")}</p>}</div>
         </div>
         <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
           <span className="pointer-events-none absolute left-6 top-3 z-10 text-sm text-gray-400">
@@ -183,7 +182,7 @@ const NewReservationForm = () => {
           <span className="pointer-events-none absolute right-5 top-2.5 text-gray-400">
             <IoIosArrowDown />
           </span>
-          {errors.payment_method && <p className="text-xs italic text-red-500">{errors.payment_method.message}</p>}
+          <div className="h-5">{errors.payment_method && <p className="absolute text-xs italic text-red-500">{errors.payment_method.message}</p>}</div>
         </div>
         <div className="relative mb-6 w-full px-3 text-white md:mb-0 md:w-1/4">
           <input
@@ -198,7 +197,7 @@ const NewReservationForm = () => {
           <span className="pointer-events-none absolute left-5 top-2.5 text-gray-400">
             <FaDollarSign />
           </span>
-          {errors.total_amount && <p className="text-xs italic text-red-500">{errors.total_amount.message}</p>}
+          <div className="h-5">{errors.total_amount && <p className="absolute text-xs italic text-red-500">{errors.total_amount.message}</p>}</div>
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
@@ -220,7 +219,7 @@ const NewReservationForm = () => {
           <span className="pointer-events-none absolute right-5 top-2.5 text-gray-400">
             <IoIosArrowDown />
           </span>
-          {errors.payment_status && <p className="text-xs italic text-red-500">{errors.payment_status.message}</p>}
+          <div className="h-5">{errors.payment_status && <p className="absolute text-xs italic text-red-500">{errors.payment_status.message}</p>}</div>
         </div>
       </div>
     </form>

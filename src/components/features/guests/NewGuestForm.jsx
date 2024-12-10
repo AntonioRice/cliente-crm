@@ -18,6 +18,7 @@ const NewGuestForm = () => {
     register,
     control,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(guestSchema),
@@ -37,7 +38,7 @@ const NewGuestForm = () => {
     if (selectedGuest) {
       setGuestData(selectedGuest);
     }
-  }, [selectedGuest, setValue]);
+  }, [selectedGuest, setValue, guestData]);
 
   const toggleNewGuestForm = () => {
     setShowReservationForm(!showReservationForm);
@@ -85,7 +86,7 @@ const NewGuestForm = () => {
                 {...register("first_name")}
                 onChange={handleInputChange}
               />
-              {errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}
+              <div className="h-5">{errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}</div>
             </div>
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
@@ -94,7 +95,7 @@ const NewGuestForm = () => {
                 {...register("last_name")}
                 onChange={handleInputChange}
               />
-              {errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}
+              <div className="h-5">{errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}</div>
             </div>
             <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
               <span className="pointer-events-none absolute left-6 top-2.5 z-10 text-sm text-gray-400">
@@ -103,6 +104,7 @@ const NewGuestForm = () => {
               <Controller
                 control={control}
                 name="date_of_birth"
+                rules={{ required: "Date of Birth is required" }}
                 render={({ field }) => (
                   <DatePicker
                     className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none ${errors.date_of_birth ? "border-red-500" : ""}`}
@@ -111,6 +113,10 @@ const NewGuestForm = () => {
                     onChange={(date) => {
                       field.onChange(date);
                       handleDateChange("date_of_birth", date);
+                      trigger("date_of_birth");
+                    }}
+                    onBlur={() => {
+                      trigger("date_of_birth");
                     }}
                   />
                 )}
@@ -118,9 +124,8 @@ const NewGuestForm = () => {
               <span className="pointer-events-none absolute right-5 top-2 text-gray-400">
                 <SlCalender size={20} />
               </span>
-              {errors.date_of_birth && <p className="text-xs italic text-red-500">{errors.date_of_birth.message}</p>}
+              <div className="h-5">{errors.date_of_birth && <p className="text-xs italic text-red-500">{errors.date_of_birth.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
                 className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.nationality ? "border-red-500" : ""}`}
@@ -128,7 +133,7 @@ const NewGuestForm = () => {
                 {...register("nationality")}
                 onChange={handleInputChange}
               />
-              {errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}
+              <div className="h-5">{errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}</div>
             </div>
           </div>
           <div className="-mx-3 mb-6 flex flex-wrap text-white">
@@ -150,9 +155,8 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.address?.city && <p className="text-xs italic text-red-500">{errors.address.city.message}</p>}
+              <div className="h-5">{errors.address?.city && <p className="text-xs italic text-red-500">{errors.address.city.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -171,9 +175,8 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.address?.state && <p className="text-xs italic text-red-500">{errors.address.state.message}</p>}
+              <div className="h-5">{errors.address?.state && <p className="text-xs italic text-red-500">{errors.address.state.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -192,9 +195,8 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.address?.postal_code && <p className="text-xs italic text-red-500">{errors.address.postal_code.message}</p>}
+              <div className="h-5">{errors.address?.postal_code && <p className="text-xs italic text-red-500">{errors.address.postal_code.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -213,7 +215,7 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.address?.country && <p className="text-xs italic text-red-500">{errors.address.country.message}</p>}
+              <div className="h-5">{errors.address?.country && <p className="text-xs italic text-red-500">{errors.address.country.message}</p>}</div>
             </div>
           </div>
           <div className="-mx-3 mb-6 flex flex-wrap text-white">
@@ -224,9 +226,8 @@ const NewGuestForm = () => {
                 {...register("identification_number")}
                 onChange={handleInputChange}
               />
-              {errors.identification_number && <p className="text-xs italic text-red-500">{errors.identification_number.message}</p>}
+              <div className="h-5">{errors.identification_number && <p className="text-xs italic text-red-500">{errors.identification_number.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
                 className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.email ? "border-red-500" : ""}`}
@@ -235,9 +236,8 @@ const NewGuestForm = () => {
                 {...register("email")}
                 onChange={handleInputChange}
               />
-              {errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}
+              <div className="h-5">{errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <input
                 className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.phone_number ? "border-red-500" : ""}`}
@@ -271,9 +271,8 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.emergency_contact?.first_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.first_name.message}</p>}
+              <div className="h-5">{errors.emergency_contact?.first_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.first_name.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -294,9 +293,8 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.emergency_contact?.last_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.last_name.message}</p>}
+              <div className="h-5">{errors.emergency_contact?.last_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.last_name.message}</p>}</div>
             </div>
-
             <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
               <Controller
                 control={control}
@@ -318,7 +316,7 @@ const NewGuestForm = () => {
                   />
                 )}
               />
-              {errors.emergency_contact?.phone_number && <p className="text-xs italic text-red-500">{errors.emergency_contact.phone_number.message}</p>}
+              <div className="h-5">{errors.emergency_contact?.phone_number && <p className="text-xs italic text-red-500">{errors.emergency_contact.phone_number.message}</p>}</div>
             </div>
           </div>
           <h1 className="pb-6 text-green-400">{t("vehicle_information")}</h1>

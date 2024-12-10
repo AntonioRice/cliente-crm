@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGuestRegistrationContext } from "../../../context";
 import { additionalGuestSchema } from "../../utils/Schemas";
+import DatePicker from "react-datepicker";
+import { SlCalender } from "react-icons/sl";
 
 const AdditionalGuest = ({ guest }) => {
   const { t } = useTranslation();
@@ -11,7 +13,9 @@ const AdditionalGuest = ({ guest }) => {
 
   const {
     register,
+    control,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(additionalGuestSchema),
@@ -47,7 +51,7 @@ const AdditionalGuest = ({ guest }) => {
             onChange: (e) => handleInputChange("first_name", e.target.value),
           })}
         />
-        {errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}
+        <div className="h-5">{errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}</div>
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
@@ -57,22 +61,35 @@ const AdditionalGuest = ({ guest }) => {
             onChange: (e) => handleInputChange("last_name", e.target.value),
           })}
         />
-        {errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}
+        <div className="h-5">{errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}</div>
       </div>
       <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/6">
-        <span className="pointer-events-none absolute left-6 top-2 z-10 text-sm text-gray-400">
-          {/* <p>{t("dob")}</p> */}
-          <p>DOB</p>
+        <span className="pointer-events-none absolute left-6 top-2.5 z-10 text-sm text-gray-400">
+          <p>{t("dob")}</p>
         </span>
-        <input
-          className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.date_of_birth ? "border-red-500" : ""}`}
-          type="date"
-          placeholder={t("dob")}
-          {...register("date_of_birth", {
-            onChange: (e) => handleInputChange("date_of_birth", e.target.value),
-          })}
+        <Controller
+          control={control}
+          name="date_of_birth"
+          rules={{ required: "Date of Birth is required" }}
+          render={({ field }) => (
+            <DatePicker
+              className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none ${errors.date_of_birth ? "border-red-500" : ""}`}
+              selected={field.value}
+              placeholderText="mm/dd/yyyy"
+              onChange={(date) => {
+                field.onChange(date);
+                handleInputChange("date_of_birth", date);
+              }}
+              onBlur={() => {
+                trigger("date_of_birth");
+              }}
+            />
+          )}
         />
-        {errors.date_of_birth && <p className="text-xs italic text-red-500">{errors.date_of_birth.message}</p>}
+        <span className="pointer-events-none absolute right-5 top-2 text-gray-400">
+          <SlCalender size={20} />
+        </span>
+        <div className="h-5">{errors.date_of_birth && <p className="text-xs italic text-red-500">{errors.date_of_birth.message}</p>}</div>
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
@@ -82,7 +99,7 @@ const AdditionalGuest = ({ guest }) => {
             onChange: (e) => handleInputChange("nationality", e.target.value),
           })}
         />
-        {errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}
+        <div className="h-5">{errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}</div>
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
@@ -92,7 +109,7 @@ const AdditionalGuest = ({ guest }) => {
             onChange: (e) => handleInputChange("identification_number", e.target.value),
           })}
         />
-        {errors.identification_number && <p className="text-xs italic text-red-500">{errors.identification_number.message}</p>}
+        <div className="h-5">{errors.identification_number && <p className="text-xs italic text-red-500">{errors.identification_number.message}</p>}</div>
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
@@ -103,9 +120,9 @@ const AdditionalGuest = ({ guest }) => {
             onChange: (e) => handleInputChange("email", e.target.value),
           })}
         />
-        {errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}
+        <div className="h-5">{errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}</div>
       </div>
-      <div className="relative flex flex-row items-center justify-center">
+      <div className="relative mb-4 flex flex-row items-center justify-center">
         <button title="Remove Guest" type="button" onClick={() => removeAdditionalGuest(guest.id)} className="rounded-lg p-1.5 text-red-500 dark:hover:bg-gray-600 dark:hover:text-red-600">
           <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
