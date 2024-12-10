@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { CgMathPlus } from "react-icons/cg";
-import { useRoomContext } from "../../context";
+import { useRoomContext, useGuestRegistrationContext } from "../../context";
 
 const MultiSelectDropdown = ({ handleRoomsChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRooms, setSelectedRooms] = useState([]);
   const { rooms, fetchRooms } = useRoomContext();
-
+  const { reservationData, setReservationData } = useGuestRegistrationContext();
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -23,14 +22,21 @@ const MultiSelectDropdown = ({ handleRoomsChange }) => {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleCheckboxChange = (room) => {
-    if (selectedRooms.includes(room.room_id)) {
-      setSelectedRooms(selectedRooms.filter((id) => id !== room.room_id));
+    const currentRoomNumbers = reservationData.room_numbers || [];
+
+    let updatedRoomNumbers;
+    if (currentRoomNumbers.includes(room.room_id)) {
+      updatedRoomNumbers = currentRoomNumbers.filter((id) => id !== room.room_id);
     } else {
-      setSelectedRooms([...selectedRooms, room.room_id]);
+      updatedRoomNumbers = [...currentRoomNumbers, room.room_id];
     }
 
-    const updatedRoom = { ...room, occupied: !room.occupied };
-    handleRoomsChange(updatedRoom.number);
+    setReservationData((prev) => ({
+      ...prev,
+      room_numbers: updatedRoomNumbers,
+    }));
+
+    handleRoomsChange(room.number);
   };
 
   const handleClickOutside = (event) => {
@@ -39,7 +45,7 @@ const MultiSelectDropdown = ({ handleRoomsChange }) => {
     }
   };
 
-  const selectedRoomsText = `${selectedRooms.length} Room(s) Selected`;
+  const selectedRoomsText = `${reservationData.room_numbers?.length || 0} Room(s) Selected`;
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -58,7 +64,7 @@ const MultiSelectDropdown = ({ handleRoomsChange }) => {
             {rooms.map((room, i) => (
               <li key={i}>
                 <div
-                  className={`flex items-center justify-center rounded p-2 ${selectedRooms.includes(room.room_id) ? "bg-green-500 text-white" : ""} 
+                  className={`flex items-center justify-center rounded p-2 ${reservationData.room_numbers?.includes(room.room_id) ? "bg-green-500 text-white" : ""} 
                 ${room.occupied ? "cursor-not-allowed text-red-500" : "dark:hover:bg-gray-600"}`}
                   onClick={() => !room.occupied && handleCheckboxChange(room)}
                 >

@@ -8,7 +8,6 @@ const Pill = ({ text, handleRoomsChange }) => {
           className="ms-3 inline-flex items-center rounded-sm bg-transparent p-1 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 disabled:pointer-events-none dark:hover:bg-gray-600 dark:hover:text-gray-300"
           aria-label="Remove Room"
           onClick={() => handleRoomsChange(text)}
-          disabled
         >
           <svg className="size-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
