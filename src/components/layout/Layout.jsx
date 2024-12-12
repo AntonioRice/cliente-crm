@@ -32,7 +32,7 @@ const Layout = () => {
       <Sidebar activeSideBar />
       <div className={`flex flex-grow flex-col transition-all duration-300 ${activeSideBar && window.innerWidth >= 768 ? "ml-64" : ""}`}>
         <Header toggleSidebar={() => setActiveSideBar((prev) => !prev)} />
-        <main className="mt-16 flex-grow px-6 py-2">
+        <main className="mt-16 px-6 py-2">
           <Outlet />
         </main>
       </div>

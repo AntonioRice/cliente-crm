@@ -4,7 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./App.css";
 import { Layout, ProtectedRoute } from "./components";
-import { Dashboard, Guests, GuestDetails, GuestRegistration, Reservations, ReservationDetails, Room, Settings, Login, Tenants, TenantDetails, Team, Unauthorized, EmployeeDetails, EmployeeRegistration } from "./pages";
+import { Dashboard, Guests, GuestDetails, GuestRegistration, Reservations, ReservationDetails, Room, Settings, Login, Tenants, TenantDetails, Team, Unauthorized, EmployeeDetails, EmployeeRegistration, Contact } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/register/:token",
     element: <Login />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
   },
   {
     path: "/unauthorized",
@@ -49,7 +53,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "team/employee/register",
+        path: "team/register",
         element: (
           <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
             <EmployeeRegistration />
@@ -57,7 +61,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "team/employee/:id",
+        path: "team/:id",
         element: (
           <ProtectedRoute allowedRoles={["Admin", "SuperAdmin"]}>
             <EmployeeDetails />

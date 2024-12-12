@@ -19,9 +19,42 @@ const Header = () => {
     { path: "/tenants", label: t("tenant.tenants") },
   ];
 
-  const getHeaderTitle = () => {
-    const matchedItem = sidebarItems.find((item) => location.pathname.startsWith(item.path));
-    return matchedItem ? matchedItem.label : "Cliente";
+  const getBreadcrumbs = () => {
+    const pathSegments = location.pathname.split("/").filter((segment) => segment);
+    const breadcrumbs = pathSegments.map((segment, index) => {
+      const path = "/" + pathSegments.slice(0, index + 1).join("/");
+      const matchedItem = sidebarItems.find((item) => item.path === path);
+      const label = matchedItem ? matchedItem.label : segment.charAt(0).toUpperCase() + segment.slice(1);
+
+      return {
+        label,
+        path,
+        isLast: index === pathSegments.length - 1,
+      };
+    });
+
+    return breadcrumbs;
+  };
+
+  const renderBreadcrumbs = () => {
+    const breadcrumbs = getBreadcrumbs();
+
+    return (
+      <div className="flex items-center space-x-2 text-sm dark:text-white">
+        {breadcrumbs.map((crumb, index) => (
+          <div key={crumb.path} className="flex items-center">
+            {index > 0 && <span className="mx-2 text-gray-300">&gt;</span>}
+            {crumb.isLast ? (
+              <span className="font-semibold">{crumb.label}</span>
+            ) : (
+              <Link to={crumb.path} className="hover:text-green-500 dark:hover:text-green-500">
+                {crumb.label}
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -34,9 +67,11 @@ const Header = () => {
                 <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
               </svg>
             </button>
-            <Link to="/dashboard" className="ms-2 flex md:me-24">
-              <span className="self-center whitespace-nowrap text-xl font-semibold text-white sm:text-2xl">{getHeaderTitle()}</span>
-            </Link>
+            <div className="ms-2 flex flex-col md:me-24">
+              <Link to="/dashboard" className="self-center whitespace-nowrap text-xl font-semibold text-white sm:text-2xl">
+                {renderBreadcrumbs()}
+              </Link>
+            </div>
           </div>
           <div className="fixed right-4 flex items-center">
             <div className="ms-3 flex items-center">
