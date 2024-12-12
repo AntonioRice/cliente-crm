@@ -1,10 +1,25 @@
-const DisplayCard = ({ title, description, data }) => {
+import { IoIosArrowForward } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+
+const DisplayCard = ({ title, data, path }) => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    if (path) {
+      navigate(path);
+    }
+  };
+
   return (
-    <div className="rounded-xl bg-gray-800 p-4 shadow-lg dark:bg-[#282828]">
-      <h1 className="text-md py-2 text-white">{title}</h1>
-      <p className="text-lg">{data}</p>
-      <div className="flex h-full items-center justify-center">{description}</div>
-    </div>
+    <button onClick={handleButtonClick} className={`w-full rounded-xl p-4 shadow-lg dark:bg-[#282828] ${path ? "dark:hover:bg-neutral-600" : "cursor-auto"}`}>
+      <div className="flex items-center justify-between">
+        <div className="w-full items-center text-left">
+          <h1 className="text-md py-2 text-white">{title}</h1>
+          <p className="text-lg">{data}</p>
+        </div>
+        {path && <IoIosArrowForward size={25} className="text-green-500" />}
+      </div>
+    </button>
   );
 };
 
