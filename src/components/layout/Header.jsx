@@ -1,14 +1,31 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext, useStateContext } from "../../context";
 import { ProfileImage } from "../../components";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
+  const { t } = useTranslation();
   const { setActiveSideBar } = useStateContext();
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const sidebarItems = [
+    { path: "/dashboard", label: t("dashboard") },
+    { path: "/guests", label: t("guests") },
+    { path: "/reservations", label: t("reservations") },
+    { path: "/room", label: t("rooms") },
+    { path: "/team", label: t("team") },
+    { path: "/tenants", label: t("tenant.tenants") },
+  ];
+
+  const getHeaderTitle = () => {
+    const matchedItem = sidebarItems.find((item) => location.pathname.startsWith(item.path));
+    return matchedItem ? matchedItem.label : "Cliente";
+  };
 
   return (
-    <nav className="fixed top-0 z-20 w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+    <nav className="fixed top-0 z-20 w-full border-b border-gray-200 bg-white dark:border-neutral-700 dark:bg-[#1b1a1a]">
       <div className="px-3 py-3 lg:px-5 lg:pl-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-start rtl:justify-end">
@@ -18,7 +35,7 @@ const Header = () => {
               </svg>
             </button>
             <Link to="/dashboard" className="ms-2 flex md:me-24">
-              <span className="self-center whitespace-nowrap text-xl font-semibold text-green-500 sm:text-2xl">Cliente</span>
+              <span className="self-center whitespace-nowrap text-xl font-semibold text-white sm:text-2xl">{getHeaderTitle()}</span>
             </Link>
           </div>
           <div className="fixed right-4 flex items-center">
