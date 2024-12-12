@@ -103,6 +103,7 @@
   "register": "Register",
   "registration": "Registration",
   "reservations": "Reservations",
+  "reservation_id": "Reservation Number",
   "reservation_details": "Reservation Details",
   "reservation_status": "Status",
   "remove_reservation": "Remove Reservation",
