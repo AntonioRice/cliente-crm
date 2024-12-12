@@ -92,14 +92,14 @@ const TenantDetails = () => {
           <div className="flex w-full flex-col gap-3 md:flex-row">
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("tenant.tenant_id")}</label>
-              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed" id="user_id" type="text" value={selectedEmployee?.user_id} disabled />
+              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 text-sm text-neutral-400 hover:cursor-not-allowed dark:bg-neutral-800" id="user_id" type="text" value={selectedEmployee?.user_id} disabled />
             </div>
           </div>
           <div className="flex w-full flex-col gap-3 md:flex-row">
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("tenant.tenant_name")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="first_name"
                 type="text"
                 value={selectedEmployee?.first_name}
@@ -113,7 +113,7 @@ const TenantDetails = () => {
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("email")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="email"
                 type="text"
                 value={selectedEmployee?.email}
@@ -124,7 +124,7 @@ const TenantDetails = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("phone_number")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="phone_number"
                 type="text"
                 value={selectedEmployee?.phone_number}
@@ -146,7 +146,7 @@ const TenantDetails = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("membership")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="membership"
                 type="text"
                 value={selectedEmployee?.role}
@@ -158,7 +158,7 @@ const TenantDetails = () => {
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("tenant.status")}</label>
               <label className="inline-flex cursor-pointer items-center">
                 <input id="status" type="checkbox" className="peer sr-only" checked={selectedEmployee?.status === "Active"} onChange={handleToggleChange} />
-                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-green-800 rtl:peer-checked:after:-translate-x-full"></div>
                 <span className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">Inactive / Active</span>
               </label>
             </div>
