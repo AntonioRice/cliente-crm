@@ -61,54 +61,65 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
   };
 
   return (
-    <div className="flex h-[80vh] flex-col">
+    <div className="flex h-[85vh] flex-col">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{t("reservations")}</h1>
-        <div className="flex items-center space-x-2">
-          <div className="inline-flex h-10 text-sm rtl:space-x-reverse">
+        <div className="flex h-10 items-center space-x-2">
+          <div className="inline-flex h-full text-sm rtl:space-x-reverse">
             <button
               onClick={handlePrevMonth}
-              className="ms-0 flex h-full items-center justify-center rounded-s-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
+              className="flex h-full items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-neutral-600 dark:bg-neutral-700 dark:text-gray-400 dark:hover:bg-neutral-600 dark:hover:text-white"
             >
               <IoIosArrowBack />
             </button>
 
             <button
               onClick={handleNextMonth}
-              className="flex h-full items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-green-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
+              className="flex h-full items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 text-gray-500 hover:bg-gray-100 hover:text-green-400 dark:border-neutral-600 dark:bg-neutral-700 dark:text-gray-400 dark:hover:bg-neutral-600 dark:hover:text-white"
             >
               <IoIosArrowForward />
             </button>
           </div>
-          <div className="relative">
-            <select value={month} onChange={handleMonthChange} className="rounded-md bg-gray-700 p-2 pl-5 pr-8">
-              {months().map((monthName, index) => (
-                <option key={index} value={index}>
-                  {monthName}
-                </option>
-              ))}
-            </select>
-            <span className="pointer-events-none absolute right-1 top-3">
-              <IoIosArrowDown />
-            </span>
-          </div>
-          <input type="number" value={year} onChange={handleYearChange} className="h-10 rounded-md bg-gray-700 px-4" min="1900" max="2100" />
+
+          <select
+            value={month}
+            onChange={handleMonthChange}
+            className="h-full rounded-lg border border-gray-300 bg-gray-50 px-5 py-2 text-sm text-gray-900 focus:appearance-none focus:border-white focus:outline-none focus:ring-2 focus:ring-white dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-gray-400 dark:focus:ring-neutral-400"
+          >
+            {months().map((monthName, index) => (
+              <option key={index} value={index}>
+                {monthName}
+              </option>
+            ))}
+          </select>
+          <span className="pointer-events-none absolute right-1 top-3">
+            <IoIosArrowDown />
+          </span>
+
+          <input
+            type="number"
+            value={year}
+            onChange={handleYearChange}
+            className="h-full rounded-lg border border-gray-300 bg-gray-50 px-4 text-sm text-gray-900 focus:border-white focus:outline-none focus:ring-2 focus:ring-white dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-gray-400 dark:focus:ring-neutral-400"
+            min="1900"
+            max="2100"
+          />
         </div>
       </div>
+
       <div className="mb-1 grid h-10 grid-cols-7 gap-1">
         {daysOfWeek().map((day) => (
-          <div key={day} className="h-10 rounded-md bg-gray-700 p-2 text-center font-bold">
+          <div key={day} className="h-10 rounded-md p-2 text-center font-bold dark:bg-[#262626]">
             {day}
           </div>
         ))}
       </div>
       <div className="grid flex-grow grid-cols-7 gap-1">
         {dates.map((date, index) => (
-          <div key={index} className={`flex flex-col rounded-md border border-gray-700 ${!date ? "bg-gray-700 opacity-25" : date === today ? "bg-gray-700" : ""}`}>
+          <div key={index} className={`flex flex-col rounded-md border border-neutral-700 ${!date ? "bg-neutral-700 opacity-25" : date === today ? "bg-[#454545] bg-opacity-20" : ""}`}>
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (
-                <div key={reservation.reservation_id} className="m-1 cursor-pointer rounded-sm bg-gray-500 p-0.5 text-xs text-white" onClick={() => handleReservationOnClick(reservation)}>
+                <div key={reservation.reservation_id} className="m-1 cursor-pointer rounded-sm border-b border-b-neutral-500 p-0.5 text-xs text-black hover:bg-neutral-600 dark:text-white" onClick={() => handleReservationOnClick(reservation)}>
                   <p className="px-1">{`${reservation.primary_guest.first_name} ${reservation.primary_guest.last_name}`}</p>
                 </div>
               ))}
