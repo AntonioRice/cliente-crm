@@ -28,7 +28,7 @@ const LineGraph = ({ data, title, week }) => {
   };
 
   return (
-    <div className={`flex flex-col justify-between rounded-xl border border-gray-200 bg-gray-800 p-5 opacity-80 dark:border-gray-700`}>
+    <div className="flex flex-col rounded-xl p-5 opacity-80 dark:bg-[#282828]">
       <h3 className="text-lg font-bold text-white">{title}</h3>
       <p className="text-xs ">Week: {week}</p>
       <div className="flex h-full items-center justify-center">

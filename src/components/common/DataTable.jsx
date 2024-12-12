@@ -5,8 +5,8 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
   const { t } = useTranslation();
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
-      <div className="inline-flex justify-between p-5">
+    <div className="flex h-full flex-col overflow-hidden rounded-xl dark:bg-[#282828]">
+      <div className="inline-flex justify-between p-4">
         <div>
           <h1 className="text-sm text-white">{title}</h1>
           <p className="text-xs text-gray-500">Total: {totalItems}</p>
@@ -26,7 +26,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
                 <input
                   type="text"
                   id="simple-search"
-                  className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 focus:border-white focus:outline-none focus:ring-2 focus:ring-white dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-gray-400 dark:focus:ring-neutral-400"
                   placeholder={t("search")}
                   onChange={(e) => onSearch(e.target.value)}
                 />
@@ -42,7 +42,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
           </div>
         ) : (
           <table className="w-full text-left text-xs text-gray-500 dark:text-gray-400 rtl:text-right">
-            <thead className="bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
+            <thead className="bg-gray-50 uppercase dark:bg-neutral-700 dark:text-gray-400">
               <tr>
                 {columns.map((col) => (
                   <th key={col.key} className="cursor-pointer px-6 py-2" onClick={() => handleSort(col.key)}>
@@ -59,7 +59,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
           </table>
         )}
       </div>
-      <nav className="border-t border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800">
+      <nav className="border-t border-gray-200 dark:border-neutral-700">
         <div className="flex flex-col flex-wrap items-center justify-between p-4 md:flex-row">
           <span className="mb-4 block w-full text-sm font-normal text-gray-500 dark:text-gray-400 md:mb-0 md:inline md:w-auto">
             {t("page")}
@@ -71,7 +71,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
             <li>
               <button
                 onClick={handlePrevPage}
-                className="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
+                className="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-black dark:border-neutral-600 dark:bg-neutral-700 dark:text-gray-400 dark:hover:bg-neutral-600 dark:hover:text-white"
               >
                 <IoIosArrowBack />
               </button>
@@ -79,7 +79,7 @@ const DataTable = ({ data, columns, title, currentPage, totalPages, totalItems, 
             <li>
               <button
                 onClick={handleNextPage}
-                className="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-green-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-green-500"
+                className="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-black dark:border-neutral-600 dark:bg-neutral-700 dark:text-gray-400 dark:hover:bg-neutral-600 dark:hover:text-white"
               >
                 <IoIosArrowForward />
               </button>

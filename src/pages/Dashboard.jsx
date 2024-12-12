@@ -128,11 +128,7 @@ const Dashboard = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center justify-between py-4">
-        <h1 className="text-2xl font-semibold">{t("dashboard")}</h1>
-        <AddButton path="/guests/register" />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:h-[80vh] xl:grid-cols-4">
+      <div className="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:h-[80vh] xl:grid-cols-4">
         <div className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-3">
           <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />

@@ -26,7 +26,7 @@ const BarChart = ({ data, title, week }) => {
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-gray-800 p-6 shadow-lg dark:border-gray-700">
+    <div className="rounded-xl p-6 shadow-lg dark:bg-[#282828]">
       <h3 className="text-lg font-bold text-white">{title}</h3>
       <p className="text-xs">Week: {week}</p>
       <Bar
