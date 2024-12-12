@@ -108,14 +108,14 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
 
       <div className="mb-1 grid h-10 grid-cols-7 gap-1">
         {daysOfWeek().map((day) => (
-          <div key={day} className="h-10 rounded-md p-2 text-center font-bold dark:bg-[#262626]">
+          <div key={day} className="h-10 rounded-md p-2 text-center font-bold dark:bg-neutral-700">
             {day}
           </div>
         ))}
       </div>
       <div className="grid flex-grow grid-cols-7 gap-1">
         {dates.map((date, index) => (
-          <div key={index} className={`flex flex-col rounded-md border border-neutral-700 ${!date ? "bg-neutral-700 opacity-25" : date === today ? "bg-[#454545] bg-opacity-20" : ""}`}>
+          <div key={index} className={`flex flex-col rounded-md border border-neutral-700 ${!date ? "bg-neutral-700 opacity-10" : date === today ? "bg-neutral-800" : ""}`}>
             <p className="p-2 text-gray-300">{date}</p>
             <div className="h-full overflow-y-auto">
               {getReservationsForDate(date).map((reservation) => (
