@@ -84,7 +84,7 @@ const EmployeeDetails = () => {
           Business ID: <span>{selectedEmployee?.tenant_id}</span>
         </p>
       </div>
-      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-neutral-700 md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] dark:border-neutral-700 md:grid-cols-3">
         <div className="md:col-span-1">
           <h1>{t("general.title")}</h1>
           <p className="text-xs text-gray-500">{t("general.description")}</p>
@@ -151,8 +151,7 @@ const EmployeeDetails = () => {
           </div>
         </div>
       </div>
-
-      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-neutral-700 md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] dark:border-neutral-700 md:grid-cols-3">
         <div className="md:col-span-1">
           <h1>{t("employment_status.title")}</h1>
           <p className="text-xs text-gray-500">{t("employment_status.description")}</p>
@@ -182,10 +181,10 @@ const EmployeeDetails = () => {
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-3">
-        <button onClick={handleDelete} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-red-500 dark:border-gray-700 dark:bg-[#282828] dark:hover:bg-gray-600">
+        <button onClick={handleDelete} className="rounded-lg border border-gray-300 bg-white p-1 px-4 py-2 text-red-500 hover:bg-gray-100 dark:border-neutral-600 dark:bg-neutral-700 dark:hover:bg-neutral-600">
           {t("delete")}
         </button>
-        <button onClick={handleSave} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-[#282828] dark:hover:bg-gray-600">
+        <button onClick={handleSave} className="rounded-lg border border-gray-300 bg-white p-1 px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-green-400 dark:border-neutral-600 dark:bg-neutral-700 dark:text-gray-400 dark:hover:bg-neutral-600 dark:hover:text-white">
           {t("update")}
         </button>
       </div>
