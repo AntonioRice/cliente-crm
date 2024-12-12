@@ -42,10 +42,10 @@ const AdditionalGuest = ({ guest }) => {
   };
 
   return (
-    <form className="mx-5 mb-6 flex flex-row">
+    <div className="mx-5 mb-2 flex flex-row">
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
-          className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.first_name ? "border-red-500" : ""}`}
+          className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.first_name ? "border-red-500" : ""}`}
           placeholder={t("first_name")}
           {...register("first_name", {
             onChange: (e) => handleInputChange("first_name", e.target.value),
@@ -55,7 +55,7 @@ const AdditionalGuest = ({ guest }) => {
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
-          className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.last_name ? "border-red-500" : ""}`}
+          className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.last_name ? "border-red-500" : ""}`}
           placeholder={t("last_name")}
           {...register("last_name", {
             onChange: (e) => handleInputChange("last_name", e.target.value),
@@ -73,7 +73,7 @@ const AdditionalGuest = ({ guest }) => {
           rules={{ required: "Date of Birth is required" }}
           render={({ field }) => (
             <DatePicker
-              className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none ${errors.date_of_birth ? "border-red-500" : ""}`}
+              className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none dark:bg-neutral-700 ${errors.date_of_birth ? "border-red-500" : ""}`}
               selected={field.value}
               placeholderText="mm/dd/yyyy"
               onChange={(date) => {
@@ -93,7 +93,7 @@ const AdditionalGuest = ({ guest }) => {
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
-          className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.nationality ? "border-red-500" : ""}`}
+          className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.nationality ? "border-red-500" : ""}`}
           placeholder={t("nationality")}
           {...register("nationality", {
             onChange: (e) => handleInputChange("nationality", e.target.value),
@@ -103,7 +103,7 @@ const AdditionalGuest = ({ guest }) => {
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
-          className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.identification_number ? "border-red-500" : ""}`}
+          className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.identification_number ? "border-red-500" : ""}`}
           placeholder={t("identification_number")}
           {...register("identification_number", {
             onChange: (e) => handleInputChange("identification_number", e.target.value),
@@ -113,7 +113,7 @@ const AdditionalGuest = ({ guest }) => {
       </div>
       <div className="mb-6 w-full px-3 md:mb-0 md:w-1/6">
         <input
-          className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.email ? "border-red-500" : ""}`}
+          className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.email ? "border-red-500" : ""}`}
           type="email"
           placeholder={t("email")}
           {...register("email", {
@@ -122,14 +122,14 @@ const AdditionalGuest = ({ guest }) => {
         />
         <div className="h-5">{errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}</div>
       </div>
-      <div className="relative mb-4 flex flex-row items-center justify-center">
-        <button title="Remove Guest" type="button" onClick={() => removeAdditionalGuest(guest.id)} className="rounded-lg p-1.5 text-red-500 dark:hover:bg-gray-600 dark:hover:text-red-600">
+      <div className="relative mb-7 flex flex-row items-center justify-center">
+        <button title="Remove Guest" type="button" onClick={() => removeAdditionalGuest(guest.id)} className="rounded-lg p-1 text-red-500 dark:hover:bg-neutral-600">
           <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
-    </form>
+    </div>
   );
 };
 

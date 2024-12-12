@@ -81,8 +81,8 @@ const GuestRegistration = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex flex-grow flex-col pb-20 pt-4">
-        <div className="mb-4 inline-flex justify-between">
+      <div className="flex flex-grow flex-col pb-20">
+        <div className="mb-4 inline-flex justify-between px-4 pt-2">
           <h1 className="text-2xl font-semibold">{t("guest_registration")}</h1>
           <div className="w-full md:w-1/2">
             <SearchBar />
@@ -92,7 +92,7 @@ const GuestRegistration = () => {
               <button
                 type="button"
                 onClick={() => resetForm()}
-                className="hover:text-primary-700 flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
+                className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white p-4 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-black dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600 md:w-auto"
               >
                 <CgMathMinus className="-ml-1 mr-1.5 size-4 text-red-500" />
                 {t("clear_form")}
@@ -104,17 +104,17 @@ const GuestRegistration = () => {
           <NewGuestForm />
           {showReservationForm && <NewReservationForm />}
         </div>
-        <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-end space-x-2 border-t border-gray-200 bg-[#111827] p-4 dark:border-gray-600">
-          <button
-            onClick={handleCancel}
-            className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-700"
-          >
-            {t("cancel")}
-          </button>
-          <button onClick={handleSubmit} className="rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800">
-            {t("submit")}
-          </button>
-        </div>
+      </div>
+      <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-end space-x-2 border-t border-gray-200 p-4 dark:border-neutral-700 dark:bg-[#1b1a1a]">
+        <button
+          onClick={handleCancel}
+          className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-[#282828] dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-700"
+        >
+          {t("cancel")}
+        </button>
+        <button onClick={handleSubmit} className="rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800">
+          {t("submit")}
+        </button>
       </div>
     </AnimatedPage>
   );

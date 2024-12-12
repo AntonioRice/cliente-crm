@@ -52,14 +52,14 @@ const MultiSelectDropdown = ({ handleRoomsChange }) => {
       <button
         type="button"
         onClick={toggleDropdown}
-        className="dark:focus:ring-neutral-700-700 flex h-[38px] w-full items-center justify-center rounded-lg border border-gray-300 bg-white p-4 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-black focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white  dark:hover:bg-neutral-600"
+        className="flex h-[38px] w-full items-center justify-center rounded-lg border border-gray-300 bg-white p-4 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-black focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white  dark:hover:bg-neutral-600"
       >
         <CgMathPlus className="-ml-1 mr-1.5 size-4 text-green-400" />
         {selectedRoomsText}
       </button>
 
       {isOpen && (
-        <div className="absolute z-50 mt-4 w-full rounded-lg border shadow dark:border-neutral-600 dark:bg-neutral-700">
+        <div className="absolute z-50 mt-2 w-full rounded-lg border opacity-95 shadow dark:border-neutral-600 dark:bg-neutral-700">
           <ul className="grid grid-cols-6 gap-2 p-4 text-sm">
             {rooms.map((room, i) => (
               <li key={i}>

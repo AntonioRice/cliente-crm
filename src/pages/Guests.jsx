@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { AnimatedPage, DataTable, TableRow, AddButton } from "../components";
+import { AnimatedPage, DataTable, TableRow, AddButtonLarge, DisplayCard } from "../components";
 import { useGuestContext } from "../context";
 
 const Guests = () => {
@@ -81,27 +81,26 @@ const Guests = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center justify-between py-4">
-        <h1 className="text-2xl font-semibold">Guests</h1>
-        <AddButton path="/guests/register" />
+      <div className="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
+        <AddButtonLarge title="Register New Guest" path="/guests/register" />
+        <DisplayCard title="Total" data={totalGuests} />
+        <DisplayCard title="Active" data={15} />
       </div>
-      <div className="h-full">
-        <DataTable
-          data={allGuests}
-          columns={columns}
-          title="All Guests"
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={totalGuests}
-          handlePrevPage={handlePrevPage}
-          handleNextPage={handleNextPage}
-          handleSort={handleSort}
-          sortConfig={sortConfig}
-          showSearch={true}
-          onSearch={handleSearch}
-          renderRow={renderRow}
-        />
-      </div>
+      <DataTable
+        data={allGuests}
+        columns={columns}
+        title="All Guests"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalGuests}
+        handlePrevPage={handlePrevPage}
+        handleNextPage={handleNextPage}
+        handleSort={handleSort}
+        sortConfig={sortConfig}
+        showSearch={true}
+        onSearch={handleSearch}
+        renderRow={renderRow}
+      />
     </AnimatedPage>
   );
 };

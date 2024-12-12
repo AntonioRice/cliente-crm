@@ -83,7 +83,7 @@ const NewReservationForm = () => {
   };
 
   return (
-    <form className="pb-20 text-white">
+    <form className="rounded-xl p-4 pb-20 text-white dark:bg-[#282828]">
       <h1 className="pb-6 text-green-400">{t("room_information")}</h1>
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4 ">
@@ -91,7 +91,7 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           {!reservationData.room_numbers.length > 0 && <label className="absolute left-6 top-3 text-xs uppercase leading-tight tracking-wide text-gray-400">{t("rooms")}</label>}
-          <div className={`mb-3 flex h-[38px] w-full flex-wrap items-center rounded border bg-[#111827] ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
+          <div className={`mb-3 flex h-[38px] w-full flex-wrap items-center rounded border dark:bg-neutral-700 ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
             {reservationData.room_numbers.map((room, i) => (
               <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}
@@ -107,7 +107,7 @@ const NewReservationForm = () => {
             name="check_in"
             render={({ field }) => (
               <DatePicker
-                className="mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none dark:bg-neutral-700"
                 selected={field.value}
                 onChange={(date) => {
                   field.onChange(date);
@@ -129,7 +129,7 @@ const NewReservationForm = () => {
             name="check_out"
             render={({ field }) => (
               <DatePicker
-                className="mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none dark:bg-neutral-700"
                 selected={field.value}
                 onChange={(date) => {
                   field.onChange(date);
@@ -155,7 +155,7 @@ const NewReservationForm = () => {
         <button
           type="button"
           onClick={handleAddGuestToParty}
-          className="hover:text-primary-700 flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
+          className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white p-4 px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-black dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600 md:w-auto"
         >
           <CgMathPlus className="-ml-1 mr-1.5 size-4 text-green-400" />
           {t("add_guest")}
@@ -165,7 +165,7 @@ const NewReservationForm = () => {
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4 py-2 leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_method ? "border-red-500" : ""}`}
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.payment_method ? "border-red-500" : ""}`}
             {...register("payment_method", {
               onChange: (e) => handleInputChange(e),
             })}
@@ -186,8 +186,8 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 text-white md:mb-0 md:w-1/4">
           <input
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-6 py-2 
-              leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.total_amount ? "border-red-500" : ""}`}
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-6 py-2 leading-tight 
+              placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.total_amount ? "border-red-500" : ""}`}
             type="number"
             placeholder={t("total")}
             {...register("total_amount", {
@@ -201,8 +201,8 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 bg-[#111827] px-4
-              py-2 leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:bg-[#192338] focus:outline-none ${errors.payment_status ? "border-red-500" : ""}`}
+            className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2
+              leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.payment_status ? "border-red-500" : ""}`}
             {...register("payment_status", {
               onChange: (e) => handleInputChange(e),
             })}
