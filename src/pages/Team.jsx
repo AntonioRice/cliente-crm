@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { useTeamContext } from "../context";
-import { AddButton, AddButtonLarge, AnimatedPage, DataTable, TableRow } from "../components";
+import { AddButtonLarge, AnimatedPage, DataTable, TableRow } from "../components";
 
 const Team = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const Team = () => {
 
   const handleEditItem = (item) => {
     setSelectedEmployee(item);
-    navigate(`/team/employee/${item.user_id}`);
+    navigate(`/team/${item.user_id}`);
   };
 
   const handlePrevPage = () => {
@@ -81,7 +81,7 @@ const Team = () => {
   return (
     <AnimatedPage>
       <div className="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
-        <AddButtonLarge title="Add Team Member" path="/team/employee/register" />
+        <AddButtonLarge title="Add Team Member" path="/team/register" />
       </div>
       <DataTable
         data={Team}
