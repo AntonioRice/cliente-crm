@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useGuestContext } from "../../context";
@@ -10,6 +10,7 @@ const SearchBar = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const { setSelectedGuest, clearGuests } = useGuestContext();
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +34,19 @@ const SearchBar = () => {
     return () => clearTimeout(debounceFetchData);
   }, [query]);
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setQuery("");
+    }
+  };
+
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
@@ -44,8 +58,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="relative">
-      <label className="sr-only">{t("search")}</label>
+    <div className="relative" ref={dropdownRef}>
       <div className="relative w-full">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <IoIosSearch className="size-5 text-gray-500 dark:text-gray-400" />
@@ -54,12 +67,12 @@ const SearchBar = () => {
           type="text"
           value={query}
           onChange={handleInputChange}
-          className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 focus:border-white focus:outline-none focus:ring-2 focus:ring-white dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-gray-400 dark:focus:ring-neutral-400"
           placeholder={t("search_placeholder_existing")}
         />
       </div>
       {query && (
-        <div className="absolute z-50 mt-4 w-full divide-y divide-gray-100 rounded-lg bg-white shadow dark:bg-gray-700">
+        <div className="absolute z-50 mt-2 w-full rounded-lg border opacity-95 shadow dark:border-neutral-600 dark:bg-neutral-700">
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
             {loading ? (
               <li className="block p-2 px-4">
@@ -79,7 +92,7 @@ const SearchBar = () => {
             ) : (
               results.map((result) => (
                 <li key={result.guest_id} onClick={() => handleSelectGuest(result)}>
-                  <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <p className="block px-4 py-2 hover:cursor-pointer dark:hover:bg-neutral-600">
                     {result.first_name} {result.last_name}
                   </p>
                 </li>
