@@ -15,14 +15,14 @@ const RoomsChart = ({ rooms }) => {
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 md:col-span-2 xl:col-span-1">
-      <div className="p-5">
+    <div className="flex flex-col overflow-hidden rounded-xl bg-gray-50 dark:bg-[#282828] md:col-span-2 xl:col-span-1">
+      <div className="p-4">
         <h1 className="text-sm text-white">{t("rooms")}</h1>
         <p className="text-xs text-gray-500">Total: {rooms.length}</p>
       </div>
       <div className="scrollbar-hidden flex-1 overflow-auto">
         <table className="w-full text-left text-xs text-gray-500 dark:text-gray-400">
-          <thead className="sticky top-0 bg-gray-50 uppercase dark:bg-gray-700 dark:text-gray-400">
+          <thead className="sticky top-0 bg-gray-50 uppercase dark:bg-neutral-700 dark:text-gray-400">
             <tr>
               <th className="px-2 py-2 sm:px-4 md:px-6">Room</th>
               <th className="px-2 py-2 sm:px-4 md:px-6">Name</th>
@@ -34,7 +34,7 @@ const RoomsChart = ({ rooms }) => {
           </thead>
           <tbody>
             {rooms.map((room) => (
-              <tr key={room.number} className="border-t border-gray-500 first:border-t-0 last:border-b-0 hover:bg-gray-600 hover:text-white" onClick={() => handleRoomSelection(room)}>
+              <tr key={room.number} className="border-t first:border-t-0 last:border-b-0 hover:bg-neutral-700 hover:text-white dark:border-neutral-600" onClick={() => handleRoomSelection(room)}>
                 <td className="px-2 py-4 sm:px-4 md:px-6">{room.number}</td>
                 <td className="px-2 py-4 sm:px-4 md:px-6">{room.name}</td>
                 <td className={`px-2 py-4 sm:px-4 md:px-6 ${room.occupied ? "text-red-500" : ""}`}>{room.occupied ? "Occupied" : "Available"}</td>

@@ -75,7 +75,7 @@ const NewGuestForm = () => {
 
   return (
     <AnimatedPage>
-      <form className="w-full rounded-xl p-4 dark:bg-[#282828]">
+      <form className="rounded-xl p-4 dark:bg-[#282828]">
         <h1 className="pb-6 text-green-400">{t("primary_guest")}</h1>
         <div className="-mx-3 mb-6 flex flex-wrap text-white">
           <div className="w-full px-3 md:mb-0 md:w-1/4">

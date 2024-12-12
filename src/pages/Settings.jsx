@@ -120,7 +120,7 @@ const Settings = () => {
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("first_name")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
                 id="first_name"
                 type="text"
                 value={newUserData.first_name}
@@ -131,7 +131,7 @@ const Settings = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("last_name")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
                 id="last_name"
                 type="text"
                 value={newUserData.last_name}
@@ -143,12 +143,19 @@ const Settings = () => {
           <div className="flex w-full flex-col gap-3 md:flex-row">
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("email")}</label>
-              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none" id="email" type="text" value={newUserData.email} placeholder={user.email} onChange={handleInputChange} />
+              <input
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                id="email"
+                type="text"
+                value={newUserData.email}
+                placeholder={user.email}
+                onChange={handleInputChange}
+              />
             </div>
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("phone_number")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
                 id="phone_number"
                 type="text"
                 value={newUserData.phone_number}
@@ -202,7 +209,7 @@ const Settings = () => {
         </div>
       </div>
       <div className="mt-6 flex justify-end">
-        <button onClick={handleSave} disabled={disabled} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white disabled:pointer-events-none disabled:opacity-20 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600 dark:hover:text-white">
+        <button onClick={handleSave} disabled={disabled} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white disabled:pointer-events-none disabled:opacity-20 dark:border-gray-700 dark:bg-[#282828] dark:hover:bg-gray-600 dark:hover:text-white">
           {t("save")}
         </button>
       </div>

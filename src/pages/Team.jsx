@@ -76,8 +76,6 @@ const Team = () => {
 
   const renderRow = (employee) => <TableRow key={employee.user_id} item={employee} columns={columns} editAction={handleEditItem} />;
 
-  // if (loading) return <LoadingComponent />;
-
   return (
     <AnimatedPage>
       <div className="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">

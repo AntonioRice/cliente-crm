@@ -1,4 +1,5 @@
 export { default as AddButton } from "./common/AddButton";
+export { default as AddButtonLarge } from "./common/AddButtonLarge";
 export { default as DataTable } from "./common/DataTable";
 export { default as TableRow } from "./common/TableRow";
 export { default as MultiSelectDropdown } from "./common/MultiSelectDropdown";
@@ -9,7 +10,7 @@ export { default as PasswordInput } from "./common/PasswordInput";
 export { default as ChartCard } from "./features/dashboard/ChartCard";
 export { default as BarChart } from "./features/dashboard/BarChart";
 export { default as LineGraph } from "./features/dashboard/LineGraph";
-export { default as Notes } from "./features/dashboard/Notes";
+export { default as DisplayCard } from "./features/dashboard/DisplayCard";
 export { default as RoomsTable } from "./features/dashboard/RoomsTable";
 
 export { default as AdditionalGuest } from "./features/guests/AdditionalGuest";

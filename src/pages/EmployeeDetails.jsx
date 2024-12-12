@@ -84,7 +84,7 @@ const EmployeeDetails = () => {
           Business ID: <span>{selectedEmployee?.tenant_id}</span>
         </p>
       </div>
-      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-neutral-700 md:grid-cols-3">
         <div className="md:col-span-1">
           <h1>{t("general.title")}</h1>
           <p className="text-xs text-gray-500">{t("general.description")}</p>
@@ -93,18 +93,18 @@ const EmployeeDetails = () => {
           <div className="flex w-full flex-col gap-3 md:flex-row">
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("user_id")}</label>
-              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed" id="user_id" type="text" value={selectedEmployee?.user_id} disabled />
+              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 text-sm text-neutral-400 hover:cursor-not-allowed dark:bg-neutral-800" id="user_id" type="text" value={selectedEmployee?.user_id} disabled />
             </div>
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("user_name")}</label>
-              <input className="mb-3  block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed" id="user_name" type="text" value={selectedEmployee?.user_name} disabled />
+              <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 text-sm text-neutral-400 hover:cursor-not-allowed dark:bg-neutral-800" id="user_id" type="text" value={selectedEmployee?.user_name} disabled />
             </div>
           </div>
           <div className="flex w-full flex-col gap-3 md:flex-row">
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("first_name")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="first_name"
                 type="text"
                 value={selectedEmployee?.first_name}
@@ -115,7 +115,7 @@ const EmployeeDetails = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("last_name")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="last_name"
                 type="text"
                 value={selectedEmployee?.last_name}
@@ -129,7 +129,7 @@ const EmployeeDetails = () => {
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("email")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="email"
                 type="text"
                 value={selectedEmployee?.email}
@@ -140,7 +140,7 @@ const EmployeeDetails = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("phone_number")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="phone_number"
                 type="text"
                 value={selectedEmployee?.phone_number}
@@ -152,7 +152,7 @@ const EmployeeDetails = () => {
         </div>
       </div>
 
-      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-neutral-700 md:grid-cols-3">
         <div className="md:col-span-1">
           <h1>{t("employment_status.title")}</h1>
           <p className="text-xs text-gray-500">{t("employment_status.description")}</p>
@@ -162,7 +162,7 @@ const EmployeeDetails = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("role")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:bg-[#192338] focus:outline-none"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="role"
                 type="text"
                 value={selectedEmployee?.role}
@@ -182,10 +182,10 @@ const EmployeeDetails = () => {
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-3">
-        <button onClick={handleDelete} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-red-500 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
+        <button onClick={handleDelete} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-red-500 dark:border-gray-700 dark:bg-[#282828] dark:hover:bg-gray-600">
           {t("delete")}
         </button>
-        <button onClick={handleSave} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
+        <button onClick={handleSave} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white dark:border-gray-700 dark:bg-[#282828] dark:hover:bg-gray-600">
           {t("update")}
         </button>
       </div>

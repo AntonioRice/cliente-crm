@@ -79,7 +79,6 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
               <IoIosArrowForward />
             </button>
           </div>
-
           <select
             value={month}
             onChange={handleMonthChange}
@@ -94,7 +93,6 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
           <span className="pointer-events-none absolute right-1 top-3">
             <IoIosArrowDown />
           </span>
-
           <input
             type="number"
             value={year}
@@ -105,7 +103,6 @@ const Calendar = ({ reservations, month, year, onMonthChange, onYearChange }) =>
           />
         </div>
       </div>
-
       <div className="mb-1 grid h-10 grid-cols-7 gap-1">
         {daysOfWeek().map((day) => (
           <div key={day} className="h-10 rounded-md p-2 text-center font-bold dark:bg-neutral-700">

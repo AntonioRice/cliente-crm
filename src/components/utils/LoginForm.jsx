@@ -8,8 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "./Schemas";
 
 const LoginForm = ({ onSubmit, error, setFormState }) => {
-  const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,

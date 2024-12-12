@@ -104,6 +104,7 @@
   "registration": "Registration",
   "reservations": "Reservations",
   "reservation_details": "Reservation Details",
+  "reservation_status": "Status",
   "remove_reservation": "Remove Reservation",
   "rooms": "Rooms",
   "room_information": "Room Information",
