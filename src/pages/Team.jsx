@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { useTeamContext } from "../context";
-import { AddButton, AnimatedPage, DataTable, TableRow } from "../components";
+import { AddButton, AddButtonLarge, AnimatedPage, DataTable, TableRow } from "../components";
 
 const Team = () => {
   const navigate = useNavigate();
@@ -80,9 +80,8 @@ const Team = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex items-center justify-between py-4">
-        <h1 className="text-2xl font-semibold">{t("team")}</h1>
-        <AddButton path="/team/employee/register" />
+      <div className="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
+        <AddButtonLarge title="Add Team Member" path="/team/employee/register" />
       </div>
       <DataTable
         data={Team}
