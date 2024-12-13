@@ -81,26 +81,28 @@ const Guests = () => {
 
   return (
     <AnimatedPage>
-      <div className="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
-        <AddButtonLarge title="Register New Guest" path="/guests/register" />
-        <DisplayCard title="Total" data={totalGuests} />
-        <DisplayCard title="Active" data={15} />
+      <div className="grid grid-cols-1 gap-2 py-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+        <AddButtonLarge title="Register New Guest" path="/guests/register" className="w-full" />
+        <DisplayCard title="Total" data={totalGuests} className="w-full text-sm md:text-base" />
+        <DisplayCard title="Active" data={15} className="w-full text-sm md:text-base" />
       </div>
-      <DataTable
-        data={allGuests}
-        columns={columns}
-        title="All Guests"
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalItems={totalGuests}
-        handlePrevPage={handlePrevPage}
-        handleNextPage={handleNextPage}
-        handleSort={handleSort}
-        sortConfig={sortConfig}
-        showSearch={true}
-        onSearch={handleSearch}
-        renderRow={renderRow}
-      />
+      <div className="w-full overflow-x-auto">
+        <DataTable
+          data={allGuests}
+          columns={columns}
+          title="All Guests"
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalGuests}
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+          handleSort={handleSort}
+          sortConfig={sortConfig}
+          showSearch={true}
+          onSearch={handleSearch}
+          renderRow={renderRow}
+        />
+      </div>
     </AnimatedPage>
   );
 };
