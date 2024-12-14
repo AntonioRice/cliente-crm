@@ -4,6 +4,7 @@ import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, LineGraph, Roo
 import { useGuestContext, useReservationsContext, useRoomContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
+import Chart from "../components/ui/demo/Chart";
 
 const Dashboard = () => {
   const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage, setSelectedGuest } = useGuestContext();
@@ -133,7 +134,8 @@ const Dashboard = () => {
           <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
             <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
-            <LineGraph title="7-Day View" week={currentWeek} data={chartData} />
+            {/* <LineGraph title="7-Day View" week={currentWeek} data={chartData} /> */}
+            <Chart week={currentWeek} data={chartData} />
           </div>
           <div className="flex-1 overflow-hidden">
             <DataTable
