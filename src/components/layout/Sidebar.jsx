@@ -24,6 +24,7 @@ const Sidebar = () => {
     { path: "/guests", label: t("guests"), icon: <MdOutlineRoomService size={20} /> },
     { path: "/reservations", label: t("reservations"), icon: <SlCalender size={20} /> },
     { path: "/team", label: t("team"), icon: <FaPeopleGroup size={20} />, roles: ["Admin", "SuperAdmin"] },
+    { path: "/analytics", label: t("analytics"), icon: <PiBuildingLight size={20} />, roles: ["Admin", "SuperAdmin"] },
     { path: "/tenants", label: t("tenant.tenants"), icon: <PiBuildingLight size={20} />, roles: ["SuperAdmin"] },
   ];
 
@@ -37,7 +38,7 @@ const Sidebar = () => {
     <aside className={`fixed left-0 top-0 z-50 h-screen w-64 transition-transform ${activeSideBar ? "translate-x-0" : "-translate-x-full"} sm:-translate-x-full`}>
       <div className="fixed ms-3 mt-2 rounded-full bg-gray-100 px-2 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">Pro</div>
       <div className="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-neutral-700 dark:bg-[#1b1a1a]">
-        <ul className="space-y-2 font-extralight">
+        <ul className="h-full space-y-2 font-extralight">
           <li className="p-5">
             <p className="ms-3 flex justify-center text-xs text-gray-400">
               {t("welcome")}, {user?.first_name}
@@ -53,7 +54,6 @@ const Sidebar = () => {
           ))}
         </ul>
       </div>
-
       <div className="fixed bottom-0 w-full p-2">
         <div className="grid w-full grid-cols-2 items-center">
           <div className="flex items-center justify-center">

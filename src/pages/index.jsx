@@ -1,3 +1,4 @@
+export { default as Analytics } from "./Analytics";
 export { default as Dashboard } from "./Dashboard";
 export { default as EmployeeDetails } from "./EmployeeDetails";
 export { default as EmployeeRegistration } from "./EmployeeRegistration";
@@ -13,3 +14,4 @@ export { default as Settings } from "./Settings";
 export { default as Team } from "./Team";
 export { default as Tenants } from "./Tenants";
 export { default as TenantDetails } from "./TenantDetails";
+export { default as Contact } from "./Contact";
