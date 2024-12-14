@@ -5,12 +5,12 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 
 const baseChartData = [
   { day: "Sun", reservations: 0 },
-  { day: "Mon", reservations: 10 },
-  { day: "Tues", reservations: 15 },
-  { day: "Wed", reservations: 8 },
-  { day: "Thu", reservations: 12 },
-  { day: "Fri", reservations: 20 },
-  { day: "Sat", reservations: 18 },
+  { day: "Mon", reservations: 0 },
+  { day: "Tues", reservations: 0 },
+  { day: "Wed", reservations: 0 },
+  { day: "Thu", reservations: 0 },
+  { day: "Fri", reservations: 0 },
+  { day: "Sat", reservations: 0 },
 ];
 
 const chartConfig = {
@@ -45,7 +45,7 @@ const Chart = ({ week, data }) => {
               right: 12,
             }}
           >
-            <CartesianGrid vertical={false} />
+            <CartesianGrid vertical={false} stroke="rgba(200, 200, 200, 0.2)" />
             <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={10} tickFormatter={(value) => value.slice(0, 3)} />
             <YAxis tickLine={false} axisLine={false} domain={dynamicDomain} hide />
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
