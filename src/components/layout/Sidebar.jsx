@@ -16,7 +16,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   const getActiveClass = (path) => {
-    return location.pathname.startsWith(path) ? "text-green-400 dark:bg-neutral-700" : "";
+    return location.pathname.startsWith(path) ? "text-green-400" : "";
   };
 
   const sidebarItems = [
