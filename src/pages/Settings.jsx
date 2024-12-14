@@ -110,7 +110,7 @@ const Settings = () => {
           Business ID: <span>{user?.tenant_id}</span>
         </p>
       </div>
-      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] dark:border-neutral-700 md:grid-cols-3">
         <div className="md:col-span-1">
           <h1>{t("general.title")}</h1>
           <p className="text-xs text-gray-500">{t("general.description")}</p>
@@ -120,7 +120,7 @@ const Settings = () => {
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("first_name")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="first_name"
                 type="text"
                 value={newUserData.first_name}
@@ -131,7 +131,7 @@ const Settings = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("last_name")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="last_name"
                 type="text"
                 value={newUserData.last_name}
@@ -144,7 +144,7 @@ const Settings = () => {
             <div className="mb-6 w-full items-center md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("email")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="email"
                 type="text"
                 value={newUserData.email}
@@ -155,7 +155,7 @@ const Settings = () => {
             <div className="mb-6 w-full md:w-1/2">
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("phone_number")}</label>
               <input
-                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                className="mb-3 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                 id="phone_number"
                 type="text"
                 value={newUserData.phone_number}
@@ -166,7 +166,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] dark:border-neutral-700 md:grid-cols-3">
         <div className="md:col-span-1">
           <h1>{t("preferences.title")}</h1>
           <p className="text-xs text-gray-500">{t("preferences.description")}</p>
@@ -177,7 +177,7 @@ const Settings = () => {
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("language")}</label>
               <label className="inline-flex cursor-pointer items-center">
                 <input id="language" type="checkbox" className="peer sr-only" checked={newUserData?.preferences?.language?.toLowerCase() === "es"} onChange={handleToggleChange} />
-                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-green-800 rtl:peer-checked:after:-translate-x-full"></div>
                 <span className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">EN / ES</span>
               </label>
             </div>
@@ -185,7 +185,7 @@ const Settings = () => {
               <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("display_mode")}</label>
               <label className="inline-flex cursor-pointer items-center">
                 <input id="display_mode" type="checkbox" className="peer sr-only" checked={newUserData.preferences.display_mode?.toLowerCase() === "dark"} onChange={handleToggleChange} />
-                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-green-800 rtl:peer-checked:after:-translate-x-full"></div>
                 <span className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">
                   {t("light")} / {t("dark")}
                 </span>
@@ -194,7 +194,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] border-gray-700 md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-4 border-b-[.5px] dark:border-neutral-700 md:grid-cols-3">
         <div className="md:col-span-1">
           <h1>{t("Profile")}</h1>
           <p className="text-xs text-gray-500">{t("general.description")}</p>
@@ -209,7 +209,7 @@ const Settings = () => {
         </div>
       </div>
       <div className="mt-6 flex justify-end">
-        <button onClick={handleSave} disabled={disabled} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white disabled:pointer-events-none disabled:opacity-20 dark:border-gray-700 dark:bg-[#282828] dark:hover:bg-gray-600 dark:hover:text-white">
+        <button onClick={handleSave} disabled={disabled} className="rounded-lg border border-gray-200 bg-gray-50 p-1 px-4 py-2 text-white disabled:pointer-events-none disabled:opacity-20 dark:border-neutral-700 dark:bg-[#282828] dark:hover:bg-gray-600 dark:hover:text-white">
           {t("save")}
         </button>
       </div>

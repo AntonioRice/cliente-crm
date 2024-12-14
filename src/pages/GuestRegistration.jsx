@@ -112,7 +112,7 @@ const GuestRegistration = () => {
         >
           {t("cancel")}
         </button>
-        <button onClick={handleSubmit} className="rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        <button onClick={handleSubmit} className="rounded-lg bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800">
           {t("submit")}
         </button>
       </div>
