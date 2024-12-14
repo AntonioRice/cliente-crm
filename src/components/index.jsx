@@ -8,8 +8,6 @@ export { default as StatusIndicator } from "./common/StatusIndicator";
 export { default as PasswordInput } from "./common/PasswordInput";
 
 export { default as ChartCard } from "./features/dashboard/ChartCard";
-export { default as BarChart } from "./features/dashboard/BarChart";
-export { default as LineGraph } from "./features/dashboard/LineGraph";
 export { default as DisplayCard } from "./features/dashboard/DisplayCard";
 export { default as RoomsTable } from "./features/dashboard/RoomsTable";
 

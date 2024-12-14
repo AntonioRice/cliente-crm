@@ -20,7 +20,7 @@ const chartConfig = {
   },
 };
 
-const Chart = ({ week, data }) => {
+const LineGraph = ({ title, week, data }) => {
   const updatedChartData = baseChartData.map((item, index) => ({
     ...item,
     reservations: data[index] || 0,
@@ -32,7 +32,7 @@ const Chart = ({ week, data }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>7-Day View</CardTitle>
+        <CardTitle>{title}</CardTitle>
         <CardDescription>Week: {week}</CardDescription>
       </CardHeader>
       <CardContent>
@@ -68,4 +68,4 @@ const Chart = ({ week, data }) => {
   );
 };
 
-export default Chart;
+export default LineGraph;

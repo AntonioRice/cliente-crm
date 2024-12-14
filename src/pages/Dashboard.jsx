@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnimatedPage, ChartCard, DataTable, TableRow, AddButton, LineGraph, RoomsTable } from "../components";
+import { AnimatedPage, ChartCard, DataTable, TableRow, RoomsTable } from "../components";
 import { useGuestContext, useReservationsContext, useRoomContext } from "../context";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
-import Chart from "../components/ui/demo/Chart";
+import LineGraph from "../components/ui/LineGraph";
 
 const Dashboard = () => {
   const { currentGuests, fetchCurrentGuests, currentPage, totalPages, totalCurrentGuests, setCurrentPage, setSelectedGuest } = useGuestContext();
@@ -71,24 +71,16 @@ const Dashboard = () => {
     navigate(`/guests/${guest.guest_id}`);
   };
 
-  const countReservationsInWeek = (reservations) => {
-    return reservations.length;
-  };
-
-  const calculateDelta = (currentData, previousData, currentWeek) => {
-    const currentCount = countReservationsInWeek(currentData.reservations || [], currentWeek);
-    const previousWeek = moment(currentWeek).subtract(1, "weeks").startOf("week").format("YYYY-MM-DD");
-    const previousCount = countReservationsInWeek(previousData.reservations || [], previousWeek);
-
-    if (previousCount === 0) {
-      if (currentCount === 0) {
+  const calculateDelta = (currentValue, previousValue) => {
+    if (previousValue === 0) {
+      if (currentValue === 0) {
         return "0%";
       } else {
-        return `+${(currentCount * 100).toFixed(2)}%`;
+        return `+${(currentValue * 100).toFixed(2)}%`;
       }
     }
 
-    const delta = ((currentCount - previousCount) / previousCount) * 100;
+    const delta = ((currentValue - previousValue) / previousValue) * 100;
     return `${delta > 0 ? "+" : ""}${delta.toFixed(2)}%`;
   };
 
@@ -97,12 +89,14 @@ const Dashboard = () => {
     totalGuestsForWeek: 0,
   };
 
-  const previousWeekData = reservationsAnalytics[moment(currentWeek).subtract(1, "weeks").startOf("week").format("YYYY-MM-DD")] || {
+  const previousWeek = moment(currentWeek).subtract(1, "weeks").startOf("week").format("YYYY-MM-DD");
+  const previousWeekData = reservationsAnalytics[previousWeek] || {
     reservations: [],
     totalGuestsForWeek: 0,
   };
 
-  const delta = calculateDelta(currentWeekData, previousWeekData);
+  const reservationDelta = calculateDelta(currentWeekData.reservations.length, previousWeekData.reservations.length);
+  const guestDelta = calculateDelta(currentWeekData.totalGuestsForWeek, previousWeekData.totalGuestsForWeek);
 
   const getWeekData = (weekStart) => {
     const start = moment(weekStart);
@@ -132,10 +126,9 @@ const Dashboard = () => {
       <div className="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:h-[90vh] xl:grid-cols-4">
         <div className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-3">
           <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
-            <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`${delta} Since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={delta} />
-            {/* <LineGraph title="7-Day View" week={currentWeek} data={chartData} /> */}
-            <Chart week={currentWeek} data={chartData} />
+            <ChartCard title="Reservations" week={currentWeek} value={`${currentWeekData.reservations.length}`} description={`since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={reservationDelta} />
+            <ChartCard title="Guests" week={currentWeek} value={`${currentWeekData.totalGuestsForWeek}`} description={`since last week`} handlePrevWeek={handlePrevWeek} handleNextWeek={handleNextWeek} delta={guestDelta} />
+            <LineGraph title="7-Day View" week={currentWeek} data={chartData} />
           </div>
           <div className="flex-1 overflow-hidden">
             <DataTable
