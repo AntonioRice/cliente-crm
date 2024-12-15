@@ -14,8 +14,8 @@ const DisplayCard = ({ title, data, path }) => {
     <button onClick={handleButtonClick} className={`w-full rounded-xl p-4 shadow-lg dark:bg-[#282828] ${path ? "dark:hover:bg-neutral-600" : "cursor-auto"}`}>
       <div className="flex items-center justify-between">
         <div className="w-full items-center text-left">
-          <h1 className="text-md py-2 text-white">{title}</h1>
-          <p className="text-lg">{data}</p>
+          <h1 className="py-2 text-sm text-white">{title}</h1>
+          <p className="text-md">{data}</p>
         </div>
         {path && <IoIosArrowForward size={25} className="text-green-500" />}
       </div>

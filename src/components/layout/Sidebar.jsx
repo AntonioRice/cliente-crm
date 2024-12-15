@@ -36,7 +36,7 @@ const Sidebar = () => {
 
   return (
     <aside className={`fixed left-0 top-0 z-50 h-screen w-64 transition-transform ${activeSideBar ? "translate-x-0" : "-translate-x-full"} sm:-translate-x-full`}>
-      <div className="fixed ms-3 mt-2 rounded-full bg-gray-100 px-2 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">Pro</div>
+      <div className="fixed ms-3 mt-2 rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-800 dark:bg-[#282828] dark:text-white">Pro</div>
       <div className="h-full overflow-y-auto border-r border-gray-200 bg-white px-3 py-4 dark:border-neutral-700 dark:bg-[#1b1a1a]">
         <ul className="h-full space-y-2 font-extralight">
           <li className="p-5">
