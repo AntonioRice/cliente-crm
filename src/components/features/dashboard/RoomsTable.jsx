@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { useRoomContext } from "../../../context";
 import { useTranslation } from "react-i18next";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const RoomsChart = ({ rooms }) => {
   const { t } = useTranslation();
@@ -15,11 +16,11 @@ const RoomsChart = ({ rooms }) => {
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl bg-gray-50 dark:bg-[#282828] md:col-span-2 xl:col-span-1">
-      <div className="p-4">
-        <h1 className="text-sm text-white">{t("rooms")}</h1>
-        <p className="text-xs text-gray-500">Total: {rooms.length}</p>
-      </div>
+    <Card className="flex flex-col overflow-hidden md:col-span-2 xl:col-span-1">
+      <CardHeader>
+        <CardTitle>{t("rooms")}</CardTitle>
+        <CardDescription>Total: {rooms.length}</CardDescription>
+      </CardHeader>
       <div className="scrollbar-hidden flex-1 overflow-auto">
         <table className="w-full text-left text-xs text-gray-500 dark:text-gray-400">
           <thead className="sticky top-0 bg-gray-50 uppercase dark:bg-neutral-700 dark:text-gray-400">
@@ -48,7 +49,7 @@ const RoomsChart = ({ rooms }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -77,26 +77,26 @@ const NewGuestForm = () => {
     <AnimatedPage>
       <form className="rounded-xl p-4 dark:bg-[#282828]">
         <h1 className="pb-6 text-green-400">{t("primary_guest")}</h1>
-        <div className="-mx-3 mb-6 flex flex-wrap text-white">
+        <div className="-mx-3 mb-4 flex flex-wrap text-white">
           <div className="w-full px-3 md:mb-0 md:w-1/4">
             <input
-              className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.first_name ? "border-red-500" : ""}`}
+              className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.first_name ? "border-red-500" : ""}`}
               placeholder={t("first_name")}
               {...register("first_name")}
               onChange={handleInputChange}
             />
-            <div className="h-5">{errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}</div>
+            <div className="h-2">{errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <input
-              className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.last_name ? "border-red-500" : ""}`}
+              className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.last_name ? "border-red-500" : ""}`}
               placeholder={t("last_name")}
               {...register("last_name")}
               onChange={handleInputChange}
             />
-            <div className="h-5">{errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}</div>
+            <div className="h-2">{errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}</div>
           </div>
-          <div className="relative mb-6 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
+          <div className="relative mb-2 flex w-full flex-col px-3 md:mb-0 md:w-1/4">
             <span className="pointer-events-none absolute left-6 top-2.5 z-10 text-sm text-gray-400">
               <p>{t("dob")}</p>
             </span>
@@ -106,7 +106,7 @@ const NewGuestForm = () => {
               rules={{ required: "Date of Birth is required" }}
               render={({ field }) => (
                 <DatePicker
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.date_of_birth ? "border-red-500" : ""}`}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-12 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.date_of_birth ? "border-red-500" : ""}`}
                   selected={field.value}
                   placeholderText="mm/dd/yyyy"
                   onChange={(date) => {
@@ -123,26 +123,26 @@ const NewGuestForm = () => {
             <span className="pointer-events-none absolute right-5 top-2 text-gray-400">
               <SlCalender size={20} />
             </span>
-            <div className="h-5">{errors.date_of_birth && <p className="text-xs italic text-red-500">{errors.date_of_birth.message}</p>}</div>
+            <div className="h-2">{errors.date_of_birth && <p className="text-xs italic text-red-500">{errors.date_of_birth.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <input
-              className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.nationality ? "border-red-500" : ""}`}
+              className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.nationality ? "border-red-500" : ""}`}
               placeholder={t("nationality")}
               {...register("nationality")}
               onChange={handleInputChange}
             />
-            <div className="h-5">{errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}</div>
+            <div className="h-2">{errors.nationality && <p className="text-xs italic text-red-500">{errors.nationality.message}</p>}</div>
           </div>
         </div>
-        <div className="-mx-3 mb-6 flex flex-wrap text-white">
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+        <div className="-mx-3 mb-4 flex flex-wrap text-white">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="address.city"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.city ? "border-red-500" : ""}`}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.city ? "border-red-500" : ""}`}
                   placeholder={t("city")}
                   {...field}
                   data-group="address"
@@ -154,15 +154,15 @@ const NewGuestForm = () => {
                 />
               )}
             />
-            <div className="h-5">{errors.address?.city && <p className="text-xs italic text-red-500">{errors.address.city.message}</p>}</div>
+            <div className="h-2">{errors.address?.city && <p className="text-xs italic text-red-500">{errors.address.city.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="address.state"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.state ? "border-red-500" : ""}`}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.state ? "border-red-500" : ""}`}
                   placeholder={t("state")}
                   {...field}
                   data-group="address"
@@ -174,15 +174,15 @@ const NewGuestForm = () => {
                 />
               )}
             />
-            <div className="h-5">{errors.address?.state && <p className="text-xs italic text-red-500">{errors.address.state.message}</p>}</div>
+            <div className="h-2">{errors.address?.state && <p className="text-xs italic text-red-500">{errors.address.state.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="address.postal_code"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.postal_code ? "border-red-500" : ""}`}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.postal_code ? "border-red-500" : ""}`}
                   placeholder={t("postal_code")}
                   {...field}
                   data-group="address"
@@ -194,15 +194,15 @@ const NewGuestForm = () => {
                 />
               )}
             />
-            <div className="h-5">{errors.address?.postal_code && <p className="text-xs italic text-red-500">{errors.address.postal_code.message}</p>}</div>
+            <div className="h-2">{errors.address?.postal_code && <p className="text-xs italic text-red-500">{errors.address.postal_code.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="address.country"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.country ? "border-red-500" : ""}`}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.address?.country ? "border-red-500" : ""}`}
                   placeholder={t("country")}
                   {...field}
                   data-group="address"
@@ -214,32 +214,32 @@ const NewGuestForm = () => {
                 />
               )}
             />
-            <div className="h-5">{errors.address?.country && <p className="text-xs italic text-red-500">{errors.address.country.message}</p>}</div>
+            <div className="h-2">{errors.address?.country && <p className="text-xs italic text-red-500">{errors.address.country.message}</p>}</div>
           </div>
         </div>
-        <div className="-mx-3 mb-6 flex flex-wrap text-white">
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/2">
+        <div className="-mx-3 mb-4 flex flex-wrap text-white">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/2">
             <input
-              className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.identification_number ? "border-red-500" : ""}`}
+              className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.identification_number ? "border-red-500" : ""}`}
               placeholder={t("identification_number")}
               {...register("identification_number")}
               onChange={handleInputChange}
             />
-            <div className="h-5">{errors.identification_number && <p className="text-xs italic text-red-500">{errors.identification_number.message}</p>}</div>
+            <div className="h-2">{errors.identification_number && <p className="text-xs italic text-red-500">{errors.identification_number.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <input
-              className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.email ? "border-red-500" : ""}`}
+              className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.email ? "border-red-500" : ""}`}
               type="email"
               placeholder={t("email")}
               {...register("email")}
               onChange={handleInputChange}
             />
-            <div className="h-5">{errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}</div>
+            <div className="h-2">{errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <input
-              className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.phone_number ? "border-red-500" : ""}`}
+              className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.phone_number ? "border-red-500" : ""}`}
               type="tel"
               placeholder={t("phone_number")}
               {...register("phone_number")}
@@ -249,14 +249,14 @@ const NewGuestForm = () => {
           </div>
         </div>
         <h1 className="pb-6 text-green-400">{t("emergency_contact")}</h1>
-        <div className="-mx-3 mb-6 flex flex-wrap text-white">
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+        <div className="-mx-3 mb-3 flex flex-wrap text-white">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="emergency_contact.first_name"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${
                     errors.emergency_contact?.first_name ? "border-red-500" : ""
                   }`}
                   placeholder={t("first_name")}
@@ -270,15 +270,15 @@ const NewGuestForm = () => {
                 />
               )}
             />
-            <div className="h-5">{errors.emergency_contact?.first_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.first_name.message}</p>}</div>
+            <div className="h-2">{errors.emergency_contact?.first_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.first_name.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="emergency_contact.last_name"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${
                     errors.emergency_contact?.last_name ? "border-red-500" : ""
                   }`}
                   placeholder={t("last_name")}
@@ -292,15 +292,15 @@ const NewGuestForm = () => {
                 />
               )}
             />
-            <div className="h-5">{errors.emergency_contact?.last_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.last_name.message}</p>}</div>
+            <div className="h-2">{errors.emergency_contact?.last_name && <p className="text-xs italic text-red-500">{errors.emergency_contact.last_name.message}</p>}</div>
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="emergency_contact.phone_number"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${
                     errors.emergency_contact?.phone_number ? "border-red-500" : ""
                   }`}
                   type="tel"
@@ -315,18 +315,18 @@ const NewGuestForm = () => {
                 />
               )}
             />
-            <div className="h-5">{errors.emergency_contact?.phone_number && <p className="text-xs italic text-red-500">{errors.emergency_contact.phone_number.message}</p>}</div>
+            <div className="h-2">{errors.emergency_contact?.phone_number && <p className="text-xs italic text-red-500">{errors.emergency_contact.phone_number.message}</p>}</div>
           </div>
         </div>
         <h1 className="pb-6 text-green-400">{t("vehicle_information")}</h1>
-        <div className="-mx-3 mb-6 flex flex-wrap text-white">
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+        <div className="-mx-3 mb-3 flex flex-wrap text-white">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="vehicle.make"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700`}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700`}
                   placeholder={t("make")}
                   {...field}
                   data-group="vehicle"
@@ -339,13 +339,13 @@ const NewGuestForm = () => {
               )}
             />
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="vehicle.model"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 `}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 `}
                   placeholder={t("model")}
                   {...field}
                   data-group="vehicle"
@@ -358,13 +358,13 @@ const NewGuestForm = () => {
               )}
             />
           </div>
-          <div className="mb-6 w-full px-3 md:mb-0 md:w-1/4">
+          <div className="mb-2 w-full px-3 md:mb-0 md:w-1/4">
             <Controller
               control={control}
               name="vehicle.plate_number"
               render={({ field }) => (
                 <input
-                  className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700`}
+                  className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700`}
                   placeholder={t("plate_number")}
                   {...field}
                   data-group="vehicle"

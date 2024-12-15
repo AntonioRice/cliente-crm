@@ -91,7 +91,7 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           {!reservationData.room_numbers.length > 0 && <label className="absolute left-6 top-3 text-xs uppercase leading-tight tracking-wide text-gray-400">{t("rooms")}</label>}
-          <div className={`mb-3 flex h-[38px] w-full flex-wrap items-center rounded border dark:bg-neutral-700 ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
+          <div className={`mb-1 flex h-[38px] w-full flex-wrap items-center rounded border dark:bg-neutral-700 ${!reservationData.room_numbers.length > 0 ? "border-red-500" : "border-gray-400"}`}>
             {reservationData.room_numbers.map((room, i) => (
               <Pill key={i} text={room} handleRoomsChange={handleRoomsChange} />
             ))}
@@ -107,7 +107,7 @@ const NewReservationForm = () => {
             name="check_in"
             render={({ field }) => (
               <DatePicker
-                className="mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none dark:bg-neutral-700"
+                className="mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none dark:bg-neutral-700"
                 selected={field.value}
                 onChange={(date) => {
                   field.onChange(date);
@@ -129,7 +129,7 @@ const NewReservationForm = () => {
             name="check_out"
             render={({ field }) => (
               <DatePicker
-                className="mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none dark:bg-neutral-700"
+                className="mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 pl-8 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:outline-none dark:bg-neutral-700"
                 selected={field.value}
                 onChange={(date) => {
                   field.onChange(date);
@@ -165,7 +165,7 @@ const NewReservationForm = () => {
       <div className="-mx-3 mb-6 flex flex-wrap">
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.payment_method ? "border-red-500" : ""}`}
+            className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2 leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.payment_method ? "border-red-500" : ""}`}
             {...register("payment_method", {
               onChange: (e) => handleInputChange(e),
             })}
@@ -186,7 +186,7 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 text-white md:mb-0 md:w-1/4">
           <input
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-6 py-2 leading-tight 
+            className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-6 py-2 leading-tight 
               placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.total_amount ? "border-red-500" : ""}`}
             type="number"
             placeholder={t("total")}
@@ -201,7 +201,7 @@ const NewReservationForm = () => {
         </div>
         <div className="relative mb-6 w-full px-3 md:mb-0 md:w-1/4">
           <select
-            className={`mb-3 block w-full appearance-none rounded border border-gray-400 px-4 py-2
+            className={`mb-1 block w-full appearance-none rounded border border-gray-400 px-4 py-2
               leading-tight text-white placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700 ${errors.payment_status ? "border-red-500" : ""}`}
             {...register("payment_status", {
               onChange: (e) => handleInputChange(e),

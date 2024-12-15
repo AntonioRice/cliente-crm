@@ -28,7 +28,7 @@ const LoginForm = ({ onSubmit, error, setFormState }) => {
   };
 
   return (
-    <form className="mx-auto max-w-md flex-grow rounded-xl border border-gray-700 bg-gray-800 p-10 shadow-lg dark:border-gray-700" onSubmit={handleSubmit(handleLoginSubmit)}>
+    <form className="mx-auto max-w-md flex-grow rounded-xl bg-[#282828] p-10" onSubmit={handleSubmit(handleLoginSubmit)}>
       <div className="flex flex-col items-center py-5 text-xl">
         <h1>{t("login")}</h1>
       </div>

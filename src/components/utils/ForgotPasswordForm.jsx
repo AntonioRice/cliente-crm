@@ -26,7 +26,7 @@ const ForgotPasswordForm = ({ onSubmit, error }) => {
   return (
     <AnimatedPage>
       <div className="flex min-h-screen items-center justify-center">
-        <form className="mx-auto max-w-md flex-grow rounded-xl border border-gray-700 bg-gray-800 p-10 shadow-lg dark:border-gray-700" onSubmit={handleSubmit(handleForgotPasswordSubmit)}>
+        <form className="mx-auto max-w-md flex-grow rounded-xl bg-[#282828] p-10 shadow-lg" onSubmit={handleSubmit(handleForgotPasswordSubmit)}>
           <div className="flex flex-col items-center text-2xl">
             <h1>{t("password.forgot_password")}</h1>
           </div>
