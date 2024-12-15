@@ -71,51 +71,56 @@ const EmployeeRegistration = () => {
             <div className="flex w-full flex-col gap-3 md:flex-row">
               <div className="mb-6 w-full md:w-1/2">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("user_id")}</label>
-                <input className="mb-3 block w-full appearance-none rounded-lg border border-gray-600 bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600 hover:cursor-not-allowed" id="user_id" type="text" placeholder="TBD" disabled />
+                <input className="mb-1 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 text-sm text-neutral-400 hover:cursor-not-allowed dark:bg-neutral-800" id="user_id" type="text" placeholder="TBD" disabled />
               </div>
               <div className="mb-6 w-full items-center md:w-1/2">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("user_name")}</label>
-                <input className={`mb-3 block w-full appearance-none rounded-lg border ${errors.user_name ? "border-red-500" : "border-gray-600"} bg-[#111827] px-4 py-3 text-sm leading-tight text-gray-600`} id="user_name" type="text" {...register("user_name")} disabled />
-                {errors.user_name && <p className="text-xs italic text-red-500">{errors.user_name.message}</p>}
+                <input className="mb-1 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 text-sm text-neutral-400 hover:cursor-not-allowed dark:bg-neutral-800" id="user_name" type="text" {...register("user_name")} disabled />
+                <div className="h-2">{errors.user_name && <p className="text-xs italic text-red-500">{errors.user_name.message}</p>}</div>
               </div>
             </div>
             <div className="flex w-full flex-col gap-3 md:flex-row">
               <div className="mb-6 w-full items-center md:w-1/2">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("first_name")}</label>
                 <input
-                  className={`mb-3 block w-full appearance-none rounded-lg border ${errors.first_name ? "border-red-500" : "border-gray-400"} bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200`}
+                  className="mb-1 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                   id="first_name"
                   type="text"
                   {...register("first_name")}
                 />
-                {errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}
+                <div className="h-2">{errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name.message}</p>}</div>
               </div>
               <div className="mb-6 w-full md:w-1/2">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("last_name")}</label>
                 <input
-                  className={`mb-3 block w-full appearance-none rounded-lg border ${errors.last_name ? "border-red-500" : "border-gray-400"} bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200`}
+                  className="mb-1 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                   id="last_name"
                   type="text"
                   {...register("last_name")}
                 />
-                {errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}
+                <div className="h-2">{errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name.message}</p>}</div>
               </div>
             </div>
             <div className="flex w-full flex-col gap-3 md:flex-row">
               <div className="mb-6 w-full items-center md:w-1/2">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("email")}</label>
-                <input className={`mb-3 block w-full appearance-none rounded-lg border ${errors.email ? "border-red-500" : "border-gray-400"} bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200`} id="email" type="text" {...register("email")} />
-                {errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}
+                <input
+                  className="mb-1 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
+                  id="email"
+                  type="text"
+                  {...register("email")}
+                />
+                <div className="h-2">{errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}</div>
               </div>
               <div className="mb-6 w-full md:w-1/2">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("phone_number")}</label>
                 <input
-                  className={`mb-3 block w-full appearance-none rounded-lg border ${errors.phone_number ? "border-red-500" : "border-gray-400"} bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200`}
+                  className="mb-1 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
                   id="phone_number"
                   type="text"
                   {...register("phone_number")}
                 />
-                {errors.phone_number && <p className="text-xs italic text-red-500">{errors.phone_number.message}</p>}
+                <div className="h-2">{errors.phone_number && <p className="text-xs italic text-red-500">{errors.phone_number.message}</p>}</div>
               </div>
             </div>
           </div>
@@ -129,17 +134,21 @@ const EmployeeRegistration = () => {
             <div className="flex flex-col gap-10 md:flex-row">
               <div className="mb-6 w-full md:w-1/2">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("role")}</label>
-                <select className={`mb-3 block w-full appearance-none rounded-lg border ${errors.role ? "border-red-500" : "border-gray-400"} bg-[#111827] px-4 py-3 text-sm leading-tight focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200`} id="role" {...register("role")}>
+                <select
+                  className="mb-1 block w-full appearance-none rounded-lg border border-gray-400 px-4 py-3 leading-tight placeholder:text-xs placeholder:uppercase placeholder:tracking-wide focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-neutral-700"
+                  id="role"
+                  {...register("role")}
+                >
                   <option value="Admin">{t("Admin")}</option>
                   <option value="Employee">{t("Employee")}</option>
                 </select>
-                {errors.role && <p className="text-xs italic text-red-500">{errors.role.message}</p>}
+                <div className="h-2">{errors.role && <p className="text-xs italic text-red-500">{errors.role.message}</p>}</div>
               </div>
               <div className="mb-6 items-center">
                 <label className="mb-2 block text-[10px] font-light uppercase tracking-wide">{t("status")}</label>
                 <label className="inline-flex cursor-pointer items-center">
                   <input id="status" type="checkbox" className="peer sr-only" disabled />
-                  <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
+                  <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-green-800 rtl:peer-checked:after:-translate-x-full"></div>
                   <div className="ms-3 text-xs font-medium text-gray-900 dark:text-gray-400">Inactive / Active</div>
                 </label>
               </div>

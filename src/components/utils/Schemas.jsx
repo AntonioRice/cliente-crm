@@ -12,11 +12,11 @@ export const passwordSchema = z
 
 export const userRegistrationSchema = z
   .object({
-    first_name: z.string().min(1, "First name is required"),
-    last_name: z.string().min(1, "Last name is required"),
+    first_name: z.string().min(1, "First Name is required"),
+    last_name: z.string().min(1, "Last Name is required"),
     email: z.string().email("Invalid email address"),
-    country_code: z.string().min(1, "Country code is required"),
-    phone_number: z.string().min(1, "Phone number is required"),
+    country_code: z.string().min(1, "Country Code is required"),
+    phone_number: z.string().min(1, "Phone Number is required"),
     language: z.enum(["en", "es"]),
     display_mode: z.enum(["light", "dark"]),
     newPassword: z.string().min(8, "Password must be at least 8 characters"),
