@@ -9,14 +9,14 @@ import { CgMathPlus } from "react-icons/cg";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaDollarSign } from "react-icons/fa6";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
-import { useGuestRegistrationContext } from "../../../context";
+import { useReservationsContext } from "../../../context";
 import { AdditionalGuest, MultiSelectDropdown, Pill } from "../../../components";
 import { SlCalender } from "react-icons/sl";
 import { reservationSchema } from "../../utils/Schemas";
 
 const NewReservationForm = () => {
   const { t } = useTranslation();
-  const { reservationData, setReservationData } = useGuestRegistrationContext();
+  const { reservationData, setReservationData } = useReservationsContext();
   const paymentMethods = ["Cash", "Credit", "Transfer"];
   const paymentStatus = ["Pending", "Completed", "Failed"];
 

@@ -6,6 +6,33 @@ const GuestContext = createContext();
 export const useGuestContext = () => useContext(GuestContext);
 
 export const GuestProvider = ({ children }) => {
+  const initialGuestData = {
+    first_name: "",
+    last_name: "",
+    date_of_birth: "",
+    nationality: "",
+    identification_number: "",
+    email: "",
+    phone_number: "",
+    address: {
+      city: "",
+      state: "",
+      postal_code: "",
+      country: "",
+    },
+    emergency_contact: {
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+    },
+    vehicle: {
+      make: "",
+      model: "",
+      plate_number: "",
+    },
+  };
+
+  const [guestData, setGuestData] = useState(initialGuestData);
   const [currentGuests, setCurrentGuests] = useState([]);
   const [selectedGuest, setSelectedGuest] = useState(null);
   const [primaryGuest, setPrimaryGuest] = useState(null);
@@ -35,9 +62,17 @@ export const GuestProvider = ({ children }) => {
     setSelectedGuest(null);
   };
 
+  const resetGuestData = () => {
+    setGuestData(initialGuestData);
+  };
+
   return (
     <GuestContext.Provider
       value={{
+        initialGuestData,
+        guestData,
+        setGuestData,
+        resetGuestData,
         currentGuests,
         fetchCurrentGuests,
         selectedGuest,

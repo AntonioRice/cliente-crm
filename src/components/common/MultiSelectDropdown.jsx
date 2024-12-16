@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { CgMathPlus } from "react-icons/cg";
-import { useRoomContext, useGuestRegistrationContext } from "../../context";
+import { useRoomContext, useReservationsContext } from "../../context";
 
 const MultiSelectDropdown = ({ handleRoomsChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { rooms, fetchRooms } = useRoomContext();
-  const { reservationData, setReservationData } = useGuestRegistrationContext();
+  const { reservationData, setReservationData } = useReservationsContext();
   const dropdownRef = useRef(null);
 
   useEffect(() => {

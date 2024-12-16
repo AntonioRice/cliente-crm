@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useGuestContext, useGuestRegistrationContext } from "../../../context";
+import { useGuestContext, useReservationsContext } from "../../../context";
 import { AnimatedPage } from "../../../components";
 import { formatDateTime } from "../../../utils/standardMethods";
 import { CgMathMinus, CgMathPlus } from "react-icons/cg";
@@ -13,7 +13,8 @@ import DatePicker from "react-datepicker";
 const NewGuestForm = () => {
   const { t } = useTranslation();
   const { selectedGuest } = useGuestContext();
-  const { guestData, setGuestData, showReservationForm, setShowReservationForm } = useGuestRegistrationContext();
+  const { guestData, setGuestData } = useGuestContext();
+  const { showReservationForm, setShowReservationForm } = useReservationsContext();
   const {
     register,
     control,

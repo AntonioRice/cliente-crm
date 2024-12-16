@@ -6,9 +6,25 @@ const ReservationsContext = createContext();
 export const useReservationsContext = () => useContext(ReservationsContext);
 
 export const ReservationsProvider = ({ children }) => {
+  const initialReservationData = {
+    payment_method: "",
+    total_amount: "",
+    payment_status: "",
+    additional_guests: [],
+    room_numbers: [],
+    check_in: new Date().toISOString().split("T")[0],
+    check_out: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split("T")[0],
+  };
+
   const [reservationsAnalytics, setReservationsAnalytics] = useState([]);
+  const [reservationData, setReservationData] = useState(initialReservationData);
   const [selectedReservation, setSelectedReservation] = useState(null);
+  const [showReservationForm, setShowReservationForm] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const resetReservationData = () => {
+    setReservationData(initialReservationData);
+  };
 
   const fetchReservationsAnalytics = async (currentWeek) => {
     try {
@@ -36,9 +52,15 @@ export const ReservationsProvider = ({ children }) => {
         setReservationsAnalytics,
         selectedReservation,
         setSelectedReservation,
+        initialReservationData,
+        reservationData,
+        setReservationData,
+        resetReservationData,
         loading,
         setLoading,
         clearReservation,
+        showReservationForm,
+        setShowReservationForm,
       }}
     >
       {children}

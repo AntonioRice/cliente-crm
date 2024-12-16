@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useGuestRegistrationContext } from "../../../context";
+import { useReservationsContext } from "../../../context";
 import { additionalGuestSchema } from "../../utils/Schemas";
 import DatePicker from "react-datepicker";
 import { SlCalender } from "react-icons/sl";
 
 const AdditionalGuest = ({ guest }) => {
   const { t } = useTranslation();
-  const { setReservationData } = useGuestRegistrationContext();
+  const { setReservationData } = useReservationsContext();
 
   const {
     register,

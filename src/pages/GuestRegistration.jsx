@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useGuestRegistrationContext, useGuestContext, useAlertContext } from "../context";
+import { useReservationsContext, useGuestContext, useAlertContext } from "../context";
 import { AnimatedPage, NewGuestForm, NewReservationForm, SearchBar, LoadingComponent } from "../components";
 import { CgMathMinus } from "react-icons/cg";
 import { useState } from "react";
@@ -9,9 +9,9 @@ import { useState } from "react";
 const GuestRegistration = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { clearGuests } = useGuestContext();
+  const { clearGuests, guestData, resetGuestData } = useGuestContext();
   const { showAlert } = useAlertContext();
-  const { guestData, resetGuestData, reservationData, resetReservationData, showReservationForm, setShowReservationForm } = useGuestRegistrationContext();
+  const { reservationData, resetReservationData, showReservationForm, setShowReservationForm } = useReservationsContext();
   const [loading, setLoading] = useState(false);
 
   const isFormValid = () => {
