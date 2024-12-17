@@ -29,6 +29,8 @@ const MultiSelectDropdown = ({ handleRoomsChange }) => {
   const activeReservation = selectedReservation || reservationData;
 
   const handleCheckboxChange = (room) => {
+    if (room.occupied && !activeReservation.room_numbers.includes(room.number)) return;
+
     const updatedRoomNumbers = activeReservation.room_numbers.includes(room.room_id) ? activeReservation.room_numbers.filter((id) => id !== room.room_id) : [...activeReservation.room_numbers, room.room_id];
 
     setReservationData((prev) => ({
