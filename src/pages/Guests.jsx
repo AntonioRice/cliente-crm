@@ -81,7 +81,7 @@ const Guests = () => {
 
   return (
     <AnimatedPage>
-      <div className="grid grid-cols-1 gap-2 py-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-1 gap-2 py-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <AddButtonLarge title="Register New Guest" path="/guests/register" className="w-full" />
         <DisplayCard title="Total" data={totalGuests} className="w-full text-sm md:text-base" />
         <DisplayCard title="Active" data={15} className="w-full text-sm md:text-base" />
