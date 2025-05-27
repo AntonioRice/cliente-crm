@@ -1,5 +1,7 @@
 # Cliente
 
+## Note: This project has been completed and sold, 03/02/2025
+
 Welcome to Cliente, a guest management platform for small hotels in South America. I invite you to explore what our SaaS product has to offer.
 
 Link: Coming Soon!
