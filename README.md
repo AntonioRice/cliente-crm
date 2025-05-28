@@ -4,7 +4,7 @@
 
 A modern, responsive web application for Cliente - a comprehensive hotel guest management SaaS platform designed specifically for small hotels in South America. This frontend provides an intuitive interface for managing guests, reservations, rooms, and hotel operations.
 
-## 🏨 Features
+## Features
 
 ### Dashboard & Analytics
 
