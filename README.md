@@ -1,8 +1,8 @@
-# Cliente
+# Cliente.io
 
 **⚠️ Note: This project has been completed and sold (March 2, 2025). This repository showcases the original frontend application I developed.**
 
-A modern, responsive web application for Cliente - a comprehensive hotel guest management SaaS platform designed specifically for small hotels in South America. This frontend provides an intuitive interface for managing guests, reservations, rooms, and hotel operations.
+A robust SaaS platform tailored for boutique hotels in South America, offering intuitive guest, reservation, and room management. Built with a responsive, modern frontend and an optimized cloud-based backend to streamline hotel operations.
 
 ## Features
 
