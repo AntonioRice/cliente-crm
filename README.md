@@ -4,6 +4,16 @@
 
 A robust SaaS platform tailored for boutique hotels in South America, offering intuitive guest, reservation, and room management. Built with a responsive, modern frontend and an optimized cloud-based backend to streamline hotel operations.
 
+## Screenshots
+
+|                             Login                             |                 Dashboard & Analytics                 |
+| :-----------------------------------------------------------: | :---------------------------------------------------: |
+|              ![Login](./public/images/login.png)              |      ![Dashboard](./public/images/dashboard.png)      |
+|                    **Guest Registration**                     |                 **Guest Management**                  |
+| ![Guest Registration](./public/images/guest-registration.png) | ![Reservations](./public/images/guest-management.png) |
+|                   **Reservation Calendar**                    |
+|     ![Reservations](./public/images/reservation-cal.png)      |
+
 ## Features
 
 ### Dashboard & Analytics
@@ -51,46 +61,48 @@ A robust SaaS platform tailored for boutique hotels in South America, offering i
 
 **Frontend Framework:**
 
-- React 18 with modern hooks and functional components
-- Vite for ultra-fast development and building
-- React Router DOM for client-side routing
+- React
+- Vite
 
 **UI/UX Libraries:**
 
-- Tailwind CSS for utility-first styling
-- Material-UI (MUI) components and date pickers
-- Shadcn/ui for modern component library
-- Framer Motion for smooth animations
-- Lucide React for consistent iconography
+- Tailwind CSS
+- Material-UI
+- Framer Motion
+- React Icons
 
 **Data Visualization:**
 
-- Chart.js with React-Chart.js-2 for analytics
-- Recharts for dashboard visualizations
-- ApexCharts for advanced charting
+- Recharts
 
 **Form Management:**
 
-- React Hook Form for efficient form handling
-- Zod for schema validation
-- Radix UI for accessible form components
+- React Hook Form
+- Zod
 
 **State & API Management:**
 
-- Axios for HTTP requests
-- JWT decode for authentication handling
-- React Context for global state management
+- Axios
+- JWT Decode
+- React Router DOM
 
 **Internationalization:**
 
-- i18next and react-i18next for multi-language support
-- Moment.js and Day.js for date localization
+- i18next
+- react-i18next
+- Moment.js
+- Day.js
+
+**Utilities:**
+
+- Clsx
+- UUID
+- Browser Image Compression
 
 **Development Tools:**
 
-- ESLint for code quality
-- Prettier for code formatting
-- TypeScript support for type safety
+- ESLint
+- TypeScript support
 
 ## Design System
 
